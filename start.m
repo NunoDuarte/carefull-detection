@@ -44,16 +44,23 @@ Wlpolish5 = Wl(500:570,:);
 Wlpolish6 = Wl(940:990,:);
 Wlpolish2 = Wl(1252:1320,:);
 
+Wlpolish{1} = Wlpolish1';
+Wlpolish{2} = Wlpolish2';
+Wlpolish{3} = Wlpolish3';
+Wlpolish{4} = Wlpolish4';
+Wlpolish{5} = Wlpolish5';
+Wlpolish{6} = Wlpolish6';
+
 
 
 figure()
 plot3(Wlpolish2(:,1), Wlpolish2(:,2), Wlpolish2(:,3), '.');
 
 %%
-
 plotting = 1;    % do you want to plot the 3D versions?
-[~, F2origin, F2] = follower3d(follower, time, plotting);
-[~, L2origin, L2] = leader3d(leader, time, plotting);
+[~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
+
+%%
 
 %% Plot 2D versions
 
