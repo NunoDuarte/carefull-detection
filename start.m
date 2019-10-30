@@ -53,14 +53,13 @@ Wlpolish{6} = Wlpolish6';
 
 
 
-figure()
-plot3(Wlpolish2(:,1), Wlpolish2(:,2), Wlpolish2(:,3), '.');
+% figure()
+% plot3(Wlpolish2(:,1), Wlpolish2(:,2), Wlpolish2(:,3), '.');
 
 %%
 plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
 
-%%
 
 %% Plot 2D versions
 

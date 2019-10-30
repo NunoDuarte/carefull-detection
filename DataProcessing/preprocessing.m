@@ -7,6 +7,8 @@ end
 
 %% Plot all the data and normalize it to the same end point
 % Follower
+
+%% filter the data from the follower
 Datamu = [0, 0, 0];
 targetSize = [1, 200];
 
@@ -15,16 +17,17 @@ total = 1;
 for i=1:length(follower)
  
     if ~isempty(follower{i})
-        Datamu = [Datamu(1) + follower{i}(1,end), Datamu(2) + follower{i}(2,end), Datamu(3) + follower{i}(3,end)];
+        [maxX, idX] = max(follower{i}(1,:));
+        Datamu = [Datamu(1) + follower{i}(1,idX), Datamu(2) + follower{i}(2,idX), Datamu(3) + follower{i}(3,idX)];
         total= total + 1;
     end
     count= count + 1;
 end
 
 % average all the last point of the coordinates for the actions
-Datamu(1) = Datamu(1)/total;
-Datamu(2) = Datamu(2)/total;
-Datamu(3) = Datamu(3)/total;
+Datamu(1) = Datamu(1)/total
+Datamu(2) = Datamu(2)/total
+Datamu(3) = Datamu(3)/total
 
 DataFy = [];
 DataFx = [];
@@ -37,21 +40,21 @@ countF = 1;
 for i=1:count-1
     
     if ~isempty(follower{i})
-
+        [maxX, idX] = max(follower{i}(1,:));
         a1 = follower{i}(1,:);
         a2 = follower{i}(2,:);
         a3 = follower{i}(3,:); 
 
         % If you want to visualize all actions with the reference in end-goal
         % center the final point to be (0, 0, 0)
-        c1 = a1 - follower{i}(1,end);
-        c2 = a2 - follower{i}(2,end);
-        c3 = a3 - follower{i}(3,end);
+        c1 = a1 - follower{i}(1,idX);
+        c2 = a2 - follower{i}(2,idX);
+        c3 = a3 - follower{i}(3,idX);
 
         % subtract the average of the last point to the specific last point
-        d1 = follower{i}(1,end) - Datamu(1);
-        d2 = follower{i}(2,end) - Datamu(2);
-        d3 = follower{i}(3,end) - Datamu(3);
+        d1 = follower{i}(1,idX) - Datamu(1);
+        d2 = follower{i}(2,idX) - Datamu(2);
+        d3 = follower{i}(3,idX) - Datamu(3);
 
         % If you want to visualize all actions with end-goal in average end-goal
         % subtract the differenre (d) on the whole vector of the action
@@ -61,9 +64,9 @@ for i=1:count-1
         
         % end point be the origin for all actions (HRI experiments of
         % coupling)
-        e1 = follower{i}(1,:) - follower{i}(1,end);
-        e2 = follower{i}(2,:) - follower{i}(2,end);
-        e3 = follower{i}(3,:) - follower{i}(3,end);
+        e1 = follower{i}(1,:) - follower{i}(1,idX);
+        e2 = follower{i}(2,:) - follower{i}(2,idX);
+        e3 = follower{i}(3,:) - follower{i}(3,idX);
 
         % update the matrix DataF with now the new data 
         % choose c or b
