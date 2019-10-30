@@ -1,21 +1,10 @@
-function [F3, F2origin, F2] = follower3d(follower, time, varargin)
+function [F3, F2origin, F2] = preprocessing(follower, time, varargin)
 if nargin > 2
     plotting = varargin{1};
 else
     plotting = 1;
 end
 
-%% filter the data from the follower
-% Remove the finu-tuning of the follower hand
-for i=1:length(follower)
-    if ~isempty(follower{i})
-        [maxX, idX] = max(follower{i}(1,:));
-        [maxY, idY] = max(follower{i}(2,:));
-        
-        follower{i}(:,idX+1:end) = [];
-        follower{i}(:,idY+1:end) = [];  
-    end
-end
 %% Plot all the data and normalize it to the same end point
 % Follower
 Datamu = [0, 0, 0];
@@ -48,8 +37,6 @@ countF = 1;
 for i=1:count-1
     
     if ~isempty(follower{i})
-        ts = time{i}(1);
-        tf = time{i}(end);
 
         a1 = follower{i}(1,:);
         a2 = follower{i}(2,:);
@@ -108,8 +95,6 @@ countF = 1;
 for i=1:count-1
     
     if ~isempty(follower{i})
-        ts = time{i}(1);
-        tf = time{i}(end);
 
         a1 = follower{i}(1,:);
         a2 = follower{i}(2,:);
