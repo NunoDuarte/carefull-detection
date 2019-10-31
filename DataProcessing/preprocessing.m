@@ -89,27 +89,11 @@ for i=1:count-1
         dataFz = imresize(Fz_new, targetSize);      
 
         F3{countF} = [dataFx; dataFy; dataFz];
-        F3origin{countF} = [e1; e2; e3];        
-        countF= countF + 1;
-    end
-end
-
-countF = 1;
-for i=1:count-1
-    
-    if ~isempty(follower{i})
-
-        a1 = follower{i}(1,:);
-        a2 = follower{i}(2,:);
-        a3 = follower{i}(3,:);    
+        F3origin{countF} = [e1; e2; e3];       
 
         % reduce dimension
-        b1 = sqrt(a1.^2 + a2.^2);
-        b2 = a3;
-        
-        % subtract the average of the last point to the specific last point
-        d1 = b1(end) - sqrt(Datamu(1)^2 + Datamu(2)^2);
-        d2 = follower{i}(3,end) - Datamu(3);        
+        z1 = b1;
+        z2 = sqrt(b2.^2 + b3.^2);
 
         % If you want to visualize all actions with end-goal in average end-goal
         % subtract the differenre (d) on the whole vector of the action
@@ -118,8 +102,10 @@ for i=1:count-1
         
         % end point be the origin for all actions (HRI experiments of
         % coupling)
-        e1 = c1 - c1(end);
-        e2 = c2 - c2(end);
+        [maxX, z1max] = max(z1);
+        
+        e1 = z1 - z1(z1max);
+        e2 = z2 - z2(z1max);
 
         % data for F2origin
         DataFy = e1; 
@@ -138,8 +124,8 @@ for i=1:count-1
         F2origin{countF} = [dataFy; dataFz];
 
         % data for F2
-        DataFy = c1; 
-        DataFz = c2;
+        DataFy = z1; 
+        DataFz = z2;
 
         Fy_new = [];
         Fz_new = [];    
@@ -155,7 +141,25 @@ for i=1:count-1
         countF= countF + 1;
     end 
 end
+%% plot(DataAx,DataAy, '.');
+if plotting
+    ploty = [];
+    plotx = [];
+    plotz = [];
+    for i=1:length(F2origin)
 
+
+            datax = F2origin{i}(1,:);
+            datay = F2origin{i}(2,:);   
+
+            plotx = [plotx, datax];
+            ploty = [ploty, datay];
+
+    end
+
+    figure()
+    plot(plotx, ploty, '.');
+end
 
 %% plot(DataAx,DataAy, '.');
 if plotting
