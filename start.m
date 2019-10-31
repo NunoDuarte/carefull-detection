@@ -59,7 +59,10 @@ Wlpolish{6} = Wlpolish6';
 %%
 plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
+default = 1;    % do you default parameters?
 
+%% 
+DSsolver(F2origin, default)
 
 %% Plot 2D versions
 
