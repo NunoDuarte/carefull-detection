@@ -33,7 +33,7 @@ end
   
 %% Run SEDS solver
 
-[tmp , tmp, Data, index] = preprocess_demos(F2origin, 0.1, 0.0001); %preprocessing datas
+[tmp , tmp, Data, index] = preprocessDS(F2origin, 0.1, 0.0001); %preprocessing datas
 
 %% This is to take into account the behaviour of the arm in altitude scale
 % Data=[];
