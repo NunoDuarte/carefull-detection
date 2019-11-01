@@ -116,9 +116,6 @@ for i=1:length(demos)
     %saving the final point (target) of each demo
     xT(:,i) = demos{i}(:,end); 
     
-    % shifting demos to the origin
-    tmp = tmp - repmat(xT(:,i),1,size(tmp,2));
-    
     % I ADDED THIS!
     tmp = -1*tmp;
     tmp_d = -1*tmp_d;
