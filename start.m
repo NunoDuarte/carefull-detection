@@ -44,12 +44,12 @@ Wlpolish5 = Wl(500:570,:);
 Wlpolish6 = Wl(940:990,:);
 Wlpolish2 = Wl(1252:1320,:);
 
-Wlpolish{1} = Wlpolish1';
-Wlpolish{2} = Wlpolish2';
-Wlpolish{3} = Wlpolish3';
-Wlpolish{4} = Wlpolish4';
-Wlpolish{5} = Wlpolish5';
-Wlpolish{6} = Wlpolish6';
+Wlpolish{1} = Wlpolish5';
+% Wlpolish{2} = Wlpolish2';
+% Wlpolish{3} = Wlpolish3';
+% Wlpolish{4} = Wlpolish4';
+% Wlpolish{5} = Wlpolish5';
+% Wlpolish{6} = Wlpolish6';
 
 
 
@@ -59,6 +59,11 @@ Wlpolish{6} = Wlpolish6';
 %%
 plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
+
+% 2nd order dynamics
+tmp_d = diff(F2origin{1},1,2)/dt;
+F2origin1{1} = [F2origin{1}; [tmp_d zeros(2,1)]];
+
 default = 1;    % do you default parameters?
 
 %% 
