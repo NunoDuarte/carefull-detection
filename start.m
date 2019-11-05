@@ -111,7 +111,7 @@ c = sqrt((Slpolish5(:,1) - Wlpolish5(:,1)).^2 + (Slpolish5(:,2) - Wlpolish5(:,2)
 
 den = 2.*a.*b;
 beta = acos((a.^2 + b.^2 - c.^2)./den);
-beta_d = radtodeg(beta);
+beta_d = rad2deg(beta);
 
 %%
 plotting = 1;    % do you want to plot the 3D versions?
