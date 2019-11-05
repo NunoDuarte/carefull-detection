@@ -68,7 +68,7 @@ default = 1;    % do you default parameters?
 
 %% convert quaternion to homogeneous transformation
 n = 0;
-Wquat = Wlpolish5;
+Wquat = Wlpolish6;
 quat = zeros(4,length(Wquat));
 
 for i=1:length(Wquat)
