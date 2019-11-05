@@ -66,6 +66,34 @@ F2origin1{1} = [F2origin{1}; [tmp_d zeros(2,1)]];
 
 default = 1;    % do you default parameters?
 
+%% convert quaternion to homogeneous transformation
+n = 0;
+Wquat = Wlpolish5;
+quat = zeros(4,length(Wquat));
+
+for i=1:length(Wquat)
+   
+    if (i >= 1 && i < 2)
+        quat0 = [Wquat(i, 4) Wquat(i, 5) Wquat(i, 6) Wquat(i, 7)];
+        Hw0 = quat2tform(quat0);
+        Hr = quat2tform([Wquat(i, 4:7)])/Hw0;
+        quat(:,i) = tform2quat(Hr);
+    elseif (i == 2)
+        Hr = quat2tform([Wquat(i, 4:7)])/Hw0;
+        quat(:,i) = tform2quat(Hr);
+    else
+        Hr = quat2tform([Wquat(i, 4:7)])/Hw0;
+        quat(:,i) = tform2quat(Hr);
+    end
+end
+
+% Convert from quaternion to euler angles
+eul = quat2eul(quat', 'ZYX');
+
+eul = radtodeg(eul);
+
+figure();
+plot3(eul(:,1), eul(:,2), eul(:,3), '.');
 %% 
 DSsolver(F2origin, default)
 
