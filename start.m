@@ -32,7 +32,7 @@ end
 figure()
 plot3(plotx, ploty, plotz, '.');
 
-%% Segment data
+%% Segment data of wrist
 
 Wl = W{1}(383:end,:);
 
@@ -44,17 +44,74 @@ Wlpolish5 = Wl(500:570,:);
 Wlpolish6 = Wl(940:990,:);
 Wlpolish2 = Wl(1252:1320,:);
 
-Wlpolish{1} = Wlpolish5';
-% Wlpolish{2} = Wlpolish2';
-% Wlpolish{3} = Wlpolish3';
-% Wlpolish{4} = Wlpolish4';
-% Wlpolish{5} = Wlpolish5';
-% Wlpolish{6} = Wlpolish6';
+Wlpolish{1} = Wlpolish1';
+Wlpolish{2} = Wlpolish2';
+Wlpolish{3} = Wlpolish3';
+Wlpolish{4} = Wlpolish4';
+Wlpolish{5} = Wlpolish5';
+Wlpolish{6} = Wlpolish6';
 
 
 
-% figure()
-% plot3(Wlpolish2(:,1), Wlpolish2(:,2), Wlpolish2(:,3), '.');
+figure()
+plot3(Wlpolish5(:,1), Wlpolish5(:,2), Wlpolish5(:,3), '.');
+
+%% Segment data of elbow
+
+El = E{1}(383:end,:);
+
+Elreaching = El(1:100,:);
+Elpolish1 = El(160:230,:);
+Elpolish3 = El(326:400,:);
+Elpolish4 = El(400:480,:);
+Elpolish5 = El(500:570,:);
+Elpolish6 = El(940:990,:);
+Elpolish2 = El(1252:1320,:);
+
+Elpolish{1} = Elpolish1';
+Elpolish{2} = Elpolish2';
+Elpolish{3} = Elpolish3';
+Elpolish{4} = Elpolish4';
+Elpolish{5} = Elpolish5';
+Elpolish{6} = Elpolish6';
+
+
+
+figure()
+plot3(Elpolish5(:,1), Elpolish5(:,2), Elpolish5(:,3), '.');
+
+%% Segment data of Shoulder
+
+Sl = S{1}(383:end,:);
+
+Slreaching = Sl(1:100,:);
+Slpolish1 = Sl(160:230,:);
+Slpolish3 = Sl(326:400,:);
+Slpolish4 = Sl(400:480,:);
+Slpolish5 = Sl(500:570,:);
+Slpolish6 = Sl(940:990,:);
+Slpolish2 = Sl(1252:1320,:);
+
+Slpolish{1} = Slpolish1';
+Slpolish{2} = Slpolish2';
+Slpolish{3} = Slpolish3';
+Slpolish{4} = Slpolish4';
+Slpolish{5} = Slpolish5';
+Slpolish{6} = Slpolish6';
+
+
+figure();
+plot3(Slpolish5(:,1), Slpolish5(:,2), Slpolish5(:,3), '.');
+
+%% Calculate the yaw angle of the elbow
+
+a = sqrt((Slpolish5(:,1) - Elpolish5(:,1)).^2 + (Slpolish5(:,2) - Elpolish5(:,2)).^2 + (Slpolish5(:,3) - Elpolish5(:,3)).^2);
+b = sqrt((Elpolish5(:,1) - Wlpolish5(:,1)).^2 + (Elpolish5(:,2) - Wlpolish5(:,2)).^2 + (Elpolish5(:,3) - Wlpolish5(:,3)).^2);
+c = sqrt((Slpolish5(:,1) - Wlpolish5(:,1)).^2 + (Slpolish5(:,2) - Wlpolish5(:,2)).^2 + (Slpolish5(:,3) - Wlpolish5(:,3)).^2);
+
+den = 2.*a.*b;
+beta = acos((a.^2 + b.^2 - c.^2)./den);
+beta_d = radtodeg(beta);
 
 %%
 plotting = 1;    % do you want to plot the 3D versions?
