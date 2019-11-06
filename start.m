@@ -37,12 +37,12 @@ plot3(plotx, ploty, plotz, '.');
 Wl = W{1}(383:end,:);
 
 Wlreaching = Wl(1:100,:);
-Wlpolish1 = Wl(160:230,:);
+Wlpolish1 = Wl(172:230,:);
 Wlpolish3 = Wl(326:400,:);
-Wlpolish4 = Wl(400:480,:);
-Wlpolish5 = Wl(500:570,:);
+Wlpolish4 = Wl(400:490,:);
+Wlpolish5 = Wl(503:570,:);
 Wlpolish6 = Wl(940:990,:);
-Wlpolish2 = Wl(1252:1320,:);
+Wlpolish2 = Wl(1260:1320,:);
 
 Wlpolish{1} = Wlpolish1';
 Wlpolish{2} = Wlpolish2';
@@ -54,7 +54,7 @@ Wlpolish{6} = Wlpolish6';
 
 
 figure()
-plot3(Wlpolish5(:,1), Wlpolish5(:,2), Wlpolish5(:,3), '.');
+plot3(Wlpolish6(:,1), Wlpolish6(:,2), Wlpolish6(:,3), '.');
 
 %% Segment data of elbow
 
@@ -117,7 +117,8 @@ beta_d = rad2deg(beta);
 plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
 
-% 2nd order dynamics
+%% 2nd order dynamics
+dt = 0.1;
 tmp_d = diff(F2origin{1},1,2)/dt;
 F2origin1{1} = [F2origin{1}; [tmp_d zeros(2,1)]];
 
