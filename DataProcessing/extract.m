@@ -17,8 +17,6 @@ Wlpolish{4} = Wlpolish4';
 Wlpolish{5} = Wlpolish5';
 Wlpolish{6} = Wlpolish6';
 
-
-
 figure()
 plot3(Wlpolish6(:,1), Wlpolish6(:,2), Wlpolish6(:,3), '.');
 
@@ -27,12 +25,12 @@ plot3(Wlpolish6(:,1), Wlpolish6(:,2), Wlpolish6(:,3), '.');
 El = E{1}(383:end,:);
 
 Elreaching = El(1:100,:);
-Elpolish1 = El(160:230,:);
+Elpolish1 = El(172:230,:);
 Elpolish3 = El(326:400,:);
-Elpolish4 = El(400:480,:);
-Elpolish5 = El(500:570,:);
+Elpolish4 = El(400:490,:);
+Elpolish5 = El(503:570,:);
 Elpolish6 = El(940:990,:);
-Elpolish2 = El(1252:1320,:);
+Elpolish2 = El(1260:1320,:);
 
 Elpolish{1} = Elpolish1';
 Elpolish{2} = Elpolish2';
@@ -40,8 +38,6 @@ Elpolish{3} = Elpolish3';
 Elpolish{4} = Elpolish4';
 Elpolish{5} = Elpolish5';
 Elpolish{6} = Elpolish6';
-
-
 
 figure()
 plot3(Elpolish5(:,1), Elpolish5(:,2), Elpolish5(:,3), '.');
@@ -51,12 +47,12 @@ plot3(Elpolish5(:,1), Elpolish5(:,2), Elpolish5(:,3), '.');
 Sl = S{1}(383:end,:);
 
 Slreaching = Sl(1:100,:);
-Slpolish1 = Sl(160:230,:);
+Slpolish1 = Sl(172:230,:);
 Slpolish3 = Sl(326:400,:);
-Slpolish4 = Sl(400:480,:);
-Slpolish5 = Sl(500:570,:);
+Slpolish4 = Sl(400:490,:);
+Slpolish5 = Sl(503:570,:);
 Slpolish6 = Sl(940:990,:);
-Slpolish2 = Sl(1252:1320,:);
+Slpolish2 = Sl(1260:1320,:);
 
 Slpolish{1} = Slpolish1';
 Slpolish{2} = Slpolish2';
@@ -64,7 +60,6 @@ Slpolish{3} = Slpolish3';
 Slpolish{4} = Slpolish4';
 Slpolish{5} = Slpolish5';
 Slpolish{6} = Slpolish6';
-
 
 figure();
 plot3(Slpolish5(:,1), Slpolish5(:,2), Slpolish5(:,3), '.');
