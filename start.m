@@ -34,17 +34,30 @@ plot3(plotx, ploty, plotz, '.');
 
 %% Calculate the yaw angle of the elbow
 
-a = sqrt((Slpolish5(:,1) - Elpolish5(:,1)).^2 + (Slpolish5(:,2) - Elpolish5(:,2)).^2 + (Slpolish5(:,3) - Elpolish5(:,3)).^2);
-b = sqrt((Elpolish5(:,1) - Wlpolish5(:,1)).^2 + (Elpolish5(:,2) - Wlpolish5(:,2)).^2 + (Elpolish5(:,3) - Wlpolish5(:,3)).^2);
-c = sqrt((Slpolish5(:,1) - Wlpolish5(:,1)).^2 + (Slpolish5(:,2) - Wlpolish5(:,2)).^2 + (Slpolish5(:,3) - Wlpolish5(:,3)).^2);
+for i=1:length(Slpolish)
+    a = sqrt((Slpolish{i}(1,:) - Elpolish{i}(1,:)).^2 + (Slpolish{i}(2,:) - Elpolish{i}(2,:)).^2 + (Slpolish{i}(3,:) - Elpolish{i}(3,:)).^2);
+    b = sqrt((Elpolish{i}(1,:) - Wlpolish{i}(1,:)).^2 + (Elpolish{i}(2,:) - Wlpolish{i}(2,:)).^2 + (Elpolish{i}(3,:) - Wlpolish{i}(3,:)).^2);
+    c = sqrt((Slpolish{i}(1,:) - Wlpolish{i}(1,:)).^2 + (Slpolish{i}(2,:) - Wlpolish{i}(2,:)).^2 + (Slpolish{i}(3,:) - Wlpolish{i}(3,:)).^2);
 
-den = 2.*a.*b;
-beta = acos((a.^2 + b.^2 - c.^2)./den);
-beta_d = rad2deg(beta);
-
+    den = 2.*a.*b;
+    beta{i} = acos((a.^2 + b.^2 - c.^2)./den);
+    beta_d{i} = rad2deg(beta{i});
+end
 %%
+Wlpolish{1} = Wlpolish5';
+% Wlpolish{2} = Wlpolish2';
+% Wlpolish{3} = Wlpolish3';
+% Wlpolish{4} = Wlpolish4';
+% Wlpolish{5} = Wlpolish5';
+% Wlpolish{6} = Wlpolish6';
+
 plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
+
+%% coupling wrist position with yaw angle of elbow
+normW = sqrt(Slpolish5(:,3).^2);
+
+demosNorm{1} = [normW'; beta_d'];
 
 %% 2nd order dynamics
 dt = 0.1;
@@ -55,7 +68,7 @@ default = 1;    % do you default parameters?
 
 %% convert quaternion to homogeneous transformation
 n = 0;
-Wquat = Wlpolish6;
+Wquat = Wlpolish5;
 quat = zeros(4,length(Wquat));
 
 for i=1:length(Wquat)
@@ -77,7 +90,7 @@ end
 % Convert from quaternion to euler angles
 eul = quat2eul(quat', 'ZYX');
 
-eul = radtodeg(eul);
+eul = rad2deg(eul);
 
 figure();
 plot3(eul(:,1), eul(:,2), eul(:,3), '.');
