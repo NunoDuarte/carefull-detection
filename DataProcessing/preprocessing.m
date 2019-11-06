@@ -47,14 +47,14 @@ for i=1:count-1
 
         % If you want to visualize all actions with the reference in end-goal
         % center the final point to be (0, 0, 0)
-        c1 = a1 - follower{i}(1,idX);
-        c2 = a2 - follower{i}(2,idX);
-        c3 = a3 - follower{i}(3,idX);
+        c1 = a1 - follower{i}(1,end);
+        c2 = a2 - follower{i}(2,end);
+        c3 = a3 - follower{i}(3,end);
 
         % subtract the average of the last point to the specific last point
-        d1 = follower{i}(1,idX) - Datamu(1);
-        d2 = follower{i}(2,idX) - Datamu(2);
-        d3 = follower{i}(3,idX) - Datamu(3);
+        d1 = follower{i}(1,end) - Datamu(1);
+        d2 = follower{i}(2,end) - Datamu(2);
+        d3 = follower{i}(3,end) - Datamu(3);
 
         % If you want to visualize all actions with end-goal in average end-goal
         % subtract the differenre (d) on the whole vector of the action
@@ -64,9 +64,9 @@ for i=1:count-1
         
         % end point be the origin for all actions (HRI experiments of
         % coupling)
-        e1 = follower{i}(1,:) - follower{i}(1,idX);
-        e2 = follower{i}(2,:) - follower{i}(2,idX);
-        e3 = follower{i}(3,:) - follower{i}(3,idX);
+        e1 = follower{i}(1,:) - follower{i}(1,end);
+        e2 = follower{i}(2,:) - follower{i}(2,end);
+        e3 = follower{i}(3,:) - follower{i}(3,end);
 
         % update the matrix DataF with now the new data 
         % choose c or b
@@ -104,8 +104,8 @@ for i=1:count-1
         % coupling)
         [maxX, z1max] = max(z1);
         
-        e1 = z1 - z1(z1max);
-        e2 = z2 - z2(z1max);
+        e1 = z1 - z1(end);
+        e2 = z2 - z2(end);
 
         % data for F2origin
         DataFy = e1; 
