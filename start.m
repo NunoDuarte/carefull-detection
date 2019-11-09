@@ -5,6 +5,7 @@
 
 addpath('DataProcessing')
 addpath('SEDS')
+addpath('data')
 addpath('../Khansari/SEDS/SEDS_lib')
 addpath('../Khansari/SEDS/GMR_lib')
 
@@ -55,6 +56,13 @@ plotting = 1;    % do you want to plot the 3D versions?
 [~, F2origin, F2] = preprocessing(Wlpolish, [], plotting);
 
 %% coupling wrist position with yaw angle of elbow
+
+for a=1:length(Slpolish)
+    normW = sqrt(Slpolish{a}(3,:).^2 + Slpolish{a}(2,:).^2 + Slpolish{a}(1,:).^2);
+    demosNorm{a} = [normW; beta_d{a}];
+end
+
+%% old - remove later
 normW = sqrt(Slpolish5(:,3).^2);
 
 demosNorm{1} = [normW'; beta_d'];
