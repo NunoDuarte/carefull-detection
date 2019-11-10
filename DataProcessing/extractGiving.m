@@ -1,37 +1,23 @@
 %% Segment data of wrist
 
-Wl = W{3}(383:end,:);
+Wgiving = W{3}(518:750,:);
 
-Wlreaching = Wl(1:100,:);
-Wlscrew2 = Wl(320:430,:);
-
-Wlscrew{1} = Wlscrew1';
 
 figure()
-plot3(Wlscrew1(:,1), Wlscrew1(:,2), Wlscrew1(:,3), '.');
+plot3(Wl(:,1), Wl(:,2), Wl(:,3), '.');
 
 %% Segment data of elbow
 
-El = E{3}(383:end,:);
+El = E{3}(518:750,:);
 
-Elreaching = El(1:100,:);
-Elscrew2 = El(320:430,:);
-
-Elscrew{1} = Elscrew1';
 
 figure()
-plot3(Elpolish5(:,1), Elpolish5(:,2), Elpolish5(:,3), '.');
+plot3(El(:,1), El(:,2), El(:,3), '.');
 
 %% Segment data of Shoulder
 
-Sl = S{3}(383:end,:);
-
-Slreaching = Sl(1:100,:);
-Slscrew2 = Sl(320:430,:);
-
-Slscrew{1} = Slscrew1';
-
+Sl = S{3}(518:750,:);
 
 figure();
-plot3(Slpolish5(:,1), Slpolish5(:,2), Slpolish5(:,3), '.');
+plot3(Sl(:,1), Sl(:,2), Sl(:,3), '.');
 
