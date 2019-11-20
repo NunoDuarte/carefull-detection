@@ -62,5 +62,5 @@ Slpolish{5} = Slpolish5';
 Slpolish{6} = Slpolish6';
 
 figure();
-plot3(Slpolish5(:,1), Slpolish5(:,2), Slpolish5(:,3), '.');
+plot3(Slreaching(:,1), Slreaching(:,2), Slreaching(:,3), '.');
 

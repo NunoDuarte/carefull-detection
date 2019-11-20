@@ -86,5 +86,5 @@ Slscrew{9} = Slscrew9';
 Slscrew{10} = Slscrew10';
 
 figure();
-plot3(Slpolish5(:,1), Slpolish5(:,2), Slpolish5(:,3), '.');
+plot3(Slreaching(:,1), Slreaching(:,2), Slreaching(:,3), '.');
 
