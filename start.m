@@ -144,11 +144,6 @@ end
 default = 1;
 externalCDS;%(DS, 1, [], [], []); 
 
-%% follower or leader
-default = 1;    % do you default parameters?
-intDSfollower(F2origin, default)
-intDSleader(L2origin, default)
-
 %% Run the script 
 
 scriptCDS
@@ -210,5 +205,30 @@ for i=1:length(CouplM)
 end
 figure()
 plot(ploty, plotz, '.');
+
+
+%% reaching 
+default = 1;    % do you default parameters?
+
+plotting = 1;    % do you want to plot the 3D versions?
+[~, F2origin, F2] = preprocessing(Reaching, [], plotting);
+DSsolver(F2origin, default)
+
+%% handover
+
+Handover{1} = Sreceive';
+[~, F2origin, F2] = preprocessing(Handover, [], plotting);
+
+% parameters for the DS
+sim = 1; % simulate
+K = 5;
+options.tol_mat_bias = 10^-5; % A very small positive scalar to avoid
+options.display = 1;          % An option to control whether the algorithm
+options.tol_stopping=10^-10;  % A small positive scalar defining the stoppping
+options.max_iter = 1000;
+options.objective = 'likelihood'; 
+
+DSsolver(F2origin, 0, options, K, sim);
+
 
 
