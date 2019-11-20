@@ -92,13 +92,13 @@ for i=1:count-1
         F3origin{countF} = [e1; e2; e3];       
 
         % reduce dimension
-        z1 = b1;
-        z2 = sqrt(b2.^2 + b3.^2);
+        z1 = sqrt(b1.^2 + b2.^2);
+        z2 = b3;
 
-        % If you want to visualize all actions with end-goal in average end-goal
-        % subtract the differenre (d) on the whole vector of the action
-        c1 = b1 - d1;
-        c2 = b2 - d2;
+%         % If you want to visualize all actions with end-goal in average end-goal
+%         % subtract the differenre (d) on the whole vector of the action
+%         c1 = b1 - d1;
+%         c2 = b2 - d2;
         
         % end point be the origin for all actions (HRI experiments of
         % coupling)
