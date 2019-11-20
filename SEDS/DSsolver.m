@@ -1,4 +1,4 @@
-%function DSsolver(F2origin, default, options, K, sim)
+function DSsolver(F2origin, default, options, K, sim)
 
 if default
     %% User Parameters and Setting
