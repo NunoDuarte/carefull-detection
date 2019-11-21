@@ -2,7 +2,7 @@ addpath(genpath('.'));
 
 X = Wlpolish6(:,1:3);
 smoothing = 30;
-time = 1:length(X(:,1));
+time = 0.1:0.1:length(X(:,1))*0.1;
 T = length(X(:,1));
 [Xdata,Xvel,Rdata,Rvel,dt,T,N,m,begin] = prepareData(3,X,time,smoothing,T);
 
@@ -81,6 +81,7 @@ Xdata = (Rrot \ (Xdata' - Mu(1:N,k)))';
 
 %% 
 
+N = 3
 initial_parameters = [];
 % Set initial rho0 to variance of Gaussian model
 initial_parameters.rho0 = 3*mean(diag(Sigma(1:N,1:N,1)));
@@ -88,7 +89,7 @@ initial_parameters.rho0 = 3*mean(diag(Sigma(1:N,1:N,1)));
 initial_parameters.x0 = [];
 % If you want to exclude M from the second opt, use M = []
 initial_parameters.M = NaN;
-[params] = optimizePars(initial_parameters,Xdata(:,1:2),dt,begin,1);
+[params] = optimizePars(initial_parameters,Xdata(:,1:2),dt,begin,3);
 
 % Get parameters learned
 rho0 = params.rho0;
@@ -112,7 +113,11 @@ dU = @(r,M,rho0,R) 2.*M.*(r(:,1) - rho0);
 dRho = @(r,M,rho0,R) - sqrt(M.*2) .* (r - rho0);
 dTheta = @(r,M,rho0,R) R .* exp(-dU(r(:,1),M,rho0,R).^2);
 
-r = @(Xplot) cart2hyper((a\(Xplot+x0)')');
+if N ==3
+    r = @(Xplot) cart2hyper((a\(Xplot+x0)')');
+else
+    r = @(Xplot) cart2hyper((a(1:2,1:2)\(Xplot+x0(1:2))')');
+end
 if N == 3
     dr = @(r) [dRho(r(:,1),M,rho0,R), dRho(r(:,2),M,0,R), dTheta(r(:,1),M,rho0,R)];
 else
@@ -187,11 +192,13 @@ for j = 1:size(X0,1)
 end
 
 %%  Test dynamics for T time steps for N = 2
+figure();
 N = 2
-X0 = [-1.11, -0.61, 0.935];
+X0 = [-1.11, -0.71, 0.935];
 Xvel_DS = []; Rad_s = []; X_s = []; Rad_vel = [];
-for j = 1:size(X0,1)
+
     X = X0(j,:);
+    h=animatedline(X(1),X(2));
     for i = 1:100
         Rad = r(X) + dr(r(X)) * dt;
         Rad_s = [Rad_s; Rad];
@@ -199,7 +206,7 @@ for j = 1:size(X0,1)
         X = (a*hyper2cart(Rad)')' - x0;
         X_s = [X_s; X];
         Xvel_DS = [Xvel_DS; sph2cartvelocities(r(X),dr(r(X)))];
-        
-        plot(X(1),X(2),'k.'); hold on; grid on;
+        addpoints(h,X(1),X(2));
+        %plot(X(1),X(2),'k.'); hold on; grid on;
     end
-end
+
