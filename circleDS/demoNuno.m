@@ -82,50 +82,35 @@ Xdata = (Rrot \ (Xdata' - Mu(1:N,k)))';
 %% 
 
 N = 3
+Xdata = Xdata_;
+Xdata = (Rrot \ (Xdata' - Mu(1:N,k)))';
 initial_parameters = [];
 % Set initial rho0 to variance of Gaussian model
 initial_parameters.rho0 = 3*mean(diag(Sigma(1:N,1:N,1)));
-% If you want to exclude x0 from optimization, use x0 = []
-initial_parameters.x0 = [];
-% If you want to exclude M from the second opt, use M = []
-initial_parameters.M = NaN;
-[params] = optimizePars(initial_parameters,Xdata(:,1:2),dt,begin,3);
+% Set initial values of other parameters
+initial_parameters.M = 3;
+% Select which parameters to optimize in first objective (M, rho0, (always 0 for R,) a, x0):
+initial_parameters.first = [0 1 0 1 0];
+% Select which parameters to optimize in second objective (M, (always 0 for rho0,) R, a, x0):
+initial_parameters.second = [0 0 1 1 0];        % e.g. [1 1 1 1 0] excludes x0
+[params] = optimizePars(initial_parameters,Xdata,dt,begin,1);
 
 % Get parameters learned
 rho0 = params.rho0;
 M = params.M;
 R = params.R;
-% Rewrite a to include rotation matrix
-a = Rrot; for i = 1:N-1; a(i,i) = a(i,i) / params.a(i); end
+a = params.a;
 % Add the mean of the Gaussian model to x0
 if isfield(initial_parameters,'x0') && isempty(initial_parameters.x0)
-    x0 = -Mu(1:N,1)';
+    x0 = -Mu(1:N,k)';
 else
-    x0 = (Rrot * params.x0' - Mu(1:N,1))';
+    x0 = (Rrot * params.x0' - Mu(1:N,k))';
 end
 params.x0 = x0;
-params.theta0 = theta0;
 params.Rrot = Rrot;
 disp(params);
 
-% Functions to plot learned dynamics
-dU = @(r,M,rho0,R) 2.*M.*(r(:,1) - rho0);
-dRho = @(r,M,rho0,R) - sqrt(M.*2) .* (r - rho0);
-dTheta = @(r,M,rho0,R) R .* exp(-dU(r(:,1),M,rho0,R).^2);
-
-if N ==3
-    r = @(Xplot) cart2hyper((a\(Xplot+x0)')');
-else
-    r = @(Xplot) cart2hyper((a(1:2,1:2)\(Xplot+x0(1:2))')');
-end
-if N == 3
-    dr = @(r) [dRho(r(:,1),M,rho0,R), dRho(r(:,2),M,0,R), dTheta(r(:,1),M,rho0,R)];
-else
-    dr = @(r) [dRho(r(:,1),M,rho0,R), dTheta(r(:,1),M,rho0,R)];
-end
-y = @(Xplot) sph2cartvelocities(r(Xplot),dr(r(Xplot))); % dynamics to be plotted
-
-% Plot learned dynamics with original data and new trajectories
+%% Plot learned dynamics with original data and new trajectories
 % Get unrotated data
 Xdata = Xdata_;
 
@@ -161,7 +146,8 @@ else
 end
 Y = zeros(size(X_plot));
 for i= 1:size(X_plot,1)
-    Y(i,1:N) = y(X_plot(i,1:N));
+    [r2,dr2] = DS(X_plot(i,:),params);
+    Y(i,1:N) = sph2cartvelocities(r2,dr2);
 end
 
 if N == 2
@@ -172,17 +158,17 @@ else
 end
 
 %% Test dynamics for T time steps
-X0 = [-0.91, -0.61, 0.935];
-Xvel_DS = []; Rad_s = []; X_s = []; Rad_vel = [];
+X0 = Xdata(1,:);
+X_s = []; Xvel_s = [];
 for j = 1:size(X0,1)
     X = X0(j,:);
     for i = 1:100
-        Rad = r(X) + dr(r(X)) * dt;
-        Rad_s = [Rad_s; Rad];
-        Rad_vel = [Rad_vel; dr(r(X))];
-        X = (a*hyper2cart(Rad)')' - x0;
+        X_prev = X;
+        [r2,dr2] = DS(X,params);
+        next_r = r2 + dr2*dt;
+        X = (Rrot*(hyper2cart(next_r)./a)')' - x0;
         X_s = [X_s; X];
-        Xvel_DS = [Xvel_DS; sph2cartvelocities(r(X),dr(r(X)))];
+        Xvel_s = [Xvel_s; sph2cartvelocities(r2,dr2)];
         if N == 2
             plot(X(1),X(2),'k.'); hold on; grid on;
         else
@@ -190,23 +176,62 @@ for j = 1:size(X0,1)
         end
     end
 end
-
-%%  Test dynamics for T time steps for N = 2
-figure();
-N = 2
-X0 = [-1.11, -0.71, 0.935];
-Xvel_DS = []; Rad_s = []; X_s = []; Rad_vel = [];
-
+%% % 
+X0 = [-0.91, -0.61, 0.935];
+X_s = []; Xvel_s = [];
+for j = 1:size(X0,1)
     X = X0(j,:);
-    h=animatedline(X(1),X(2));
-    for i = 1:100
-        Rad = r(X) + dr(r(X)) * dt;
-        Rad_s = [Rad_s; Rad];
-        Rad_vel = [Rad_vel; dr(r(X))];
-        X = (a*hyper2cart(Rad)')' - x0;
+    for i = 1:T(1)
+        X_prev = X;
+        [r2,dr2] = DS(X,params);
+        next_r = r2 + dr2*dt;
+        X = (Rrot*(hyper2cart(next_r)./a)')' - x0;
         X_s = [X_s; X];
-        Xvel_DS = [Xvel_DS; sph2cartvelocities(r(X),dr(r(X)))];
-        addpoints(h,X(1),X(2));
-        %plot(X(1),X(2),'k.'); hold on; grid on;
+        Xvel_s = [Xvel_s; sph2cartvelocities(r2,dr2)];
+        if N == 2
+            plot(X(1),X(2),'k.'); hold on; grid on;
+        else
+            plot3(X(1),X(2),X(3),'k.'); hold on; grid on;
+        end
     end
-
+end
+% % 
+% %% Test dynamics for T time steps
+% X0 = [-0.91, -0.61, 0.935];
+% Xvel_DS = []; Rad_s = []; X_s = []; Rad_vel = [];
+% for j = 1:size(X0,1)
+%     X = X0(j,:);
+%     for i = 1:100
+%         Rad = r(X) + dr(r(X)) * dt;
+%         Rad_s = [Rad_s; Rad];
+%         Rad_vel = [Rad_vel; dr(r(X))];
+%         X = (a*hyper2cart(Rad)')' - x0;
+%         X_s = [X_s; X];
+%         Xvel_DS = [Xvel_DS; sph2cartvelocities(r(X),dr(r(X)))];
+%         if N == 2
+%             plot(X(1),X(2),'k.'); hold on; grid on;
+%         else
+%             plot3(X(1),X(2),X(3),'k.'); hold on; grid on;
+%         end
+%     end
+% end
+% 
+% %%  Test dynamics for T time steps for N = 2
+% figure();
+% N = 2
+% X0 = [-1.11, -0.71, 0.935];
+% Xvel_DS = []; Rad_s = []; X_s = []; Rad_vel = [];
+% 
+%     X = X0(j,:);
+%     h=animatedline(X(1),X(2));
+%     for i = 1:100
+%         Rad = r(X) + dr(r(X)) * dt;
+%         Rad_s = [Rad_s; Rad];
+%         Rad_vel = [Rad_vel; dr(r(X))];
+%         X = (a*hyper2cart(Rad)')' - x0;
+%         X_s = [X_s; X];
+%         Xvel_DS = [Xvel_DS; sph2cartvelocities(r(X),dr(r(X)))];
+%         addpoints(h,X(1),X(2));
+%         %plot(X(1),X(2),'k.'); hold on; grid on;
+%     end
+% 
