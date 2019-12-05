@@ -26,7 +26,7 @@ Wlscrew{9} = Wlscrew9';
 Wlscrew{10} = Wlscrew10';
 
 figure()
-plot3(Wlreaching(:,1), Wlreaching(:,2), Wlreaching(:,3), '.');
+plot3(Wlscrew3(:,1), Wlscrew3(:,2), Wlscrew3(:,3), '.');
 
 %% Segment data of elbow
 
@@ -56,7 +56,7 @@ Elscrew{9} = Elscrew9';
 Elscrew{10} = Elscrew10';
 
 figure()
-plot3(Elpolish5(:,1), Elpolish5(:,2), Elpolish5(:,3), '.');
+plot3(Elscrew1(:,1), Elscrew1(:,2), Elscrew1(:,3), '.');
 
 %% Segment data of Shoulder
 
@@ -86,5 +86,5 @@ Slscrew{9} = Slscrew9';
 Slscrew{10} = Slscrew10';
 
 figure();
-plot3(Slreaching(:,1), Slreaching(:,2), Slreaching(:,3), '.');
+plot3(Slscrew1(:,1), Slscrew1(:,2), Slscrew1(:,3), '.');
 

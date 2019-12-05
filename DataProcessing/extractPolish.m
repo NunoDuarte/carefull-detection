@@ -18,7 +18,7 @@ Wlpolish{5} = Wlpolish5';
 Wlpolish{6} = Wlpolish6';
 
 figure()
-plot3(Wlpolish6(:,1), Wlpolish6(:,2), Wlpolish6(:,3), '.');
+plot3(Wlpolish5(:,1), Wlpolish5(:,2), Wlpolish5(:,3), '.');
 
 %% Segment data of elbow
 
