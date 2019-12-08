@@ -46,7 +46,7 @@ for i=1:3
     
 end
 plotting = 1;    % do you want to plot the 3D versions?
-[~, F2origin, F2] = follower3d(E3, [], plotting);
+[Emp3D, F2origin, F2] = follower3d(E3, [], plotting);
 % [~, L2origin, L2] = leader3d(leader, time, plotting);
 
 %% Plot 2D versions
@@ -68,7 +68,7 @@ plot(-1*ploty, plotz, '.');
 
 %% follower or leader
 default = 1;    % do you default parameters?
-intDSfollower(F2origin, default)
+intDSfollower(Emp3D, default)
 
 %% Plot the data - FULL
 
@@ -101,7 +101,7 @@ for i=1:3
     
 end
 plotting = 1;    % do you want to plot the 3D versions?
-[~, L2origin, L2] = follower3d(F3, [], plotting);
+[Full3D, L2origin, L2] = follower3d(F3, [], plotting);
 % [~, L2origin, L2] = leader3d(leader, time, plotting);
 
 %% Plot 2D versions
