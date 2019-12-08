@@ -142,46 +142,16 @@ end
 figure('name','Results from Simulation','position',[265   200   520   720])
 sp(1)=subplot(3,1,1);
 hold on; box on
-plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-plot(Data(1,:),Data(2,:),'r.')
-xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
-ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
-title('Simulation Results')
+plot3(Data(1,:),Data(2,:),Data(3,:),'r.')
+ 
+axis(sp(1),'tight')
+ax=get(sp(1));
+axis(sp(1),...
+    [ax.XLim(1)-(ax.XLim(2)-ax.XLim(1))/10 ax.XLim(2)+(ax.XLim(2)-ax.XLim(1))/10 ...
+    ax.YLim(1)-(ax.YLim(2)-ax.YLim(1))/10 ax.YLim(2)+(ax.YLim(2)-ax.YLim(1))/10]);
+plot(sp(1),0,0,'k*','markersize',15,'linewidth',3)
+D = axis(sp(1));
 
-sp(2)=subplot(3,1,2);
-hold on; box on
-plotGMM(Mu([1 3],:), Sigma([1 3],[1 3],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-plot(Data(1,:),Data(3,:),'r.')
-xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
-ylabel('$\dot{\xi}_1 (mm/s)$','interpreter','latex','fontsize',15);
-
-sp(3)=subplot(3,1,3);
-hold on; box on
-plotGMM(Mu([2 4],:), Sigma([2 4],[2 4],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-plot(Data(2,:),Data(4,:),'r.')
-xlabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
-ylabel('$\dot{\xi}_2 (mm/s)$','interpreter','latex','fontsize',15);
-
-% for i=1:size(x,3)
-%     plot(sp(1),x(1,:,i),x(2,:,i),'linewidth',2)
-%     plot(sp(2),x(1,:,i),xd(1,:,i),'linewidth',2)
-%     plot(sp(3),x(2,:,i),xd(2,:,i),'linewidth',2)
-%     plot(sp(1),x(1,1,i),x(2,1,i),'ok','markersize',5,'linewidth',5)
-%     plot(sp(2),x(1,1,i),xd(1,1,i),'ok','markersize',5,'linewidth',5)
-%     plot(sp(3),x(2,1,i),xd(2,1,i),'ok','markersize',5,'linewidth',5)
-% end
-% 
-for i=1:3
-    axis(sp(i),'tight')
-    ax=get(sp(i));
-    axis(sp(i),...
-        [ax.XLim(1)-(ax.XLim(2)-ax.XLim(1))/10 ax.XLim(2)+(ax.XLim(2)-ax.XLim(1))/10 ...
-        ax.YLim(1)-(ax.YLim(2)-ax.YLim(1))/10 ax.YLim(2)+(ax.YLim(2)-ax.YLim(1))/10]);
-    plot(sp(i),0,0,'k*','markersize',15,'linewidth',3)
-    if i==1
-        D = axis(sp(i));
-    end
-end
 % 
 % % plotting streamlines
 % figure('name','Streamlines','position',[800   90   560   320])
