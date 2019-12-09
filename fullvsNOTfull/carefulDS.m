@@ -2,6 +2,8 @@
 %MATLAB_JAVA = '/usr/lib/jvm/java-8-openjdk/jre matlab -desktop -nosplash';
 % Add this to ~/.bashrc
 % export MATLAB_JAVA=/usr/lib/jvm/java-8-openjdk/jre
+clear all;
+clc;
 
 addpath('DataProcessing')
 addpath('../SEDS')
@@ -45,7 +47,7 @@ for i=1:3
     E3{i}(3,:) = En{i}(:,3)'; 
     
 end
-plotting = 1;    % do you want to plot the 3D versions?
+plotting = 0;    % do you want to plot the 3D versions?
 [Emp3D, Emp2Do, Emp2D] = processData(E3, [], plotting);
 
 %% Generate a DS for Empty Cups
@@ -82,7 +84,7 @@ for i=1:3
     F3{i}(3,:) = Fn{i}(:,3)'; 
     
 end
-plotting = 1;    % do you want to plot the 3D versions?
+plotting = 0;    % do you want to plot the 3D versions?
 [Full3D, Full2Dorigin, Full2D] = processData(F3, [], plotting);
 
 %% Generate a DS for full Cups
