@@ -137,23 +137,11 @@ if sim
     % D = plot_results(x,xd,Data,xT,Mu,Sigma);
 end
 
-%%
-% plotting the result
-% 
-% % plotting streamlines
-% figure('name','Streamlines','position',[800   90   560   320])
-% plotStreamLines(Priors,Mu,Sigma,D)
-% hold on
-% plot(Data(1,:),Data(2,:),'r.')
-% plot(0,0,'k*','markersize',15,'linewidth',3)
-% xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
-% ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
-% title('Streamlines of the model')
-% set(gca,'position',[0.1300    0.1444    0.7750    0.7619])
-
+%% Streamlines 3D
 figure('name','Streamlines','position',[800   90   560   320])
-% streamlines
+
 quality='low';
+% plot real data
 plot3(Data(1,:), Data(2,:), Data(3,:), 'r.')
 
 if strcmpi(quality,'high')
@@ -179,12 +167,10 @@ ax_z=linspace(ax.ZLim(1),ax.ZLim(2),nz); %computing the mesh points along each a
 [x_tmp, y_tmp, z_tmp]=meshgrid(ax_x,ax_y, ax_z); %meshing the input domain
 x=[x_tmp(:) y_tmp(:) z_tmp(:)]';
 
-%GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d);
 xd = GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d); %compute outputs
-%streamslice(x_tmp,y_tmp, z_tmp, reshape(xd(1,:),ny,nx,nz),reshape(xd(2,:),ny,nx,nz),reshape(xd(3,:),ny,nx,nz),1,'method','cubic')
 x=[x_tmp(:) y_tmp(:) z_tmp(:)];
+% streamlines
 quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
-%streamslice(x_tmp,y_tmp, reshape(xd(1,:),ny,ny,nz),reshape(xd(2,:),ny,nx,nz),reshape(xd(3,:),ny,nx,nz),1,'method','cubic')
 
 end
 
