@@ -161,12 +161,12 @@ if plotting
     ploty = [];
     plotx = [];
     plotz = [];
-    for i=1:length(F3)
+    for i=1:length(Data3D)
 
 
-            datax = F3{i}(1,:);
-            datay = F3{i}(2,:);   
-            dataz = F3{i}(3,:);
+            datax = Data3D{i}(1,:);
+            datay = Data3D{i}(2,:);   
+            dataz = Data3D{i}(3,:);
 
             plotx = [plotx, datax];
             ploty = [ploty, datay];
