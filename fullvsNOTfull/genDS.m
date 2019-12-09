@@ -1,4 +1,4 @@
-function intDSfollower(F, default, options, K, sim)
+function genDS(F, default, options, K, sim)
 
 if default
     %% User Parameters and Setting
@@ -129,7 +129,7 @@ if sim
     %</comment>
 
     %x0 = [0.43763; 0.09439];
-    x0 = [-0.06; 0.1];
+    x0 = [0.06; -0.06; 0.1];
     % the action of the follower are still not correct since it goes back
     % before going forward. It probably has to do with the observed data
     fn_handle = @(x) GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d);

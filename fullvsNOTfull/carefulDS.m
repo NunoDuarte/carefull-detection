@@ -66,9 +66,9 @@ end
 figure()
 plot(-1*ploty, plotz, '.');
 
-%% follower or leader
+%% Generate a DS for Empty Cups
 default = 1;    % do you default parameters?
-intDSfollower(Emp3D, default)
+genDS(Emp3D, default)
 
 %% Plot the data - FULL
 
@@ -121,8 +121,8 @@ end
 figure()
 plot(-1*ploty, plotz, '.');
 
-%% follower or leader
+%% Generate a DS for full Cups
 default = 1;    % do you default parameters?
-intDSfollower(L2origin, default)
+genDS(Full3D, default)
 
 
