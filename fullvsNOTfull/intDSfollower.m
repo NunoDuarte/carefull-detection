@@ -193,7 +193,7 @@ z=zeros(1,nx*ny);
 xd = GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d); %compute outputs
 %streamslice(x_tmp,y_tmp, z_tmp, reshape(xd(1,:),ny,nx,nz),reshape(xd(2,:),ny,nx,nz),reshape(xd(3,:),ny,nx,nz),1,'method','cubic')
 x=[x_tmp(:) y_tmp(:) z_tmp(:)];
-quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue', 'linewidth', 1.75, 'maxheadsize', 0.5, 'autoscale', 'on');
+quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
 %streamslice(x_tmp,y_tmp, reshape(xd(1,:),ny,ny,nz),reshape(xd(2,:),ny,nx,nz),reshape(xd(3,:),ny,nx,nz),1,'method','cubic')
 
 hold on
