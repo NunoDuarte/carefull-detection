@@ -2,26 +2,23 @@
 %MATLAB_JAVA = '/usr/lib/jvm/java-8-openjdk/jre matlab -desktop -nosplash';
 % Add this to ~/.bashrc
 % export MATLAB_JAVA=/usr/lib/jvm/java-8-openjdk/jre
-clear all;
-clc;
+clear
+clc
 
-addpath('DataProcessing')
 addpath('../SEDS')
 addpath('data')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
-% external files
-% it should replace the current files in the respective library
-
-[E, F] = read;
+% Which Person to choose (Salman, Leo, Bernardo)
+[E, F] = read('Salman');
 
 %% Plot the data - EMPTY
 
 plotx = [];
 ploty = [];
 plotz = [];
-for i=1:3
+for i=1:length(E)
 
         En{i}(:,1) = nonzeros(E{i}(:,2));
         En{i}(:,2) = nonzeros(E{i}(:,3));
@@ -41,7 +38,7 @@ plot3(plotx, ploty, plotz, '.');
 
 %%
 
-for i=1:3
+for i=1:length(E)
     E3{i}(1,:) = En{i}(:,1)';
     E3{i}(2,:) = En{i}(:,2)';
     E3{i}(3,:) = En{i}(:,3)'; 
@@ -59,7 +56,7 @@ genDS(Emp3D, default)
 plotx = [];
 ploty = [];
 plotz = [];
-for i=1:4
+for i=1:length(F)
 
         Fn{i}(:,1) = nonzeros(F{i}(:,2));
         Fn{i}(:,2) = nonzeros(F{i}(:,3));
@@ -78,7 +75,7 @@ plot3(plotx, ploty, plotz, '.');
 
 %%
 
-for i=1:3
+for i=1:length(F)
     F3{i}(1,:) = Fn{i}(:,1)';
     F3{i}(2,:) = Fn{i}(:,2)';
     F3{i}(3,:) = Fn{i}(:,3)'; 
