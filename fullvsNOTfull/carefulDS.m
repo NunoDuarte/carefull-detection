@@ -46,25 +46,7 @@ for i=1:3
     
 end
 plotting = 1;    % do you want to plot the 3D versions?
-[Emp3D, F2origin, F2] = follower3d(E3, [], plotting);
-% [~, L2origin, L2] = leader3d(leader, time, plotting);
-
-%% Plot 2D versions
-
-ploty = [];
-plotz = [];
-for i=1:length(F2)
-
-        datay = F2{i}(1,:);   
-        dataz = F2{i}(2,:);
-
-        ploty = [ploty, datay];
-        plotz = [plotz, dataz];
-
-end
-
-figure()
-plot(-1*ploty, plotz, '.');
+[Emp3D, Emp2Do, Emp2D] = processData(E3, [], plotting);
 
 %% Generate a DS for Empty Cups
 default = 1;    % do you default parameters?
@@ -101,25 +83,7 @@ for i=1:3
     
 end
 plotting = 1;    % do you want to plot the 3D versions?
-[Full3D, L2origin, L2] = follower3d(F3, [], plotting);
-% [~, L2origin, L2] = leader3d(leader, time, plotting);
-
-%% Plot 2D versions
-
-ploty = [];
-plotz = [];
-for i=1:length(L2)
-
-        datay = L2{i}(1,:);   
-        dataz = L2{i}(2,:);
-
-        ploty = [ploty, datay];
-        plotz = [plotz, dataz];
-
-end
-
-figure()
-plot(-1*ploty, plotz, '.');
+[Full3D, Full2Dorigin, Full2D] = processData(F3, [], plotting);
 
 %% Generate a DS for full Cups
 default = 1;    % do you default parameters?

@@ -1,4 +1,4 @@
-function [F3, F2origin, F2] = follower3d(follower, time, varargin)
+function [Data3D, Data2Dorigin, Data2D] = processData(follower, time, varargin)
 if nargin > 2
     plotting = varargin{1};
 else
@@ -85,8 +85,8 @@ for i=1:count-1
         dataFx = imresize(Fx_new, targetSize);       
         dataFz = imresize(Fz_new, targetSize);      
 
-        F3{countF} = [dataFx; dataFy; dataFz];
-        F3origin{countF} = [e1; e2; e3];        
+        Data3D{countF} = [dataFx; dataFy; dataFz];
+        Data3Dorigin{countF} = [e1; e2; e3];        
         countF= countF + 1;
     end
 end
@@ -134,7 +134,7 @@ for i=1:count-1
   
         dataFy = imresize(Fy_new, targetSize); 
         dataFz = imresize(Fz_new, targetSize);      
-        F2origin{countF} = [dataFy; dataFz];
+        Data2Dorigin{countF} = [dataFy; dataFz];
 
         % data for F2
         DataFy = c1; 
@@ -149,7 +149,7 @@ for i=1:count-1
   
         dataFy = imresize(Fy_new, targetSize); 
         dataFz = imresize(Fz_new, targetSize);  
-        F2{countF} = [dataFy; dataFz];
+        Data2D{countF} = [dataFy; dataFz];
 
         countF= countF + 1;
     end 
