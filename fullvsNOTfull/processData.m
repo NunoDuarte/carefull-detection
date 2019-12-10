@@ -45,7 +45,6 @@ for i=1:count-1
         b3 = a3 - d3;
         
         % update the matrix DataF with now the new data 
-        % choose c or b
         DataFx = b1; 
         DataFy = b2;
         DataFz = b3;
