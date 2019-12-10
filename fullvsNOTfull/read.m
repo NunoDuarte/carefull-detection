@@ -46,9 +46,6 @@ function [E, F] = read(name)
         E{2} = csvread('data/Bernardo/empty/1_right.csv');
         E{3} = csvread('data/Bernardo/empty/2_right.csv');
         % 
-        % % ------
-        % % -------
-        % 
         % Full
         F{1} = csvread('data/Bernardo/full/0_right.csv');
         F{2} = csvread('data/Bernardo/full/1_right.csv');
