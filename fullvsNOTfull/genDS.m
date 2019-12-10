@@ -202,7 +202,8 @@ set(q.Tail, ...
     'ColorBinding', 'interpolated', ...
     'ColorData', reshape(cmap(1:2,:,:), [], 4).');
 
-colorbar;
+h = colorbar;
+set(h, 'ylim', [0 0.06])
 caxis([xdmin, xdmax]);
 end
 
