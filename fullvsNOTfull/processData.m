@@ -10,7 +10,7 @@ Datamu = [0, 0, 0];
 targetSize = [1, 200];
 
 count = 1;
-total = 1;
+total = 0;
 for i=1:length(data)
     if ~isempty(data{i})
         Datamu = [Datamu(1) + norm(data{i}(1,end)), Datamu(2) + norm(data{i}(2,end)), Datamu(3) + norm(data{i}(3,end))];
