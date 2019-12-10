@@ -55,6 +55,28 @@ function [E, F] = read(name)
         F{3} = csvread('data/Bernardo/full/2_right.csv');
         F{4} = csvread('data/Bernardo/full/3_right.csv');
         F{5} = csvread('data/Bernardo/full/4_right.csv');
+    elseif strcmp(name,'All')
+        E{1} = csvread('data/Salman/empty/0_right.csv');
+        E{2} = csvread('data/Salman/empty/1_right.csv');
+        E{3} = csvread('data/Salman/empty/3_right.csv');
+        E{4} = csvread('data/Leo/empty/0_right.csv');
+        E{5} = csvread('data/Leo/empty/1_right.csv');
+        E{6} = csvread('data/Leo/empty/2_right.csv');
+        E{7} = csvread('data/Leo/empty/0_right.csv');
+        E{8} = csvread('data/Leo/empty/1_right.csv');
+        E{9} = csvread('data/Leo/empty/2_right.csv');
+        %
+        % Full
+        F{1} = csvread('data/Leo/full/1_right.csv');
+        F{2} = csvread('data/Leo/full/2_right.csv');
+        F{3} = csvread('data/Leo/full/3_right.csv');
+        F{4} = csvread('data/Leo/full/1_right.csv');
+        F{5} = csvread('data/Leo/full/2_right.csv');
+        F{6} = csvread('data/Leo/full/3_right.csv');% 
+        F{7} = csvread('data/Salman/full/0_right.csv');
+        F{8} = csvread('data/Salman/full/1_right.csv');
+        F{9} = csvread('data/Salman/full/2_right.csv');
+        F{10} = csvread('data/Salman/full/3_right.csv');    
     else
         error('Name not Recognized!');
     end

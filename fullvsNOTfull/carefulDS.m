@@ -11,7 +11,7 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Salman');
+[E, F] = read('All');
 
 %% Plot the data - EMPTY
 
@@ -38,7 +38,7 @@ plot3(plotx, ploty, plotz, '.');
 
 %%
 
-for i=1:3
+for i=1:length(E)
     E3{i}(1,:) = En{i}(:,1)';
     E3{i}(2,:) = En{i}(:,2)';
     E3{i}(3,:) = En{i}(:,3)'; 
