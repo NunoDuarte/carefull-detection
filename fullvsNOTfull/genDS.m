@@ -1,8 +1,8 @@
-function genDS(F, default, options, K, sim)
+%function genDS(F, default, options, K, sim)
 
 if default
     %% User Parameters and Setting
-    sim = 1; % simulate
+    sim = 0; % simulate
     % Training parameters
     K = 3; % Number of Gaussian functions
 
@@ -170,7 +170,33 @@ x=[x_tmp(:) y_tmp(:) z_tmp(:)]';
 xd = GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d); %compute outputs
 x=[x_tmp(:) y_tmp(:) z_tmp(:)];
 % streamlines
-quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
+q = quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
 
-end
+%% Color Map
+%// Compute the magnitude of the vectors
+mags = sqrt(sum(cat(2, q.UData(:), q.VData(:), ...
+            reshape(q.WData, numel(q.UData), [])).^2, 2));
+
+%// Get the current colormap
+currentColormap = colormap(jet);
+
+%// Now determine the color to make each arrow using a colormap
+[~, ~, ind] = histcounts(mags, size(currentColormap, 1));
+
+%// Now map this to a colormap to get RGB
+cmap = uint8(ind2rgb(ind(:), currentColormap) * 255);
+cmap(:,:,4) = 255;
+cmap = permute(repmat(cmap, [1 3 1]), [2 1 3]);
+
+%// We repeat each color 3 times (using 1:3 below) because each arrow has 3 vertices
+set(q.Head, ...
+    'ColorBinding', 'interpolated', ...
+    'ColorData', reshape(cmap(1:3,:,:), [], 4).');   %'
+
+%// We repeat each color 2 times (using 1:2 below) because each tail has 2 vertices
+set(q.Tail, ...
+    'ColorBinding', 'interpolated', ...
+    'ColorData', reshape(cmap(1:2,:,:), [], 4).');
+
+%end
 
