@@ -1,4 +1,4 @@
-%function genDS(F, default, options, K, sim)
+function genDS(F, default, options, K, sim)
 
 if default
     %% User Parameters and Setting
@@ -172,6 +172,10 @@ x=[x_tmp(:) y_tmp(:) z_tmp(:)];
 % streamlines
 q = quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
 
+% Get the magnitude of the Velocity
+xdnorm = vecnorm(xd);
+xdmax = max(xdnorm);
+xdmin = min(xdnorm);
 %% Color Map
 %// Compute the magnitude of the vectors
 mags = sqrt(sum(cat(2, q.UData(:), q.VData(:), ...
@@ -198,5 +202,7 @@ set(q.Tail, ...
     'ColorBinding', 'interpolated', ...
     'ColorData', reshape(cmap(1:2,:,:), [], 4).');
 
-%end
+colorbar;
+caxis([xdmin, xdmax]);
+end
 
