@@ -39,18 +39,18 @@ end
 [Priors_0, Mu_0, Sigma_0] = initialize_SEDS(Data,K); %finding an initial guess for GMM's parameter
 [Priors Mu Sigma]=SEDS_Solver(Priors_0,Mu_0,Sigma_0,Data,options); %running SEDS optimization solver
 
-% %% Save to files
-% 
-% if type == 'F'
-%     save('PriorsF.mat', 'Priors')
-%     save('MuF.mat', 'Mu')
-%     save('SigmaF.mat', 'Sigma')
-%     
-% elseif type == 'E'
-%     save('PriorsE.mat', 'Priors')
-%     save('MuE.mat', 'Mu')
-%     save('SigmaE.mat', 'Sigma')
-% end
+%% Save to files
+
+if type == 'F'
+    save('PriorsF.mat', 'Priors')
+    save('MuF.mat', 'Mu')
+    save('SigmaF.mat', 'Sigma')
+    
+elseif type == 'E'
+    save('PriorsE.mat', 'Priors')
+    save('MuE.mat', 'Mu')
+    save('SigmaE.mat', 'Sigma')
+end
     
 %% Draw GMRs for all dimensions (x/y, .x/x, .y/y)
 nbVar = size(Data,1);
