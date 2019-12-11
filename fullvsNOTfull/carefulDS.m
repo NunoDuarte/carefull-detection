@@ -49,7 +49,19 @@ plotting = 1;    % do you want to plot the 3D versions?
 
 %% Generate a DS for Empty Cups
 default = 1;    % do you default parameters?
-genDS(Emp3D, default)
+
+% for i=1:length(Emp3D)
+%     Norm1 = [];
+%     for j=1:length(Emp3D{i})
+%     
+%         norm1 = Emp3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Emp3Dnorm{i} = Norm1';
+%     end
+% end
+
+%% 
+genDS(Emp3D, default, [], [], 'E')
 
 %% Plot the data - FULL
 
@@ -84,8 +96,19 @@ end
 plotting = 0;    % do you want to plot the 3D versions?
 [Full3D, Full2Dorigin, Full2D] = processData(F3, plotting);
 
-%% Generate a DS for full Cups
+%% Generate a DS for Empty Cups
 default = 1;    % do you default parameters?
-genDS(Full3D, default)
+
+% for i=1:length(Full3D)
+%     Norm1 = [];
+%     for j=1:length(Full3D{i})
+%     
+%         norm1 = Full3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Full3Dnorm{i} = Norm1';
+%     end
+% end
+
+genDS(Full3D, default, [], [], 'E')
 
 

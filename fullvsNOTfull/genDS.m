@@ -1,4 +1,4 @@
-function genDS(F, default, options, K, sim)
+function genDS(F, default, options, K, sim, type)
 
 if default
     %% User Parameters and Setting
@@ -33,35 +33,26 @@ end
   
 %% Run SEDS solver
 
-[tmp , tmp, Data, index] = preprocess_demos(F, 0.1, 0.0001); %preprocessing datas
-
-%% This is to take into account the behaviour of the arm in altitude scale
-% Data=[];
-% dt = 0.1;
-% d = size(F2{1},1); %dimensionality of demosntrations
-% for i=1:length(F2)
-%     clear tmp tmp_d
-%     
-%     % de-noising data (not necessary)
-%     for j=1:d
-%         tmp(j,:) = smooth(F2{i}(j,:),25); 
-%     end
-%     
-%     % computing the first time derivative
-%     if length(dt)==1
-%         tmp_d = diff(tmp,1,2)/dt;
-%     else
-%         tmp_d = diff(tmp,1,2)./repmat(diff(dt{i}),d,1);
-%     end
-% 
-%     Data = [Data [tmp;tmp_d zeros(d,1)]];
-% end
+[tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
 
 %% 
 [Priors_0, Mu_0, Sigma_0] = initialize_SEDS(Data,K); %finding an initial guess for GMM's parameter
 [Priors Mu Sigma]=SEDS_Solver(Priors_0,Mu_0,Sigma_0,Data,options); %running SEDS optimization solver
 
-% Draw GMRs for all dimensions (x/y, .x/x, .y/y)
+% %% Save to files
+% 
+% if type == 'F'
+%     save('PriorsF.mat', 'Priors')
+%     save('MuF.mat', 'Mu')
+%     save('SigmaF.mat', 'Sigma')
+%     
+% elseif type == 'E'
+%     save('PriorsE.mat', 'Priors')
+%     save('MuE.mat', 'Mu')
+%     save('SigmaE.mat', 'Sigma')
+% end
+    
+%% Draw GMRs for all dimensions (x/y, .x/x, .y/y)
 nbVar = size(Data,1);
 expData(1,:) = linspace(min(Data(1,:)), max(Data(1,:)), 100);
 [expData(2:nbVar,:), expSigma] = GMR(Priors, Mu, Sigma,  expData(1,:), [1], [2:nbVar]);
@@ -203,7 +194,8 @@ set(q.Tail, ...
     'ColorData', reshape(cmap(1:2,:,:), [], 4).');
 
 h = colorbar;
-set(h, 'ylim', [0 0.06])
+set(h, 'ylim', [0 0.22])
 caxis([xdmin, xdmax]);
+
 end
 
