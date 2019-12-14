@@ -44,7 +44,8 @@ default = 1;    % do you default parameters?
 % end
 
 %% 
-genDS(Emp3D, default, [], [], [], 'E')
+
+genDS(Emp3D, default, [], [], [], 'E', '2D')
 
 %% Remove Non Zeros
 
@@ -74,6 +75,6 @@ default = 1;    % do you default parameters?
 %     end
 % end
 
-genDS(Full3D, default, [], [], [], 'F')
+genDS(Full3D, default, [], [], [], 'F', '2D')
 
 

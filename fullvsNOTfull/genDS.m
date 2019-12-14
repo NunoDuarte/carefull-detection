@@ -1,4 +1,4 @@
-function genDS(F, default, options, K, sim, type)
+function genDS(F, default, options, K, sim, type, dim)
 
 if default
     %% User Parameters and Setting
@@ -128,73 +128,126 @@ if sim
     % D = plot_results(x,xd,Data,xT,Mu,Sigma);
 end
 
-%% Streamlines 3D
-figure('name','Streamlines','position',[800   90   560   320])
+%% Streamlines
+if dim == '3D'
+    % 3D
+    figure('name','Streamlines','position',[800   90   560   320])
 
-quality='low';
-% plot real data
-plot3(Data(1,:), Data(2,:), Data(3,:), 'r.')
+    quality='low';
+    % plot real data
+    plot3(Data(1,:), Data(2,:), Data(3,:), 'r.')
 
-if strcmpi(quality,'high')
-    nx=600;
-    ny=600;
-elseif strcmpi(quality,'medium')
-    nx=400;
-    ny=400;
-else
-    nx=10;
-    ny=10;
-    nz = ny;
+    if strcmpi(quality,'high')
+        nx=600;
+        ny=600;
+    elseif strcmpi(quality,'medium')
+        nx=400;
+        ny=400;
+    else
+        nx=10;
+        ny=10;
+        nz = ny;
+    end
+
+    hold on
+
+    ax.XLim = xlim;
+    ax.YLim = ylim;
+    ax.ZLim = zlim;
+    ax_x=linspace(ax.XLim(1),ax.XLim(2),nx); %computing the mesh points along each axis
+    ax_y=linspace(ax.YLim(1),ax.YLim(2),ny); %computing the mesh points along each axis
+    ax_z=linspace(ax.ZLim(1),ax.ZLim(2),nz); %computing the mesh points along each axis
+    [x_tmp, y_tmp, z_tmp]=meshgrid(ax_x,ax_y, ax_z); %meshing the input domain
+    x=[x_tmp(:) y_tmp(:) z_tmp(:)]';
+
+    xd = GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d); %compute outputs
+    x=[x_tmp(:) y_tmp(:) z_tmp(:)];
+    % streamlines
+    q = quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
+
+    % Get the magnitude of the Velocity
+    xdnorm = vecnorm(xd);
+    xdmax = max(xdnorm);
+    xdmin = min(xdnorm);
+    
+    %% Color Map
+    %// Compute the magnitude of the vectors
+    mags = sqrt(sum(cat(2, q.UData(:), q.VData(:), ...
+                reshape(q.WData, numel(q.UData), [])).^2, 2));
+
+    %// Get the current colormap
+    currentColormap = colormap(jet);
+
+    %// Now determine the color to make each arrow using a colormap
+    [~, ~, ind] = histcounts(mags, size(currentColormap, 1));
+
+    %// Now map this to a colormap to get RGB
+    cmap = uint8(ind2rgb(ind(:), currentColormap) * 255);
+    cmap(:,:,4) = 255;
+    cmap = permute(repmat(cmap, [1 3 1]), [2 1 3]);
+
+    %// We repeat each color 3 times (using 1:3 below) because each arrow has 3 vertices
+    set(q.Head, ...
+        'ColorBinding', 'interpolated', ...
+        'ColorData', reshape(cmap(1:3,:,:), [], 4).');   %'
+
+    %// We repeat each color 2 times (using 1:2 below) because each tail has 2 vertices
+    set(q.Tail, ...
+        'ColorBinding', 'interpolated', ...
+        'ColorData', reshape(cmap(1:2,:,:), [], 4).');
+
+    h = colorbar;
+    set(h, 'ylim', [0 0.35])
+    caxis([0, 0.35]);
+    
+elseif dim == '2D'
+    %%
+    % plotting the result
+    figure('name','Results from Simulation','position',[265   200   520   720])
+    sp(1)=subplot(3,1,1);
+    hold on; box on
+    plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+    plot(Data(1,:),Data(2,:),'r.')
+    xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
+    ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
+    title('Simulation Results')
+
+    sp(2)=subplot(3,1,2);
+    hold on; box on
+    plotGMM(Mu([1 3],:), Sigma([1 3],[1 3],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+    plot(Data(1,:),Data(3,:),'r.')
+    xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_1 (mm/s)$','interpreter','latex','fontsize',15);
+
+    sp(3)=subplot(3,1,3);
+    hold on; box on
+    plotGMM(Mu([2 4],:), Sigma([2 4],[2 4],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+    plot(Data(2,:),Data(4,:),'r.')
+    xlabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_2 (mm/s)$','interpreter','latex','fontsize',15);
+
+    for i=1:3
+        axis(sp(i),'tight')
+        ax=get(sp(i));
+        axis(sp(i),...
+            [ax.XLim(1)-(ax.XLim(2)-ax.XLim(1))/10 ax.XLim(2)+(ax.XLim(2)-ax.XLim(1))/10 ...
+            ax.YLim(1)-(ax.YLim(2)-ax.YLim(1))/10 ax.YLim(2)+(ax.YLim(2)-ax.YLim(1))/10]);
+        plot(sp(i),0,0,'k*','markersize',15,'linewidth',3)
+        if i==1
+            D = axis(sp(i));
+        end
+    end
+
+    % plotting streamlines
+    figure('name','Streamlines','position',[800   90   560   320])
+    plotStreamLines(Priors,Mu([1 2 4 5],:),Sigma([1 2 4 5],[1 2 4 5],:),D)
+    hold on
+    plot(Data(1,:),Data(2,:),'r.')
+    plot(0,0,'k*','markersize',15,'linewidth',3)
+    xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
+    ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
+    title('Streamlines of the model')
+    set(gca,'position',[0.1300    0.1444    0.7750    0.7619])
 end
-
-hold on
-
-ax.XLim = xlim;
-ax.YLim = ylim;
-ax.ZLim = zlim;
-ax_x=linspace(ax.XLim(1),ax.XLim(2),nx); %computing the mesh points along each axis
-ax_y=linspace(ax.YLim(1),ax.YLim(2),ny); %computing the mesh points along each axis
-ax_z=linspace(ax.ZLim(1),ax.ZLim(2),nz); %computing the mesh points along each axis
-[x_tmp, y_tmp, z_tmp]=meshgrid(ax_x,ax_y, ax_z); %meshing the input domain
-x=[x_tmp(:) y_tmp(:) z_tmp(:)]';
-
-xd = GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d); %compute outputs
-x=[x_tmp(:) y_tmp(:) z_tmp(:)];
-% streamlines
-q = quiver3(x(:,1),x(:,2),x(:,3),xd(1,:)',xd(2,:)',xd(3,:)',3,'color','blue');
-
-% Get the magnitude of the Velocity
-xdnorm = vecnorm(xd);
-xdmax = max(xdnorm);
-xdmin = min(xdnorm);
-%% Color Map
-%// Compute the magnitude of the vectors
-mags = sqrt(sum(cat(2, q.UData(:), q.VData(:), ...
-            reshape(q.WData, numel(q.UData), [])).^2, 2));
-
-%// Get the current colormap
-currentColormap = colormap(jet);
-
-%// Now determine the color to make each arrow using a colormap
-[~, ~, ind] = histcounts(mags, size(currentColormap, 1));
-
-%// Now map this to a colormap to get RGB
-cmap = uint8(ind2rgb(ind(:), currentColormap) * 255);
-cmap(:,:,4) = 255;
-cmap = permute(repmat(cmap, [1 3 1]), [2 1 3]);
-
-%// We repeat each color 3 times (using 1:3 below) because each arrow has 3 vertices
-set(q.Head, ...
-    'ColorBinding', 'interpolated', ...
-    'ColorData', reshape(cmap(1:3,:,:), [], 4).');   %'
-
-%// We repeat each color 2 times (using 1:2 below) because each tail has 2 vertices
-set(q.Tail, ...
-    'ColorBinding', 'interpolated', ...
-    'ColorData', reshape(cmap(1:2,:,:), [], 4).');
-
-h = colorbar;
-set(h, 'ylim', [0 0.35])
-caxis([0, 0.35]);
 
 end
