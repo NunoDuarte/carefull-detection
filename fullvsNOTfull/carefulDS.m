@@ -11,7 +11,7 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All');
+[E, F] = read('Bernardo');
 
 %% Remove Non-Zeros - Empty
 
@@ -27,8 +27,7 @@ for i=1:length(E)
 end
 
 %%
-
-plotting = 1;    % do you want to plot the 3D versions?
+plotting = 0;    % do you want to plot the 3D versions?
 [Emp3D, Emp2Do, Emp2D] = processData(E3, plotting);
 
 %% Generate a DS for Empty Cups
