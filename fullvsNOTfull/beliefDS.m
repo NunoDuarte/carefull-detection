@@ -1,5 +1,5 @@
 %% Load Path
-clear all
+clear
 clc
 
 addpath('../SEDS')
@@ -13,7 +13,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{3}; 
+testX = F{11};
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -56,11 +56,11 @@ Priors{2} = PriorsF;
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
-dt = 0.1;
+dt = 0.02;
 testX_d = diff(testXn,1,2)/dt;
 
 %% Run each DS to get the desired velocity?
-opt_sim.dt = 0.01;
+opt_sim.dt = 0.02;
 opt_sim.i_max = 1;
 opt_sim.tol = 0.001;
 opt_sim.plot = 0;
@@ -71,7 +71,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 200; % adaptation rate
+epsilon = 5; % adaptation rate
 
 d = length(PriorsE); %dimension of data
 xT = [0; 0; 0];
@@ -92,13 +92,14 @@ for j = 1:length(testXn)-1
         Xd = [Xd; xd(:,1)'];
         
         b_d(i) = epsilon * (ed'*xd(:,1) + (b(i) - 0.5)*norm(xd(:,1), 2)); 
-        
-        B_d = winnertakeall(b, b_d);
-        
+    end
+    
+    B_d = winnertakeall(b, b_d);
+    
+    for i = 1:2
         b(i) = b(i) + B_d(i)*0.1;
         b(i) = max(0., min(1., b(i)));
         B = [B; b];
-
     end
     b(2) = 1. - b(1);
 end
