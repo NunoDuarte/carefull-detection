@@ -238,8 +238,31 @@ elseif dim == '2D'
         end
     end
 
-    % plotting streamlines
     figure('name','Streamlines','position',[800   90   560   320])
+    % Plot colormap
+    limits = [-2.5 0.5 -0.2 0.1];    
+    axlim = limits;
+    nx = 800; ny = 800;
+    ax_x=linspace(axlim(1),axlim(2),nx); %computing the mesh points along each axis
+    ax_y=linspace(axlim(3),axlim(4),ny); %computing the mesh points along each axis
+    [x_tmp, y_tmp]=meshgrid(ax_x,ax_y); %meshing the input domain
+    x=[x_tmp(:), y_tmp(:)]';
+    
+    d = 2; % 2D
+    xd = GMR(Priors,Mu([1 2 4 5],:),Sigma([1 2 4 5],[1 2 4 5],:),x,1:d,d+1:2*d); 
+    
+    % Get the magnitude of the Velocity
+    xdnorm = vecnorm(xd);
+    z_tmp = xdnorm;
+    h = pcolor(x_tmp,y_tmp,reshape(xdnorm,nx,ny));
+    
+    set(h,'linestyle','none');
+    load whiteCopperColorMap;
+    colormap(cm);
+    colorbar;
+    caxis([min(z_tmp), max(z_tmp)]);
+    
+    % plotting streamlines
     plotStreamLines(Priors,Mu([1 2 4 5],:),Sigma([1 2 4 5],[1 2 4 5],:),D)
     hold on
     plot(Data(1,:),Data(2,:),'r.')
@@ -248,6 +271,8 @@ elseif dim == '2D'
     ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
     title('Streamlines of the model')
     set(gca,'position',[0.1300    0.1444    0.7750    0.7619])
+    
+
 end
 
 end
