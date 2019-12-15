@@ -197,8 +197,8 @@ if dim == '3D'
         'ColorData', reshape(cmap(1:2,:,:), [], 4).');
 
     h = colorbar;
-    set(h, 'ylim', [0 0.35])
-    caxis([0, 0.35]);
+    set(h, 'ylim', [xdmin xdmax])
+    caxis([xdmin, xdmax]);
     
 elseif dim == '2D'
     %%
@@ -207,7 +207,7 @@ elseif dim == '2D'
     sp(1)=subplot(3,1,1);
     hold on; box on
     plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-    plot(Data(1,:),Data(2,:),'r.')
+    plot(Data(1,:),Data(2,:),'r.') 
     xlabel('$\xi_1 (mm)$','interpreter','latex','fontsize',15);
     ylabel('$\xi_2 (mm)$','interpreter','latex','fontsize',15);
     title('Simulation Results')
@@ -240,7 +240,9 @@ elseif dim == '2D'
 
     figure('name','Streamlines','position',[800   90   560   320])
     % Plot colormap
-    limits = [-2.5 0.5 -0.2 0.1];    
+    ax.XLim = D(1:2);
+    ax.YLim = D(3:4);
+    limits = [ax.XLim(1) ax.XLim(2) ax.YLim(1) ax.YLim(2)];  
     axlim = limits;
     nx = 800; ny = 800;
     ax_x=linspace(axlim(1),axlim(2),nx); %computing the mesh points along each axis

@@ -60,7 +60,7 @@ end
 
 %% 
 plotting = 0;    % do you want to plot the 3D versions?
-[Full3D, Full2Dorigin, Full2D] = processData(F3, plotting);
+[Full3D, Full2Do, Full2D] = processData(F3, plotting);
 
 %% Generate a DS for Empty Cups
 default = 1;    % do you default parameters?
