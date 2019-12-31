@@ -6,7 +6,13 @@ testXn = (t.^2)*0.01;
 
 %% Real Velocity of testX
 dt = 0.01;
-testX_d = 0.1*diff(testXn,1,2)/dt;
+testX_d = 0.5*diff(testXn,1,2)/dt;
+
+% NOTE:
+% A(1) - slower -> testX_d (real velocity of trajectory) = 0.1*diff(...) 
+% A(2) - faster -> testX_d (real velocity of trajectory) = 0.5*diff(...)
+% b( for slower) = [1, 0]
+% b( for faster) = [0, 1]
 
 A = [-1, -2];
 %% Belief DS
