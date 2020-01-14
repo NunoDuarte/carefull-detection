@@ -1,12 +1,38 @@
 % xdot = A*x - slow
 % xdot = 2A*x - fast
 
-t = 20:-1:0;
-testXn = (t.^2)*0.01;
+% t = 20:-1:0;
+% testXn = (t.^2)*0.01;
 
+% %% Real Velocity of testX
+% dt = 0.01;
+% testX_d = 0.1*diff(testXn,1,2)/dt;
+
+%% Belief System for 2 DS
+% pick one trajectory
+clear test3;
+clear testXn;
+clear testXnnorm;
+
+testX = F{1}; 
+
+% remove nonzeros
+testXn(:,1) = nonzeros(testX(:,2));
+testXn(:,2) = nonzeros(testX(:,3));
+testXn(:,3) = nonzeros(testX(:,4));
+test3{1}(1,:) = testXn(:,1)';
+test3{1}(2,:) = testXn(:,2)';
+test3{1}(3,:) = testXn(:,3)'; 
+
+% Center the Data in the Origin
+testXn = test3{1};
+for n = 1:length(testXn)   
+    testXnnorm(n) = norm(testXn(:,n));    
+end
+testXnnorm = testXnnorm - testXnnorm(:,end);
 %% Real Velocity of testX
-dt = 0.01;
-testX_d = 0.5*diff(testXn,1,2)/dt;
+dt = 0.02;
+testX_d = diff(testXnnorm,1,2)/dt;
 
 % NOTE:
 % A(1) - slower -> testX_d (real velocity of trajectory) = 0.1*diff(...) 
@@ -14,7 +40,7 @@ testX_d = 0.5*diff(testXn,1,2)/dt;
 % b( for slower) = [1, 0]
 % b( for faster) = [0, 1]
 
-A = [-1, -2];
+A = [-0.0007, -0.0005];
 %% Belief DS
 
 b1 = 0.5;
@@ -23,7 +49,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 0.1; % adaptation rate
+epsilon = 100; % adaptation rate
 
 Xd = [];
 B = [];
