@@ -1,6 +1,10 @@
 % xdot = A*x - slow
 % xdot = 2A*x - fast
+clc
+clear;
 
+% Which Person to choose (Salman, Leo, Bernardo)
+[E, F] = read('Leo');
 % t = 20:-1:0;
 % testXn = (t.^2)*0.01;
 
@@ -14,7 +18,7 @@ clear test3;
 clear testXn;
 clear testXnnorm;
 
-testX = F{1}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -29,7 +33,7 @@ testXn = test3{1};
 for n = 1:length(testXn)   
     testXnnorm(n) = norm(testXn(:,n));    
 end
-testXnnorm = testXnnorm - testXnnorm(:,end);
+
 %% Real Velocity of testX
 dt = 0.02;
 testX_d = diff(testXnnorm,1,2)/dt;
@@ -40,7 +44,7 @@ testX_d = diff(testXnnorm,1,2)/dt;
 % b( for slower) = [1, 0]
 % b( for faster) = [0, 1]
 
-A = [-0.0007, -0.0005];
+A = [-0.134, -0.0445];
 %% Belief DS
 
 b1 = 0.5;
@@ -49,21 +53,21 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 100; % adaptation rate
+epsilon = 10; % adaptation rate
 
 Xd = [];
 B = [];
 B = [B; b];
-for j = 1:length(testXn) - 1
+for j = 1:length(testXnnorm) - 1
     Xd_i = [];
     for i = 1:2
         
-        x0 = abs(testXn(:,j));
+        x0 = testXnnorm(:,j);
         
         xd = A(i)*x0; %running the simulator
 
         % error (real velocity - desired velocity)
-        ed = testX_d(:,j) - xd(:,1);
+        ed = norm(norm(testX_d(:,j)) - norm(xd(:,1)));
         
         Xd_i = [Xd_i, xd(:,1)'];
         
