@@ -48,16 +48,18 @@ function [E, F] = read(name)
         % Empty
         E{1} = csvread('data/Bernardo/empty/0_right.csv');
         E{2} = csvread('data/Bernardo/empty/1_right.csv');
+        E{2}(750:end,:) = 0;
         E{3} = csvread('data/Bernardo/empty/2_right.csv');
-        % 
+        %
         % Full
         F{1} = csvread('data/Bernardo/full/0_right.csv');
+        F{1}(1000:end,:) = 0;
         F{2} = csvread('data/Bernardo/full/1_right.csv');
         F{3} = csvread('data/Bernardo/full/2_right.csv');
         F{4} = csvread('data/Bernardo/full/3_right.csv');
         F{5} = csvread('data/Bernardo/full/4_right.csv');        
-        F{5}(2100:end,:) = 0;
-        
+        F{5}(1500:end,:) = 0;
+
     elseif strcmp(name,'All')
 
         E{1} = csvread('data/Leo/empty/0_right.csv');
