@@ -8,7 +8,7 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All');
+[E, F] = read('Bernardo');
 
 %% Belief System for 2 DS
 
@@ -26,6 +26,12 @@ test3{1}(3,:) = testXn(:,3)';
 % plotting = 0;    % do you want to plot the 3D versions?
 % [test3D, test2Dorigin, test2D] = processData(test3, plotting);
 
+% do the norm of all dimensions
+testXn = test3{1};
+for n = 1:length(testXn)   
+    testXnnorm(n) = norm(testXn(:,n));    
+end
+
 %% Center the Data in the Origin
 
 testXn = test3{1};
@@ -33,18 +39,18 @@ testXn = testXn - testXn(:,end);
 
 %% Load DS parameters
 
-MuE = load('MuEn.mat');
+MuE = load('MuE.mat');
 MuE = MuE.Mu;
-PriorsE = load('PriorsEn.mat');
+PriorsE = load('PriorsE.mat');
 PriorsE = PriorsE.Priors;
-SigmaE = load('SigmaEn.mat');
+SigmaE = load('SigmaE.mat');
 SigmaE = SigmaE.Sigma;
 
-MuF = load('MuFn.mat');
+MuF = load('MuF.mat');
 MuF = MuF.Mu;
-PriorsF = load('PriorsFn.mat');
+PriorsF = load('PriorsF.mat');
 PriorsF = PriorsF.Priors;
-SigmaF = load('SigmaFn.mat');
+SigmaF = load('SigmaF.mat');
 SigmaF = SigmaF.Sigma;
 
 Mu{1} = MuE;
@@ -57,7 +63,7 @@ Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
 dt = 0.02;
-testX_d = diff(testXn,1,2)/dt;
+testX_d = diff(testXnnorm,1,2)/dt;
 
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
@@ -71,13 +77,14 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 10; % adaptation rate
+epsilon = 50; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
 Xd = [];
 
 B = [];
+B = [B; b];
 Er = [];
 for j = 1:length(testXn)-1   
     ee = [0 0];
@@ -89,7 +96,7 @@ for j = 1:length(testXn)-1
         [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
 
         % error (real velocity - desired velocity)
-        ed = norm(testX_d(:,j)) - xd(:,1);
+        ed = testX_d(:,j) - xd(:,1);
         ee(i) = ed;
         
         Xd = [Xd; xd(:,1)'];
@@ -108,9 +115,17 @@ for j = 1:length(testXn)-1
     for i = 1:2
         b(i) = b(i) + B_d(i)*0.1;
         b(i) = max(0., min(1., b(i)));
-        B = [B; b];
     end
     b(2) = 1. - b(1);
+    
+% Constraints on the belief system
+%     if abs(b(1) - b(2)) < 0.001
+%        if b(1) > b(2)
+%            b(1) = 0.5; 
+%            b(2) = 0.5;
+%        end
+%     end
+    B = [B; b];    
 end
 
 
