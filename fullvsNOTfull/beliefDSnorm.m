@@ -8,12 +8,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Bernardo');
+[E, F] = read('Leo');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{2}; 
+testX = E{3}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -23,20 +23,22 @@ test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
+% figure()
+% plot3(testXn(:,1), testXn(:,2), testXn(:,3), '.');
 % plotting = 0;    % do you want to plot the 3D versions?
 % [test3D, test2Dorigin, test2D] = processData(test3, plotting);
-
-% do the norm of all dimensions
-testXn = test3{1};
-for n = 1:length(testXn)   
-    testXnnorm(n) = norm(testXn(:,n));    
-end
 
 %% Center the Data in the Origin
 
 testXn = test3{1};
 testXn = testXn - testXn(:,end);
+testXn = round(testXn,3);
 
+% do the norm of all dimensions
+for n = 1:length(testXn)   
+    testXnnorm(n) = norm(testXn(:,n));    
+end
+testXnnorm = round(testXnnorm,3);
 %% Load DS parameters
 
 MuE = load('MuE.mat');
@@ -62,8 +64,12 @@ Priors{2} = PriorsF;
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
-dt = 0.02;
-testX_d = diff(testXnnorm,1,2)/dt;
+dt = 0.02; % frequency 
+
+for i=2:length(testXn(1,:))
+   testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
+end
+%testX_d = diff(testXn,1,2);
 
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
@@ -77,7 +83,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 50; % adaptation rate
+epsilon = 200; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
@@ -92,11 +98,14 @@ for j = 1:length(testXn)-1
         
         x0 = norm(testXn(:,j),2);
         
+        % DS output
         fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
         [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
+%         y2 = pdf('Normal',x0,Mu{i},Sigma{i});
+
 
         % error (real velocity - desired velocity)
-        ed = testX_d(:,j) - xd(:,1);
+        ed = -1*norm(testX_d(:,j) - xd(:,1));
         ee(i) = ed;
         
         Xd = [Xd; xd(:,1)'];
