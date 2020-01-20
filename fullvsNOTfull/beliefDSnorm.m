@@ -87,7 +87,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 300; % adaptation rate
+epsilon = 100; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
@@ -102,7 +102,7 @@ for j = 1:length(testXn)-K-1
     ee = [0 0];
     for i = 1:2
         
-        out(:,j) = mean(testXn(1:3,j:j+K),2)*0.6;
+        out(:,j) = mean(testXn(1:3,j:j+K),2);
         outD(j) = mean(testX_d(1,j:j+K),2);
         x0 = norm(out(:,j),2);
         
