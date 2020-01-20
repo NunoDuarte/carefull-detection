@@ -13,7 +13,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{2}; 
+testX = F{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -67,7 +67,11 @@ Sigma{2} = SigmaF;
 dt = 0.02; % frequency 
 
 for i=2:length(testXn(1,:))
-   testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
+%     if i==2
+%         testX_d(1,i-1) = -0.2;
+%     else
+        testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
+%     end
 end
 %testX_d = diff(testXn,1,2);
 
@@ -94,11 +98,11 @@ B = [B; b];
 Er = [];
 
 K = 0; % out many values to average
-for j = 1:length(testXn)-K   
+for j = 1:length(testXn)-K-1   
     ee = [0 0];
     for i = 1:2
         
-        out(:,j) = mean(testXn(1:3,j:j+K),2);
+        out(:,j) = mean(testXn(1:3,j:j+K),2)*0.6;
         outD(j) = mean(testX_d(1,j:j+K),2);
         x0 = norm(out(:,j),2);
         
