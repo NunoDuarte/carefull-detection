@@ -18,7 +18,7 @@ clear test3;
 clear testXn;
 clear testXnnorm;
 
-testX = E{1}; 
+testX = F{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -28,15 +28,24 @@ test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
-% Center the Data in the Origin
+%% Center the Data in the Origin
+
 testXn = test3{1};
+testXn = testXn - testXn(:,end);
+testXn = round(testXn,3);
+
+% do the norm of all dimensions
 for n = 1:length(testXn)   
     testXnnorm(n) = norm(testXn(:,n));    
 end
+testXnnorm = round(testXnnorm,3);
 
 %% Real Velocity of testX
-dt = 0.02;
-testX_d = diff(testXnnorm,1,2)/dt;
+dt = 0.02; % frequency 
+
+for i=2:length(testXn(1,:))
+   testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
+end
 
 % NOTE:
 % A(1) - slower -> testX_d (real velocity of trajectory) = 0.1*diff(...) 
@@ -44,7 +53,7 @@ testX_d = diff(testXnnorm,1,2)/dt;
 % b( for slower) = [1, 0]
 % b( for faster) = [0, 1]
 
-A = [-0.134, -0.0445];
+A = [-0.04, -0.14];
 %% Belief DS
 
 b1 = 0.5;
@@ -53,7 +62,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 10; % adaptation rate
+epsilon = 100; % adaptation rate
 
 Xd = [];
 B = [];
