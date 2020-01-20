@@ -13,7 +13,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{3}; 
+testX = E{2}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -83,7 +83,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 200; % adaptation rate
+epsilon = 300; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
@@ -92,11 +92,15 @@ Xd = [];
 B = [];
 B = [B; b];
 Er = [];
-for j = 1:length(testXn)-1   
+
+K = 0; % out many values to average
+for j = 1:length(testXn)-K   
     ee = [0 0];
     for i = 1:2
         
-        x0 = norm(testXn(:,j),2);
+        out(:,j) = mean(testXn(1:3,j:j+K),2);
+        outD(j) = mean(testX_d(1,j:j+K),2);
+        x0 = norm(out(:,j),2);
         
         % DS output
         fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
@@ -105,7 +109,7 @@ for j = 1:length(testXn)-1
 
 
         % error (real velocity - desired velocity)
-        ed = -1*norm(testX_d(:,j) - xd(:,1));
+        ed = outD(j) - xd(:,1);
         ee(i) = ed;
         
         Xd = [Xd; xd(:,1)'];
