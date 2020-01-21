@@ -8,12 +8,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All');
+[E, F] = read('Leo');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{11};
+testX = F{1};
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -30,7 +30,7 @@ test3{1}(3,:) = testXn(:,3)';
 
 testXn = test3{1};
 testXn = testXn - testXn(:,end);
-
+testXn = round(testXn,3);
 %% Load DS parameters
 
 MuE = load('MuE.mat');
@@ -56,9 +56,17 @@ Priors{2} = PriorsF;
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
-dt = 0.02;
-testX_d = diff(testXn,1,2)/dt;
+dt = 0.008; % frequency 
 
+for i=2:length(testXn(1,:))
+   testX_d(1,i-1) = (testXn(1,i) - testXn(1,i-1))/dt;
+   testX_d(2,i-1) = (testXn(2,i) - testXn(2,i-1))/dt;
+   testX_d(3,i-1) = (testXn(3,i) - testXn(3,i-1))/dt;
+end
+%testX_d = diff(testXn,1,2);
+
+figure();
+plot3(testXn(1,:),testXn(2,:),testXn(3,:));
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
 opt_sim.i_max = 1;
