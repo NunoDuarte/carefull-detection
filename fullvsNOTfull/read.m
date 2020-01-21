@@ -27,7 +27,23 @@ function [E, F] = read(name)
         F{2} = csvread('data/Leo/full/2_right.csv');
         F{3} = csvread('data/Leo/full/3_right.csv');
         F{3}(2500:end,:) = 0;
-        
+
+    % reading data of Leo plastic cup
+    elseif strcmp(name,'Leo-plastic')
+        % Empty
+        E{1} = csvread('data/Leo-plastic/empty/0_right.csv');
+        E{1}(650:end,:) = 0;
+        E{2} = csvread('data/Leo-plastic/empty/1_right.csv');
+        E{3} = csvread('data/Leo-plastic/empty/2_right.csv');
+        E{3}(1100:end,:) = 0;
+        %
+        % Full
+        F{1} = csvread('data/Leo-plastic/full/1_right.csv');
+%         F{1}(1300:end,:) = 0;
+        F{2} = csvread('data/Leo-plastic/full/2_right.csv');
+%         F{3} = csvread('data/Leo-plastic/full/3_right.csv');
+%         F{3}(2500:end,:) = 0;
+         
     % reading data of Bernardo
     elseif strcmp(name,'Bernardo')
         % Empty
