@@ -46,16 +46,22 @@ function [E, F] = read(name, object)
             F{3} = csvread(['data/' name '/' object '/full/3_right.csv']);
         elseif strcmp(object,'wine-glass')
             E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{1}(60:end,:) = 0;
             E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{2}(100:end,:) = 0;
             E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            E{3}(120:end,:) = 0;
             E{4} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            E{4}(80:end,:) = 0;
             E{5} = csvread(['data/' name '/' object '/empty/4_right.csv']);
+            E{5}(150:end,:) = 0;
             %
             F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
-            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
-            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
-            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
-            F{5} = csvread(['data/' name '/' object '/full/4_right.csv']);
+            F{1}(110:end,:) = 0;
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);          
+            F{2} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            F{3} = csvread(['data/' name '/' object '/full/4_right.csv']);
+            F{3}(120:end,:) = 0;
         end     
         
     % reading data of Leo
