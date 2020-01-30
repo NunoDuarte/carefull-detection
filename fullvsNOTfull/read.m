@@ -1,4 +1,4 @@
-function [E, F] = read(name)
+function [E, F] = read(name, object)
     % reading data of Salman
     if strcmp(name,'Salman')
         % Empty
@@ -14,19 +14,21 @@ function [E, F] = read(name)
         
     % reading data of Leo
     elseif strcmp(name,'Leo')
-        % % Empty
-        E{1} = csvread('data/Leo/empty/0_right.csv');
-        E{1}(1100:end,:) = 0;
-        E{2} = csvread('data/Leo/empty/1_right.csv');
-        E{2}(1300:end,:) = 0;
-        E{3} = csvread('data/Leo/empty/2_right.csv');
-        %
-        % Full
-        F{1} = csvread('data/Leo/full/1_right.csv');
-        F{1}(1300:end,:) = 0;
-        F{2} = csvread('data/Leo/full/2_right.csv');
-        F{3} = csvread('data/Leo/full/3_right.csv');
-        F{3}(2500:end,:) = 0;
+        if strcmp(object, 'red-cup')
+            % % Empty
+            E{1} = csvread('data/Leo/red-cup/empty/0_right.csv');
+            E{1}(1100:end,:) = 0;
+            E{2} = csvread('data/Leo/red-cup/empty/1_right.csv');
+            E{2}(1300:end,:) = 0;
+            E{3} = csvread('data/Leo/red-cup/empty/2_right.csv');
+            %
+            % Full
+            F{1} = csvread('data/Leo/red-cup/full/1_right.csv');
+            F{1}(1300:end,:) = 0;
+            F{2} = csvread('data/Leo/red-cup/full/2_right.csv');
+            F{3} = csvread('data/Leo/red-cup/full/3_right.csv');
+            F{3}(2500:end,:) = 0;
+        end
 
     % reading data of Leo plastic cup
     elseif strcmp(name,'Leo-plastic')
