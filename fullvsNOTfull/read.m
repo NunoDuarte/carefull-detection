@@ -1,16 +1,18 @@
 function [E, F] = read(name, object)
     % reading data of Salman
     if strcmp(name,'Salman')
-        % Empty
-        E{1} = csvread('data/Salman/empty/0_right.csv');
-        E{2} = csvread('data/Salman/empty/1_right.csv');
-        E{3} = csvread('data/Salman/empty/3_right.csv');
-        % 
-        % Full
-        F{1} = csvread('data/Salman/full/0_right.csv');
-        F{2} = csvread('data/Salman/full/1_right.csv');
-        F{3} = csvread('data/Salman/full/2_right.csv');
-        F{4} = csvread('data/Salman/full/3_right.csv');
+        if strcmp(object,'red-mug')
+            % Empty
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{3} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            % 
+            % Full
+            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
+        end
 
     % reading data of Kunpeng
     elseif strcmp(name,'Kunpeng')
@@ -128,20 +130,22 @@ function [E, F] = read(name, object)
          
     % reading data of Bernardo
     elseif strcmp(name,'Bernardo')
-        % Empty
-        E{1} = csvread('data/Bernardo/empty/0_right.csv');
-        E{2} = csvread('data/Bernardo/empty/1_right.csv');
-        E{2}(750:end,:) = 0;
-        E{3} = csvread('data/Bernardo/empty/2_right.csv');
-        %
-        % Full
-        F{1} = csvread('data/Bernardo/full/0_right.csv');
-        F{1}(1000:end,:) = 0;
-        F{2} = csvread('data/Bernardo/full/1_right.csv');
-        F{3} = csvread('data/Bernardo/full/2_right.csv');
-        F{4} = csvread('data/Bernardo/full/3_right.csv');
-        F{5} = csvread('data/Bernardo/full/4_right.csv');        
-        F{5}(1500:end,:) = 0;
+        if strcmp(object, 'bowl')
+            % Empty
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{2}(750:end,:) = 0;
+            E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            %
+            % Full
+            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            F{1}(1000:end,:) = 0;
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            F{5} = csvread(['data/' name '/' object '/full/4_right.csv']);        
+            F{5}(1500:end,:) = 0;
+        end
         
     % reading data of Athanasios
     elseif strcmp(name,'Athanasios')
