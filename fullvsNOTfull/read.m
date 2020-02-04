@@ -176,27 +176,26 @@ function [E, F] = read(name, object)
          end
 
     elseif strcmp(name,'All')
-
-        E{1} = csvread('data/Leo/empty/0_right.csv');
-        E{1}(1100:end,:) = 0;
-        E{2} = csvread('data/Leo/empty/1_right.csv');
-        E{2}(1300:end,:) = 0;
-        E{3} = csvread('data/Leo/empty/2_right.csv');
-        E{4} = csvread('data/Bernardo/empty/0_right.csv');
-        E{5} = csvread('data/Bernardo/empty/1_right.csv');
+        name = 'Kunpeng';
+        object = 'plastic-cup';
+        E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+        E{1}(135:end,:) = 0;
+        E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+        E{2}(130:end,:) = 0;
+        E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+        E{3}(150:end,:) = 0;
+        E{4} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+        E{4}(100:end,:) = 0;
+        E{5} = csvread(['data/' name '/' object '/empty/4_right.csv']);
+        E{5}(120:end,:) = 0;
+        object = 'red-cup';
         %
-        % Full
-        F{1} = csvread('data/Leo/full/1_right.csv');
-        F{1}(1300:end,:) = 0;
-        F{2} = csvread('data/Leo/full/2_right.csv');
-        F{3} = csvread('data/Leo/full/3_right.csv');
-        F{3}(2500:end,:) = 0;
-        F{4} = csvread('data/Bernardo/full/0_right.csv');
-        F{5} = csvread('data/Bernardo/full/1_right.csv');
-        F{6} = csvread('data/Bernardo/full/2_right.csv');
-        F{7} = csvread('data/Bernardo/full/3_right.csv');
-        F{8} = csvread('data/Bernardo/full/4_right.csv');
-        F{9} = csvread('data/Bernardo/empty/2_right.csv');
+        F{1} = csvread(['data/' name '/' object '/full/1_right.csv']);
+        F{1}(130:end,:) = 0;
+        F{2} = csvread(['data/' name '/' object '/full/2_right.csv']);
+        F{2}(150:end,:) = 0;
+        F{3} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            
     else
         error('Name not Recognized!');
     end

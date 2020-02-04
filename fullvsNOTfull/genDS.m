@@ -58,75 +58,89 @@ expData(1,:) = linspace(min(Data(1,:)), max(Data(1,:)), 100);
 [expData(2:nbVar,:), expSigma] = GMR(Priors, Mu, Sigma,  expData(1,:), [1], [2:nbVar]);
 
 %%
-% plotting the result
-figure()
-hold on; box on
-[h1, h2] = plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+if nbVar == 2
+    % plotting the result
+    figure()
+    hold on; box on
+    [h1, h2] = plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
 
-[h3  , h4] = plotGMM(expData([1:2],:), expSigma([1],[1],:), [0 0 .8], 2);
-axis([min(Data(1,:))-0.01 max(Data(1,:))+0.01 min(Data(2,:))-0.01 max(Data(2,:))+0.01]);
-h3 = plot(Data(1,:),Data(2,:), 'r.');
-legend([h1 h4 h3], 'Gaussian Mixture Components', 'Mean Regression Signal', 'Recorded Demonstrations');
-xlabel('$\xi_y (m)$','interpreter','latex','fontsize',15);
-ylabel('$\xi_z (m)$','interpreter','latex','fontsize',15);
-% 
-% % -----------//------------
-% 
-% figure()
-% hold on; box on
-% plotGMM(Mu([1 3],:), Sigma([1 3],[1 3],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-% plot(Data(1,:),Data(3,:),'r.')
-%  
-% plotGMM(expData([1 3],:), expSigma([1 3],[1 3],:), [0 0 .8], 2);
-% axis([min(Data(1,:))-0.01 max(Data(1,:))+0.01 min(Data(3,:)) max(Data(3,:))]);
-% xlabel('$\xi_y (m)$','interpreter','latex','fontsize',15);
-% ylabel('$\dot{\xi}_y (m/s)$','interpreter','latex','fontsize',15);
-% 
-% % -----------//------------
-% 
-% figure()
-% hold on; box on
-% plotGMM(Mu([2 4],:), Sigma([2 4],[2 4],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
-% plot(Data(2,:),Data(4,:),'r.')
-% 
-% plotGMM(expData([2 4],:), expSigma([2 3],[2 3],:), [0 0 .8], 2);
-% axis([min(Data(2,:))-0.01 max(Data(2,:))+0.01 min(Data(4,:))-0.01 max(Data(4,:))+0.01]);
-% xlabel('$\xi_z (m)$','interpreter','latex','fontsize',15);
-% ylabel('$\dot{\xi}_z (m/s)$','interpreter','latex','fontsize',15);
-% 
-% %% Simulation
-% % A set of options that will be passed to the Simulator. Please type 
-% % 'doc preprocess_demos' in the MATLAB command window to get detailed
-% % information about each option.
-% opt_sim.dt = 0.05;
-% opt_sim.i_max = 3000;
-% opt_sim.tol = 0.001;
-% 
-% d = size(Data,1)/2; %dimension of data
-% 
-% % x0_all = [];
-% % for a=1:200:length(Data)
-% %     x0_all =[x0_all, Data(1:d,a)]; %finding initial points of all demonstrations
-% % end
-% % % an example
-% % var = 0.1;
-% % testSim(1,:) = linspace(min(var(1,:)), max(var(1,:)), 100);
-% % [testSim(2:nbVar,:), testSimSigma] = GMR(Priors, Mu, Sigma,  testSim(1,:), [1], [2:nbVar]);
-% 
-% if sim
-%     %<comment>
-%     fprintf('\nNow we can run simulator starting from initial points of all demos.\n')
-%     fprintf('Press Enter to start simulator.\n')
-%     %</comment>
-% 
-%     %x0 = [0.43763; 0.09439];
-%     x0 = [0.06; -0.06; 0.1];
-%     % the action of the follower are still not correct since it goes back
-%     % before going forward. It probably has to do with the observed data
-%     fn_handle = @(x) GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d);
-%     [x, xd, tmp, xT]=Simulation(x0,Data(1:d,200),fn_handle,opt_sim); %running the simulator
-%     % D = plot_results(x,xd,Data,xT,Mu,Sigma);
-% end
+    [h3  , h4] = plotGMM(expData([1:2],:), expSigma([1],[1],:), [0 0 .8], 2);
+    axis([min(Data(1,:))-0.01 max(Data(1,:))+0.01 min(Data(2,:))-0.01 max(Data(2,:))+0.01]);
+    h3 = plot(Data(1,:),Data(2,:), 'r.');
+    legend([h1 h4 h3], 'Gaussian Mixture Components', 'Mean Regression Signal', 'Recorded Demonstrations');
+    xlabel('$\xi_x (m)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_x (m)$','interpreter','latex','fontsize',15);
+    
+elseif nbVar > 2
+    % plotting the result
+    figure()
+    hold on; box on
+    [h1, h2] = plotGMM(Mu(1:2,:), Sigma(1:2,1:2,:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+
+    [h3  , h4] = plotGMM(expData([1:2],:), expSigma([1],[1],:), [0 0 .8], 2);
+    axis([min(Data(1,:))-0.01 max(Data(1,:))+0.01 min(Data(2,:))-0.01 max(Data(2,:))+0.01]);
+    h3 = plot(Data(1,:),Data(2,:), 'r.');
+    legend([h1 h4 h3], 'Gaussian Mixture Components', 'Mean Regression Signal', 'Recorded Demonstrations');
+    xlabel('$\xi_y (m)$','interpreter','latex','fontsize',15);
+    ylabel('$\xi_z (m)$','interpreter','latex','fontsize',15);
+    % -----------//------------
+    
+    figure()
+    hold on; box on
+    plotGMM(Mu([1 3],:), Sigma([1 3],[1 3],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+    plot(Data(1,:),Data(3,:),'r.')
+     
+    plotGMM(expData([1 3],:), expSigma([1 3],[1 3],:), [0 0 .8], 2);
+    axis([min(Data(1,:))-0.01 max(Data(1,:))+0.01 min(Data(3,:)) max(Data(3,:))]);
+    xlabel('$\xi_y (m)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_y (m/s)$','interpreter','latex','fontsize',15);
+    
+    % -----------//------------
+    
+    figure()
+    hold on; box on
+    plotGMM(Mu([2 4],:), Sigma([2 4],[2 4],:), [0.6 1.0 0.6], 1,[0.6 1.0 0.6]);
+    plot(Data(2,:),Data(4,:),'r.')
+    
+    plotGMM(expData([2 4],:), expSigma([2 3],[2 3],:), [0 0 .8], 2);
+    axis([min(Data(2,:))-0.01 max(Data(2,:))+0.01 min(Data(4,:))-0.01 max(Data(4,:))+0.01]);
+    xlabel('$\xi_z (m)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_z (m/s)$','interpreter','latex','fontsize',15);
+    
+    %% Simulation
+    % A set of options that will be passed to the Simulator. Please type 
+    % 'doc preprocess_demos' in the MATLAB command window to get detailed
+    % information about each option.
+    opt_sim.dt = 0.05;
+    opt_sim.i_max = 3000;
+    opt_sim.tol = 0.001;
+    
+    d = size(Data,1)/2; %dimension of data
+    
+    % x0_all = [];
+    % for a=1:200:length(Data)
+    %     x0_all =[x0_all, Data(1:d,a)]; %finding initial points of all demonstrations
+    % end
+    % % an example
+    % var = 0.1;
+    % testSim(1,:) = linspace(min(var(1,:)), max(var(1,:)), 100);
+    % [testSim(2:nbVar,:), testSimSigma] = GMR(Priors, Mu, Sigma,  testSim(1,:), [1], [2:nbVar]);
+    
+    if sim
+        %<comment>
+        fprintf('\nNow we can run simulator starting from initial points of all demos.\n')
+        fprintf('Press Enter to start simulator.\n')
+        %</comment>
+    
+        %x0 = [0.43763; 0.09439];
+        x0 = [0.06; -0.06; 0.1];
+        % the action of the follower are still not correct since it goes back
+        % before going forward. It probably has to do with the observed data
+        fn_handle = @(x) GMR(Priors,Mu,Sigma,x,1:d,d+1:2*d);
+        [x, xd, tmp, xT]=Simulation(x0,Data(1:d,200),fn_handle,opt_sim); %running the simulator
+        % D = plot_results(x,xd,Data,xT,Mu,Sigma);
+    end
+end
 % 
 % %% Streamlines
 % if dim == '3D'
@@ -263,7 +277,7 @@ ylabel('$\xi_z (m)$','interpreter','latex','fontsize',15);
 %     colormap(cm);
 %     colorbar;
 %     caxis([min(z_tmp), max(z_tmp)]);
-%     
+% %     
 %     % plotting streamlines
 %     plotStreamLines(Priors,Mu([1 2 4 5],:),Sigma([1 2 4 5],[1 2 4 5],:),D)
 %     hold on
