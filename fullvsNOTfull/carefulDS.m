@@ -11,7 +11,7 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Leo');
+[E, F] = read('Kunpeng', 'plastic-cup');
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -28,7 +28,7 @@ for i=1:length(E)
     plotx = [plotx, E3{i}(1,:)];
     ploty = [ploty, E3{i}(2,:)];
     plotz = [plotz, E3{i}(3,:)];
-    E3{i} = round(E3{i},3);
+    E3{i} = round(E3{i},4);
 end
 figure()
 plot3(ploty, plotx, plotz, '.');
@@ -51,7 +51,7 @@ for i=1:length(Emp3D)
     end
 end
 
-genDS(Emp3Dnorm, default, [], [], [], 'E', '2D')
+genDS(Emp3Dnorm, default, [], [], [], 'E', '2D');
 
 %% Remove Non Zeros
 ploty = [];
@@ -65,7 +65,7 @@ for i=1:length(F)
     F3{i}(2,:) = Fn{i}(:,2)';
     F3{i}(3,:) = Fn{i}(:,3)'; 
     
-    F3{i} = round(F3{i},3);
+    F3{i} = round(F3{i},4);
     
     plotx = [plotx, F3{i}(1,:)];
     ploty = [ploty, F3{i}(2,:)];
@@ -92,6 +92,6 @@ for i=1:length(Full3D)
     end
 end
 
-genDS(Full3Dnorm, default, [], [], [], 'F', '2D')
+genDS(Full3Dnorm, default, [], [], [], 'F', '2D');
 
 

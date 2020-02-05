@@ -4,7 +4,7 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 7; % Number of Gaussian functions
+    K = 5; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
@@ -15,8 +15,8 @@ if default
     options.display = 1;          % An option to control whether the algorithm
                                   % displays the output of each iterations [default: true]
 
-    options.tol_stopping=10^-10;  % A small positive scalar defining the stoppping
-                                  % tolerance for the optimization solver [default: 10^-10]
+    options.tol_stopping= 10^-10;  % A small positive scalar defining the stoppping
+                                   % tolerance for the optimization solver [default: 10^-10]
 
     options.max_iter = 1000;       % Maximum number of iteration for the solver [default: i_max=1000]
 

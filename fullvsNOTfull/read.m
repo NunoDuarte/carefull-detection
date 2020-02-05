@@ -176,25 +176,6 @@ function [E, F] = read(name, object)
          end
 
     elseif strcmp(name,'All')
-        name = 'Kunpeng';
-        object = 'plastic-cup';
-        E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
-        E{1}(135:end,:) = 0;
-        E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
-        E{2}(130:end,:) = 0;
-        E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
-        E{3}(150:end,:) = 0;
-        E{4} = csvread(['data/' name '/' object '/empty/3_right.csv']);
-        E{4}(100:end,:) = 0;
-        E{5} = csvread(['data/' name '/' object '/empty/4_right.csv']);
-        E{5}(120:end,:) = 0;
-        object = 'red-cup';
-        %
-        F{1} = csvread(['data/' name '/' object '/full/1_right.csv']);
-        F{1}(130:end,:) = 0;
-        F{2} = csvread(['data/' name '/' object '/full/2_right.csv']);
-        F{2}(150:end,:) = 0;
-        F{3} = csvread(['data/' name '/' object '/full/3_right.csv']);
             
     else
         error('Name not Recognized!');

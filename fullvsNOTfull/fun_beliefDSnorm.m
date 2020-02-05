@@ -1,4 +1,4 @@
-function [Classification] = fun_beliefDSnorm(Data, Priors, Mu, Sigma)
+function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma)
     %% Belief System for 2 DS
     
     for k = 1:length(Data)
@@ -97,7 +97,7 @@ function [Classification] = fun_beliefDSnorm(Data, Priors, Mu, Sigma)
     end
 
     clc
-    trainClass = sum(trainClass,2);
-    Classification = [trainClass(1)/length(Data); trainClass(2)/length(Data)];
+    sumtrainClass = sum(trainClass,2);
+    Classification = [sumtrainClass(1)/length(Data); sumtrainClass(2)/length(Data)];
     
 end

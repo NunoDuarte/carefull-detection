@@ -13,7 +13,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{1};
+testX = E{1};
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -56,7 +56,7 @@ Priors{2} = PriorsF;
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
-dt = 0.008; % frequency 
+dt = 0.02; % frequency 
 
 for i=2:length(testXn(1,:))
    testX_d(1,i-1) = (testXn(1,i) - testXn(1,i-1))/dt;
