@@ -2,6 +2,7 @@
 % the human motion, and the robot following it.
 
 % clearvars;
+clear all
 close all;
 
 addpath('data')
@@ -121,7 +122,7 @@ legend('robot position', 'human position', 'handover estimate');
 %view(3);
 
 %stop if reached the human
-if(norm(humanPosCurrGlobal(1:3)-robotPosCurrGlobal(1:3)) < 0.01)
+if(norm(humanPosCurrGlobal(1:3)-robotPosCurrGlobal(1:3)) < 0.005)
     break;
 end
 
