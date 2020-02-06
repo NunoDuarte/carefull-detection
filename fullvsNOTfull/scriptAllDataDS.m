@@ -1,15 +1,4 @@
-% for the glitch of the Command Window
-%MATLAB_JAVA = '/usr/lib/jvm/java-8-openjdk/jre matlab -desktop -nosplash';
-% Add this to ~/.bashrc
-% export MATLAB_JAVA=/usr/lib/jvm/java-8-openjdk/jre
-clear
-clc
-
-addpath('../SEDS')
-addpath('data')
-addpath('DS')
-addpath('../../Khansari/SEDS/SEDS_lib')
-addpath('../../Khansari/SEDS/GMR_lib')
+function scriptAllDataDS(K)
 
 %% pick train/test set
 Etrain = [];
@@ -17,7 +6,7 @@ Ftrain = [];
 Etest = [];
 Ftest = [];
 
-P = 0.75;   % percentage train/test
+P = 0.80;   % percentage train/test
 [train, test] = getData(P);
 
 for i = 1:length(train)
@@ -58,7 +47,7 @@ plotting = 0;    % do you want to plot the 3D versions?
 [Emp3D, Emp2Do, Emp2D] = processData(E3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 1;    % do you default parameters?
+default = 0;    % do you default parameters?
 
 for i=1:length(Emp3D)
     Norm1 = [];
@@ -70,7 +59,7 @@ for i=1:length(Emp3D)
     end
 end
 
-genDS(Emp3Dnorm, default, [], [], [], 'E', '2D');
+genDS(Emp3Dnorm, default, [], K, [], 'E', '2D');
 
 %% Remove Non Zeros
 ploty = [];
@@ -99,7 +88,7 @@ plotting = 0;    % do you want to plot the 3D versions?
 [Full3D, Full2Do, Full2D] = processData(F3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 1;    % do you default parameters?
+default = 0;    % do you default parameters?
 
 for i=1:length(Full3D)
     Norm1 = [];
@@ -111,6 +100,43 @@ for i=1:length(Full3D)
     end
 end
 
-genDS(Full3Dnorm, default, [], [], [], 'F', '2D');
+genDS(Full3Dnorm, default, [], K, [], 'F', '2D');
+
+%% save figures
+
+f1 = figure(1);
+filename = ['/output/train/E-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+saveas(f1, [pwd, filename]);
+
+f2 = figure(2);
+filename = ['/output/train/F-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+saveas(f2, [pwd, filename]);
+
+Train = [];
+for i = 1:length(train)
+    Train = [Train; train{i}];
+end
+Train = [Train; {' ', ' '}];
+
+Test = [];
+for i = 1:length(test)
+    Test = [Test; test{i}];
+end
+Test = [Test; {' ', ' '}];
 
 
+%% Classification
+
+scriptAllDataBelief
+
+ConfTrain = {'Confusion Matrix', 'Train'; trainETruePos, trainEFalsePos; trainFFalseNeg, trainFTrueNeg};
+ConfTest = {'Confusion Matrix', 'Test'; testETruePos, testEFalsePos; testFFalseNeg, testFTrueNeg};
+F1 = {'F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
+
+t = table([Train; Test; ConfTrain; ConfTest; F1], 'VariableNames', {'Train_Test_dataset'});
+filename = ['output/train/dataset-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+writetable(t, [filename '.txt']);
+
+%% 
+
+end

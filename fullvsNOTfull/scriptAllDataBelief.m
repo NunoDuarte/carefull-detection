@@ -38,23 +38,9 @@ Sigma{2} = SigmaF;
 % Output Confusion Matrix
 
 trainETruePos = classEtrain(1)
-trainEFalsePos = classEtrain(2)
+trainFFalseNeg = classEtrain(2)
 trainFTrueNeg = classFtrain(2)
-trainFFalseNeg = classFtrain(1)
-
-%% test data
-Etest = [];
-Ftest = [];
-% Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Kunpeng', 'wine-glass');
-Etest = [Etest, E];
-Ftest = [Ftest, F];
-[E, F] = read('Leo', 'plastic-cup');
-Etest = [Etest, E];
-Ftest = [Ftest, F];
-[E, F] = read('Athanasios', 'red-cup');
-Etest = [Etest, E];
-Ftest = [Ftest, F];
+trainFFalsePos = classFtrain(1)
 
 %% Classify train data
 [classEtest, outEtest] = fun_beliefDSnorm(Etest, Priors, Mu, Sigma);
@@ -63,9 +49,9 @@ Ftest = [Ftest, F];
 % Output Confusion Matrix
 
 testETruePos = classEtest(1)
-testEFalsePos = classEtest(2)
+testFFalseNeg = classEtest(2)
 testFTrueNeg = classFtest(2)
-testFFalseNeg = classFtest(1)
+testFFalsePos = classFtest(1)
 
 %% F measure
 
