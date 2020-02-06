@@ -11,9 +11,11 @@ addpath('DS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
-%% trained data
+%% pick train/test set
 Etrain = [];
 Ftrain = [];
+Etest = [];
+Ftest = [];
 
 P = 0.75;   % percentage train/test
 [train, test] = getData(P);
@@ -22,6 +24,12 @@ for i = 1:length(train)
     [E, F] = read(train{i}{1}, train{i}{2});
     Etrain = [Etrain, E];
     Ftrain = [Ftrain, F];
+end
+
+for i = 1:length(test)
+    [E, F] = read(test{i}{1}, test{i}{2});
+    Etest = [Etest, E];
+    Ftest = [Ftest, F];
 end
 
 %% Remove Non-Zeros - Empty
