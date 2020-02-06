@@ -3,34 +3,10 @@ clearvars
 clc
 
 addpath('../SEDS')
-addpath('data')
 addpath('DS')
 addpath('beliefDS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
-
-%% trained data
-Etrain = [];
-Ftrain = [];
-% Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Kunpeng', 'plastic-cup');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
-[E, F] = read('Kunpeng', 'red-cup');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
-[E, F] = read('Leo', 'red-cup');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
-[E, F] = read('Leo', 'champagne');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
-[E, F] = read('Leo', 'wine-glass');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
-[E, F] = read('Athanasios', 'champagne');
-Etrain = [Etrain, E];
-Ftrain = [Ftrain, F];
 
 %% Load DS parameters
 

@@ -7,41 +7,32 @@ clc
 
 addpath('../SEDS')
 addpath('data')
+addpath('DS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
-Eall = [];
-Fall = [];
-% Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Kunpeng', 'plastic-cup');
-Eall = [Eall, E];
-Fall = [Fall, F];
-[E, F] = read('Kunpeng', 'red-cup');
-Eall = [Eall, E];
-Fall = [Fall, F];
-[E, F] = read('Leo', 'red-cup');
-Eall = [Eall, E];
-Fall = [Fall, F];
-[E, F] = read('Leo', 'champagne');
-Eall = [Eall, E];
-Fall = [Fall, F];
-[E, F] = read('Leo', 'wine-glass');
-Eall = [Eall, E];
-Fall = [Fall, F];
-[E, F] = read('Athanasios', 'champagne');
-Eall = [Eall, E];
-Fall = [Fall, F];
+%% trained data
+Etrain = [];
+Ftrain = [];
 
+P = 0.75;   % percentage train/test
+[train, test] = getData(P);
+
+for i = 1:length(train)
+    [E, F] = read(train{i}{1}, train{i}{2});
+    Etrain = [Etrain, E];
+    Ftrain = [Ftrain, F];
+end
 
 %% Remove Non-Zeros - Empty
 ploty = [];
 plotx = [];
 plotz = [];
-for i=1:length(Eall)
+for i=1:length(Etrain)
 
-    En{i}(:,1) = nonzeros(Eall{i}(:,2));
-    En{i}(:,2) = nonzeros(Eall{i}(:,3));
-    En{i}(:,3) = nonzeros(Eall{i}(:,4));
+    En{i}(:,1) = nonzeros(Etrain{i}(:,2));
+    En{i}(:,2) = nonzeros(Etrain{i}(:,3));
+    En{i}(:,3) = nonzeros(Etrain{i}(:,4));
     E3{i}(1,:) = En{i}(:,1)';
     E3{i}(2,:) = En{i}(:,2)';
     E3{i}(3,:) = En{i}(:,3)';         
@@ -77,10 +68,10 @@ genDS(Emp3Dnorm, default, [], [], [], 'E', '2D');
 ploty = [];
 plotx = [];
 plotz = [];
-for i=1:length(Fall)
-    Fn{i}(:,1) = nonzeros(Fall{i}(:,2));
-    Fn{i}(:,2) = nonzeros(Fall{i}(:,3));
-    Fn{i}(:,3) = nonzeros(Fall{i}(:,4));
+for i=1:length(Ftrain)
+    Fn{i}(:,1) = nonzeros(Ftrain{i}(:,2));
+    Fn{i}(:,2) = nonzeros(Ftrain{i}(:,3));
+    Fn{i}(:,3) = nonzeros(Ftrain{i}(:,4));
     F3{i}(1,:) = Fn{i}(:,1)';
     F3{i}(2,:) = Fn{i}(:,2)';
     F3{i}(3,:) = Fn{i}(:,3)'; 
