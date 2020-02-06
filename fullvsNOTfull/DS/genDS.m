@@ -4,7 +4,7 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 5; % Number of Gaussian functions
+    K = 1; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
@@ -28,6 +28,14 @@ if default
                                   % estimations and demonstrations (the velocity part)
                                   % to optimize parameters of GMM                              
                                   % [default: 'mse']
+else
+    sim = 0; % simulate
+    options.tol_mat_bias = 10^-5; % A very small positive scalar to avoid
+    options.display = 1;          % An option to control whether the algorithm
+    options.tol_stopping= 10^-10;  % A small positive scalar defining the stoppping
+    options.max_iter = 1000;       % Maximum number of iteration for the solver [default: i_max=1000]
+    options.objective = 'likelihood';    % 'likelihood': use likelihood as criterion to
+    
 end
 
   
