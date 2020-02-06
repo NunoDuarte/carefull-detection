@@ -1,5 +1,5 @@
 function [Data3D, Data2Dorigin, Data2D] = processData(data, varargin)
-if nargin > 2
+if nargin > 1
     plotting = varargin{1};
 else
     plotting = 1;

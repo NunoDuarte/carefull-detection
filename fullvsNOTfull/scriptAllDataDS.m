@@ -49,12 +49,12 @@ for i=1:length(Etrain)
     plotz = [plotz, E3{i}(3,:)];
     E3{i} = round(E3{i},4);
 end
-figure()
-plot3(ploty, plotx, plotz, '.');
+% figure()
+% plot3(ploty, plotx, plotz, '.');
 
 
 %%
-plotting = 1;    % do you want to plot the 3D versions?
+plotting = 0;    % do you want to plot the 3D versions?
 [Emp3D, Emp2Do, Emp2D] = processData(E3, plotting);
 
 %% Generate a DS for Empty Cups
@@ -90,8 +90,8 @@ for i=1:length(Ftrain)
     ploty = [ploty, F3{i}(2,:)];
     plotz = [plotz, F3{i}(3,:)];
 end
-figure()
-plot3(ploty, plotx, plotz, '.');
+% figure()
+% plot3(ploty, plotx, plotz, '.');
 
 
 %% 

@@ -1,5 +1,5 @@
 %% Load Path
-clearvars
+
 clc
 
 addpath('../SEDS')
