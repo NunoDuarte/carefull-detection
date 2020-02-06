@@ -6,12 +6,12 @@ clear
 clc
 
 addpath('../SEDS')
-addpath('data')
+addpath('../data')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Kunpeng', 'plastic-cup');
+[E, F] = read('David', 'pasta');
 
 %% Remove Non-Zeros - Empty
 ploty = [];

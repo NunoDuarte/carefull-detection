@@ -2,18 +2,61 @@ function [E, F] = read(name, object)
     % reading data of Salman
     if strcmp(name,'Salman')
         if strcmp(object,'red-mug')
-            % Empty
-            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
-            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
-            E{3} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            % All Slow (super careful)
+            E = [];
             % 
             % Full
             F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
             F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
             F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
             F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            F{5} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            F{6} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            F{7} = csvread(['data/' name '/' object '/empty/3_right.csv']);
         end
-
+        
+    % reading data of David
+    elseif strcmp(name,'David')
+        if strcmp(object,'plastic-cup')
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{1}(100:end,:) = 0;
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            E{4} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            E{4}(130:end,:) = 0;
+            E{5} = csvread(['data/' name '/' object '/empty/4_right.csv']);
+            %
+            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            F{1}(250:end,:) = 0;
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            F{5} = csvread(['data/' name '/' object '/full/4_right.csv']);
+        elseif strcmp(object, 'red-cup')
+            E{1} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            E{3} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            %
+            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            F{2}(120:end,:) = 0;
+            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            F{3}(280:end,:) = 0;
+        elseif strcmp(object, 'pasta')
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{2}(90:end,:) = 0;
+            %
+            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            F{1}(60:end,:) = 0;
+            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            F{2}(75:end,:) = 0;
+            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            F{3}(170:end,:) = 0;
+            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);            
+            F{4}(115:end,:) = 0;
+        end
+        
     % reading data of Kunpeng
     elseif strcmp(name,'Kunpeng')
         if strcmp(object,'plastic-cup')
@@ -136,15 +179,17 @@ function [E, F] = read(name, object)
             E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
             E{2}(750:end,:) = 0;
             E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            E{4} = csvread(['data/' name '/' object '/full/0_right.csv']);
+            E{4}(1000:end,:) = 0;
+            E{5} = csvread(['data/' name '/' object '/full/1_right.csv']);
+            E{6} = csvread(['data/' name '/' object '/full/2_right.csv']);
+            E{7} = csvread(['data/' name '/' object '/full/3_right.csv']);
+            E{8} = csvread(['data/' name '/' object '/full/4_right.csv']);        
+            E{8}(1500:end,:) = 0;
             %
-            % Full
-            F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
-            F{1}(1000:end,:) = 0;
-            F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
-            F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
-            F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
-            F{5} = csvread(['data/' name '/' object '/full/4_right.csv']);        
-            F{5}(1500:end,:) = 0;
+            % Full (All fast)
+            F = [];
+
         end
         
     % reading data of Athanasios

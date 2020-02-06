@@ -8,12 +8,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Athanasios', 'red-cup');
+[E, F] = read('Bernardo', 'bowl');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{3}; 
+testX = E{7}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
