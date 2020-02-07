@@ -40,7 +40,7 @@ Sigma{2} = SigmaF;
 trainTruePos = classEtrain(1)
 trainFalsePos = classEtrain(2)
 trainTrueNeg = classFtrain(2)
-trainFalseNeg = classFtrain(2)
+trainFalseNeg = classFtrain(1)
 
 %% Classify train data
 [classEtest, outEtest] = fun_beliefDSnorm(Etest, Priors, Mu, Sigma);
@@ -51,7 +51,7 @@ trainFalseNeg = classFtrain(2)
 testTruePos = classEtest(1)
 testFalsePos = classEtest(2)
 testTrueNeg = classFtest(2)
-testFalseNeg = classFtest(2)
+testFalseNeg = classFtest(1)
 
 %% F measure
 
