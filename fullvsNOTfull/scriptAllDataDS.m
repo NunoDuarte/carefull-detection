@@ -6,7 +6,7 @@ Ftrain = [];
 Etest = [];
 Ftest = [];
 
-P = 0.80;   % percentage train/test
+P = 0.70;   % percentage train/test
 [train, test] = getData(P);
 
 for i = 1:length(train)
@@ -129,8 +129,8 @@ Test = [Test; {' ', ' '}];
 
 scriptAllDataBelief
 
-ConfTrain = {'Confusion Matrix', 'Train'; trainETruePos, trainEFalsePos; trainFFalseNeg, trainFTrueNeg};
-ConfTest = {'Confusion Matrix', 'Test'; testETruePos, testEFalsePos; testFFalseNeg, testFTrueNeg};
+ConfTrain = {'Confusion Matrix', 'Train'; trainTruePos, trainFalsePos; trainFalseNeg, trainTrueNeg};
+ConfTest = {'Confusion Matrix', 'Test'; testTruePos, testFalsePos; testFalseNeg, testTrueNeg};
 F1 = {'F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
 
 t = table([Train; Test; ConfTrain; ConfTest; F1], 'VariableNames', {'Train_Test_dataset'});

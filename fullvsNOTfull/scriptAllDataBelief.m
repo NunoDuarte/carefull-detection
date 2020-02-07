@@ -38,9 +38,9 @@ Sigma{2} = SigmaF;
 % Output Confusion Matrix
 
 trainTruePos = classEtrain(1)
-trainFalseNeg = classEtrain(2)
+trainFalsePos = classEtrain(2)
 trainTrueNeg = classFtrain(2)
-trainFalsePos = classFtrain(1)
+trainFalseNeg = classFtrain(2)
 
 %% Classify train data
 [classEtest, outEtest] = fun_beliefDSnorm(Etest, Priors, Mu, Sigma);
@@ -49,15 +49,15 @@ trainFalsePos = classFtrain(1)
 % Output Confusion Matrix
 
 testTruePos = classEtest(1)
-testFalseNeg = classEtest(2)
+testFalsePos = classEtest(2)
 testTrueNeg = classFtest(2)
-testFalsePos = classFtest(1)
+testFalseNeg = classFtest(2)
 
 %% F measure
 
 % train
-PreciTrain = trainETruePos/(trainETruePos+trainEFalsePos);
-RecallTrain = trainETruePos/(trainETruePos+trainFFalseNeg);
+PreciTrain = trainTruePos/(trainTruePos+trainFalsePos);
+RecallTrain = trainTruePos/(trainTruePos+trainFalseNeg);
 
 % test
 PreciTest = testTruePos/(testTruePos+testFalsePos);
