@@ -59,9 +59,12 @@ for i=1:count-1
 
         end
 
-        dataFy = imresize(Fy_new, targetSize);
-        dataFx = imresize(Fx_new, targetSize);       
-        dataFz = imresize(Fz_new, targetSize);      
+%         dataFy = imresize(Fy_new, targetSize);
+%         dataFx = imresize(Fx_new, targetSize);       
+%         dataFz = imresize(Fz_new, targetSize);      
+        dataFx = [Fx_new, Fx_new(end)*ones(1, 200-length(Fx_new))];
+        dataFy = [Fy_new, Fy_new(end)*ones(1, 200-length(Fy_new))];       
+        dataFz = [Fz_new, Fz_new(end)*ones(1, 200-length(Fz_new))];     
 
         Data3D{countF} = [dataFx; dataFy; dataFz];  
         countF= countF + 1;

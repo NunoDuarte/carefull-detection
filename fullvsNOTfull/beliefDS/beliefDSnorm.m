@@ -4,16 +4,17 @@ clc
 
 addpath('../SEDS')
 addpath('data')
+addpath('beliefDS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Bernardo', 'bowl');
+[E, F] = read('All');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{7}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -29,16 +30,35 @@ test3{1}(3,:) = testXn(:,3)';
 % [test3D, test2Dorigin, test2D] = processData(test3, plotting);
 
 %% Center the Data in the Origin
-
-testXn = test3{1};
-testXn = testXn - testXn(:,end);
-testXn = round(testXn,4);
-
-% do the norm of all dimensions
-for n = 1:length(testXn)   
-    testXnnorm(n) = norm(testXn(:,n));    
+plotting = 0;
+% 
+[Emp3D, Emp2Do, Emp2D] = processData(test3, plotting);
+for i=1:length(Emp3D)
+    Norm1 = [];
+    for j=1:length(Emp3D{i})
+    
+        norm1 = Emp3D{i}(:,j);
+        Norm1 = [Norm1; norm(norm1,2)];
+        Emp3Dnorm{i} = Norm1';
+    end
 end
-testXnnorm = round(testXnnorm,3);
+
+[~ , ~, Data, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
+
+% testXn = test3{1};
+% testXn = testXn - testXn(:,end);
+% testXn = round(testXn,3);
+% 
+% % do the norm of all dimensions
+% for n = 1:length(testXn)   
+%     testXnnorm(n) = norm(testXn(:,n));       
+% end
+% % testXnnorm = round(testXnnorm,4);
+% 
+% testXnnorm0 = testXnnorm - testXnnorm(:,end);
+% testXnnorm0 = testXnnorm0;
+% testXnnorm0 = round(testXnnorm0,3);
+
 %% Load DS parameters
 
 MuE = load('MuE.mat');
@@ -64,16 +84,17 @@ Priors{2} = PriorsF;
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 %% Real Velocity of testX
-dt = 0.02; % frequency 
-
-for i=2:length(testXn(1,:))
-%     if i==2
-%         testX_d(1,i-1) = -0.2;
-%     else
-        testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
-%     end
-end
-%testX_d = diff(testXn,1,2);
+% dt = 0.02; % frequency 
+% 
+% for i=2:length(testXn(1,:))
+% %     if i==2
+% %         testX_d(1,i-1) = -0.2;
+% %     else
+%         testX_d(1,i-1) = (testXnnorm0(1,i) - testXnnorm0(1,i-1))/dt;
+% %     end
+% end
+% testX_d(1,i) = 0;
+% %testX_d = diff(testXn,1,2);
 
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
@@ -102,10 +123,12 @@ for j = 1:length(testXn)-K-1
     ee = [0 0];
     for i = 1:2
         
-        out(:,j) = mean(testXn(1:3,j:j+K),2);
-        outD(j) = mean(testX_d(1,j:j+K),2);
-        x0 = norm(out(:,j),2);
-        
+%         out(:,j) = mean(testXn(1:3,j:j+K),2);
+%         outD(j) = mean(testX_d(1,j:j+K),2);
+%         x0 = norm(out(:,j),2);
+        outD(j) = Data(2,j);
+        x0 = Data(1,j);
+
         % DS output
         fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
         [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
@@ -113,7 +136,7 @@ for j = 1:length(testXn)-K-1
 
 
         % error (real velocity - desired velocity)
-        ed = outD(j) - xd(:,1);
+        ed = abs(outD(j) - xd(:,1));
         ee(i) = ed;
         
         Xd = [Xd; xd(:,1)'];
@@ -128,6 +151,18 @@ for j = 1:length(testXn)-K-1
 
     end
     Er = [Er;ee];
+    
+    if abs(outD(j)) > 0.15
+       [b1_d, w] = max(b_d); 
+        if w == 1
+            0
+        elseif w == 2
+            b_dold = b_d;
+            b_d(1) = b1_d;
+            b_d(2) = b_dold(1);       
+        end
+    end
+        
     B_d = winnertakeall(b, b_d);
     for i = 1:2
         b(i) = b(i) + B_d(i)*0.1;

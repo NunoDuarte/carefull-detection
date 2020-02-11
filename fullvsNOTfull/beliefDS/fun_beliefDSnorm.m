@@ -13,25 +13,38 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
         test3{1}(2,:) = testXn(:,2)';
         test3{1}(3,:) = testXn(:,3)'; 
 
-        %% Center the Data in the Origin
+        [Emp3D, Emp2Do, Emp2D] = processData(test3, 0);
+        for i=1:length(Emp3D)
+            Norm1 = [];
+            for j=1:length(Emp3D{i})
 
-        testXn = test3{1};
-        testXn = testXn - testXn(:,end);
-        testXn = round(testXn,4);
-
-        %% do the norm of all dimensions
-
-        for n = 1:length(testXn)   
-            testXnnorm(n) = norm(testXn(:,n));    
+                norm1 = Emp3D{i}(:,j);
+                Norm1 = [Norm1; norm(norm1,2)];
+                Emp3Dnorm{i} = Norm1';
+            end
         end
-        testXnnorm = round(testXnnorm,3);
 
-        %% Real Velocity of testX
-
-        dt = 0.02; % frequency 
-        for i=2:length(testXn(1,:))
-            testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
-        end
+        [~ , ~, dataProcess, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
+        
+%         %% Center the Data in the Origin
+% 
+%         testXn = test3{1};
+%         testXn = testXn - testXn(:,end);
+%         testXn = round(testXn,4);
+% 
+%         %% do the norm of all dimensions
+% 
+%         for n = 1:length(testXn)   
+%             testXnnorm(n) = norm(testXn(:,n));    
+%         end
+%         testXnnorm = round(testXnnorm,3);
+% 
+%         %% Real Velocity of testX
+% 
+%         dt = 0.02; % frequency 
+%         for i=2:length(testXn(1,:))
+%             testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
+%         end
 
         %% Run each DS to get the desired velocity?
         opt_sim.dt = 0.02;
@@ -60,16 +73,18 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
             ee = [0 0];
             for i = 1:2
 
-                out(:,j) = mean(testXn(1:3,j:j+K),2);
-                outD(j) = mean(testX_d(1,j:j+K),2);
-                x0 = norm(out(:,j),2);
+%                 out(:,j) = mean(testXn(1:3,j:j+K),2);
+%                 outD(j) = mean(testX_d(1,j:j+K),2);
+%                 x0 = norm(out(:,j),2);
+                outD(j) = dataProcess(2,j);
+                x0 = dataProcess(1,j);
 
                 % DS output
                 fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
                 [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
 
                 % error (real velocity - desired velocity)
-                ed = outD(j) - xd(:,1);
+                ed = abs(outD(j) - xd(:,1));
                 ee(i) = ed;
 
                 Xd = [Xd; xd(:,1)'];
@@ -78,6 +93,20 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
 
             end
             Er = [Er;ee];
+            
+            % Threshold!!!!!!
+            if abs(outD(j)) > 0.15
+               [b1_d, w] = max(b_d); 
+                if w == 1
+                    0
+                elseif w == 2
+                    b_dold = b_d;
+                    b_d(1) = b1_d;
+                    b_d(2) = b_dold(1);       
+                end
+            end
+            % ----------------------
+            
             B_d = winnertakeall(b, b_d);
             for i = 1:2
                 b(i) = b(i) + B_d(i)*0.1;
