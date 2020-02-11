@@ -122,7 +122,7 @@ function [E, F] = read(name, object)
             E{1}(35:end,:) = 0;
             E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
             E{2}(70:end,:) = 0;
-%             E{1} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+%             E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
 
             %
             F{1} = csvread(['data/' name '/' object '/full/1_right.csv']);
@@ -250,10 +250,11 @@ function [E, F] = read(name, object)
     elseif strcmp(name,'Bernardo')
         if strcmp(object, 'bowl')
             % Empty
-%             E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
-%             E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
-%             E{2}(750:end,:) = 0;
-%             E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{2}(750:end,:) = 0;
+            E{3} = csvread(['data/' name '/' object '/empty/2_right.csv']);
+            
             F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
             F{1}(1000:end,:) = 0;
             F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
@@ -261,7 +262,7 @@ function [E, F] = read(name, object)
             F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
             F{5} = csvread(['data/' name '/' object '/full/4_right.csv']);        
             F{5}(1500:end,:) = 0;
-            %
+            
         end
         
     % reading data of Athanasios
@@ -297,10 +298,10 @@ function [E, F] = read(name, object)
             F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
             F{2}(90:end,:) = 0;
          elseif strcmp(object, 'red-cup')
-            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
-            E{2} = csvread(['data/' name '/' object '/empty/3_right.csv']);
-            E{2}(85:end,:) = 0;
-            E{2}(:,2:3) = -1*E{2}(:,2:3);
+%             E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{1} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+            E{1}(85:end,:) = 0;
+            E{1}(:,2:3) = -1*E{1}(:,2:3);
             %
             F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
             F{1}(70:end,:) = 0;
@@ -315,6 +316,10 @@ function [E, F] = read(name, object)
             E{2} = csvread(['data/' 'Bernardo' '/' 'bowl' '/empty/0_right.csv']);
             E{3} = csvread(['data/' 'Bernardo' '/' 'bowl' '/empty/1_right.csv']);
             E{3}(750:end,:) = 0;            
+            E{4} = csvread(['data/' 'Bernardo' '/' 'bowl' '/full/1_right.csv']);
+            E{5} = csvread(['data/' 'Bernardo' '/' 'bowl' '/full/2_right.csv']);            
+            E{6} = csvread(['data/' 'Kunpeng' '/' 'red-cup' '/empty/0_right.csv']);
+            E{6}(35:end,:) = 0;
             
             
             F{1} = csvread(['data/' 'Leo' '/' 'red-cup' '/full/2_right.csv']);
@@ -329,6 +334,13 @@ function [E, F] = read(name, object)
             F{8} = csvread(['data/' 'Salman' '/' 'red-mug' '/empty/0_right.csv']);
             F{9} = csvread(['data/' 'Salman' '/' 'red-mug' '/empty/1_right.csv']);
             F{10} = csvread(['data/' 'Salman' '/' 'red-mug' '/empty/3_right.csv']);
+            
+    elseif strcmp(name,'All-left')
+            E{1} = csvread(['data/' 'Kunpeng' '/' 'red-cup' '/empty/0_right.csv']);
+            E{1}(35:end,:) = 0;
+            
+            F{1} = csvread(['data/' 'Salman' '/' 'red-mug' '/empty/1_right.csv']);
+            F{2} = csvread(['data/' 'Salman' '/' 'red-mug' '/empty/3_right.csv']);
     else
         error('Name not Recognized!');
     end
