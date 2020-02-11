@@ -4,7 +4,7 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 1; % Number of Gaussian functions
+    K = 4; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
@@ -77,7 +77,7 @@ if nbVar == 2
     h3 = plot(Data(1,:),Data(2,:), 'r.');
     legend([h1 h4 h3], 'Gaussian Mixture Components', 'Mean Regression Signal', 'Recorded Demonstrations');
     xlabel('$\xi_x (m)$','interpreter','latex','fontsize',15);
-    ylabel('$\dot{\xi}_x (m)$','interpreter','latex','fontsize',15);
+    ylabel('$\dot{\xi}_x (m/s)$','interpreter','latex','fontsize',15);
     
 elseif nbVar > 2
     % plotting the result

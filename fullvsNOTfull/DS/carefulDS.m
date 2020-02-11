@@ -6,12 +6,13 @@ clear
 clc
 
 addpath('../SEDS')
-addpath('../data')
+addpath('DS')
+addpath('data')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('David', 'pasta');
+[E, F] = read('All', 'plastic-cup');
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -76,7 +77,7 @@ plot3(ploty, plotx, plotz, '.');
 
 
 %% 
-plotting = 0;    % do you want to plot the 3D versions?
+plotting = 1;    % do you want to plot the 3D versions?
 [Full3D, Full2Do, Full2D] = processData(F3, plotting);
 
 %% Generate a DS for Empty Cups
