@@ -3,20 +3,20 @@ fullpaths = fullfile({files.folder}, {files.name});
 
 % Empty Cups
 fu0 = strfind(fullpaths, 'fu0');
-index = find(~cellfun(@isempty,fu0));
+indexE = find(~cellfun(@isempty,fu0));
 
-for i=1:length(index)
+for i=1:length(indexE)
 
-    E{i} = csvread(fullpaths{index(i)});
+    E{i} = csvread(fullpaths{indexE(i)});
     
 end
 
 % Full Cups
 fu2 = strfind(fullpaths, 'fu2');
-index = find(~cellfun(@isempty,fu2));
+indexF = find(~cellfun(@isempty,fu2));
 
-for i=1:length(index)
+for i=1:length(indexF)
 
-    F{i} = csvread(fullpaths{index(i)});
+    F{i} = csvread(fullpaths{indexF(i)});
     
 end    
