@@ -1,4 +1,4 @@
-files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/*.csv');
+files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/1/*.csv');
 fullpaths = fullfile({files.folder}, {files.name});
 
 % Empty Cups
@@ -12,7 +12,7 @@ for i=1:length(indexE)
 end
 
 % Full Cups
-fu2 = strfind(fullpaths, 'fu2');
+fu2 = strfind(fullpaths, 'fu1');
 indexF = find(~cellfun(@isempty,fu2));
 
 for i=1:length(indexF)

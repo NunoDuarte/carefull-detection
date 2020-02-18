@@ -4,7 +4,7 @@ clear test3
 clear all 
 
 %% Get Data
-files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/2/*.csv');
+files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/5/*.csv');
 fullpaths = fullfile({files.folder}, {files.name});
 
 % Empty Cups
@@ -25,7 +25,7 @@ end
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{1}; 
+testX = F{3}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -49,7 +49,7 @@ for i=1:length(Emp3D)
     end
 end
 
-[~ , ~, Data, index] = preprocess_demos(Emp3Dnorm, 0.03, 0.0001); 
+[~ , ~, Data, index] = preprocess_demos(Emp3Dnorm, 0.0333, 0.0001); 
 [maxVel, idVel] = min(Data(2,:));
 
 Dataold = Data;
@@ -141,7 +141,7 @@ for j = 1:length(Datanew)
     Er = [Er;ee];
     
     % Threshold for stupid bug
-    if abs(outD(j)) > 0.20
+    if abs(outD(j)/x0) > 2.5 && abs(outD(j)) > 0.20
        [b1_d, w] = max(b_d); 
         if w == 1
             0
