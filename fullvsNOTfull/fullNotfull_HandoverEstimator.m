@@ -8,10 +8,10 @@ close all;
 addpath('data')
 addpath('../../handover_location_estimator_matlab');
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Kunpeng', 'plastic-cup');
+[E, F] = read('All', 'plastic-cup');
 
 % pick one trajectory
-testX = E{3}; 
+testX = E{4}; 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
 testXn(:,2) = nonzeros(testX(:,3));
@@ -19,20 +19,31 @@ testXn(:,3) = nonzeros(testX(:,4));
 test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
-testXn = test3{1};
-testXn = testXn - testXn(:,end);
-testXn = round(testXn,3);
 
-%% Real Velocity of testX
-dt = 0.02; % frequency 
-
-for i=2:length(testXn(1,:))
-   testX_d(1,i-1) = (testXn(1,i) - testXn(1,i-1))/dt;
-   testX_d(2,i-1) = (testXn(2,i) - testXn(2,i-1))/dt;
-   testX_d(3,i-1) = (testXn(3,i) - testXn(3,i-1))/dt;
-end
+% testXn = test3{1};
+% testXn = testXn - testXn(:,end);
+% testXn = round(testXn,3);
+% 
+% %% Real Velocity of testX
+% dt = 0.02; % frequency 
+% 
+% for i=2:length(testXn(1,:))
+%    testX_d(1,i-1) = (testXn(1,i) - testXn(1,i-1))/dt;
+%    testX_d(2,i-1) = (testXn(2,i) - testXn(2,i-1))/dt;
+%    testX_d(3,i-1) = (testXn(3,i) - testXn(3,i-1))/dt;
+% end
 %testX_d = diff(testXn,1,2);
 
+%% Center the Data in the Origin
+plotting = 0;
+% 
+[Emp3D, Emp2Do, Emp2D] = processData(test3, plotting);
+
+[~ , ~, Data, index] = preprocess_demos(Emp3D, 0.02, 0.0001); 
+
+testX_d = Data(4:end,:);
+testX_d(2,:) = -1*testX_d(2,:);
+clear Data
 %%
 
 humanShPose = eye(4); % shoulder position for human
@@ -50,7 +61,7 @@ simT = 2*T; % total simulation time
 dt = 0.04; % dt for simulation
 dtH = 0.02; % dt of Human data
 DSdt = 1; % dt multiplier for the human model estimation
-counter = 5; % number of data points for human model estimation
+counter = 20; % number of data points for human model estimation
 
 robotPosCurr = robotPos0; % current position of the robot
 humanPosCurr = humanPos0; % current position of human
@@ -70,7 +81,7 @@ humanPosCurrGlobalVector = humanPosCurrGlobalVectorDS; %history of human posesx
 %% Plot
 figure(1);
 hold on;
-axis([-0.05 0.4 -0.05 0.01 -0.1 0.8]);
+axis([-0.05 0.4 -0.4 0.01 -0.2 0.8]);
 title('Simulation of handover location estimation','fontsize',12);
 
 xlabel('X');
@@ -78,7 +89,9 @@ ylabel('Y');
 zlabel('Z');
 %% Simulation
 
+handoverPoseVector = [];
 humanVelCurrVector = [];
+robotPosCurrVector = [];
 
 i = 1;
 for t = 0:dt:simT
@@ -105,6 +118,7 @@ handoverPoseGlobal(1:3) = findHandoverLocation(robotPosCurrGlobal(1:3), humanPos
 
 %move the robot and human
 handoverPose = robotShPose\handoverPoseGlobal;
+handoverPoseVector = [handoverPoseVector, handoverPose];
 
 [robotPosCurr, robotVelCurr] = findNextPosRobot(robotPosCurr, handoverPose, dt);
 %[humanPosCurr, humanVelCurr] = findNextPosHuman(humanPos0,humanPosF,T, t, tCirc, tDist);
@@ -112,6 +126,8 @@ humanVelCurr = [testX_d(:,i);1];
 humanPosCurr = humanPosCurr + humanVelCurr*dtH;
 
 humanVelCurrVector = [humanVelCurrVector, humanVelCurr];
+robotPosCurrVector = [robotPosCurrVector, robotPosCurr];
+
 
 %plot
 figure(1);
@@ -119,7 +135,7 @@ plot3(robotPosCurrGlobal(1), robotPosCurrGlobal(2), robotPosCurrGlobal(3), 'xr',
 plot3(humanPosCurrGlobal(1), humanPosCurrGlobal(2), humanPosCurrGlobal(3), '*b', 'markersize',8);
 plot3(handoverPoseGlobal(1), handoverPoseGlobal(2), handoverPoseGlobal(3), 'og', 'markersize',12);
 legend('robot position', 'human position', 'handover estimate');
-%view(3);
+% view(3);
 
 %stop if reached the human
 if(norm(humanPosCurrGlobal(1:3)-robotPosCurrGlobal(1:3)) < 0.005)
