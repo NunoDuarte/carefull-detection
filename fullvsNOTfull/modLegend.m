@@ -1,4 +1,4 @@
-openfig('GMM-EF.fig');
+openfig('EF-allEPFL.fig');
 
 h = zeros(3, 1);
 h(1) = plot(NaN,NaN,'og','MarkerSize',12, 'MarkerEdgeColor','black','MarkerFaceColor',[0.6 1 .6]);
