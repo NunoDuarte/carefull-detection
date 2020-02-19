@@ -14,7 +14,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{6}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -97,6 +97,16 @@ handoverPoseVector = [];
 humanVelCurrVector = [];
 robotPosCurrVector = [];
 
+%% Plot
+figure(1);
+hold on;
+axis([-0.05 0.4 -0.01 0.09 -0.2 0.8]);
+title('Simulation of handover location estimation','fontsize',12);
+
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
 opt_sim.i_max = 1;
@@ -160,6 +170,14 @@ for j = 1:length(testXn)-K-1
 
     humanVelCurrVector = [humanVelCurrVector, humanVelCurr];
     robotPosCurrVector = [robotPosCurrVector, robotPosCurr];    
+    
+    %plot
+    figure(1);
+    plot3(robotPosCurrGlobal(1), robotPosCurrGlobal(2), robotPosCurrGlobal(3), 'xr', 'markersize',8);
+    plot3(humanPosCurrGlobal(1), humanPosCurrGlobal(2), humanPosCurrGlobal(3), '*b', 'markersize',8);
+    plot3(handoverPoseGlobal(1), handoverPoseGlobal(2), handoverPoseGlobal(3), 'og', 'markersize',12);
+    legend('robot position', 'human position', 'handover estimate');
+    % view(3);
     
     for i = 1:2
 
