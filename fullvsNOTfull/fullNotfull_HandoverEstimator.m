@@ -11,7 +11,7 @@ addpath('../../handover_location_estimator_matlab');
 [E, F] = read('All', 'plastic-cup');
 
 % pick one trajectory
-testX = E{4}; 
+testX = E{1}; 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
 testXn(:,2) = nonzeros(testX(:,3));
@@ -39,7 +39,7 @@ plotting = 0;
 % 
 [Emp3D, Emp2Do, Emp2D] = processData(test3, plotting);
 
-[~ , ~, Data, index] = preprocess_demos(Emp3D, 0.02, 0.0001); 
+[~ , ~, Data, index] = preprocess_demos(Emp3D, 0.033, 0.0001); 
 
 testX_d = Data(4:end,:);
 testX_d(2,:) = -1*testX_d(2,:);
@@ -58,8 +58,8 @@ humanPosF = [1; 1; 1; 1];
 
 T = 10; % Human trajectory total time
 simT = 2*T; % total simulation time
-dt = 0.04; % dt for simulation
-dtH = 0.02; % dt of Human data
+dt = 0.1; % dt for simulation
+dtH = 0.033; % dt of Human data
 DSdt = 1; % dt multiplier for the human model estimation
 counter = 20; % number of data points for human model estimation
 
@@ -138,7 +138,7 @@ legend('robot position', 'human position', 'handover estimate');
 % view(3);
 
 %stop if reached the human
-if(norm(humanPosCurrGlobal(1:3)-robotPosCurrGlobal(1:3)) < 0.005)
+if(norm(humanPosCurrGlobal(1:3)-robotPosCurrGlobal(1:3)) < 0.05)
     break;
 end
 
