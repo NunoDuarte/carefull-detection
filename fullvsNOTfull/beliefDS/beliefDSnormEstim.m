@@ -2,12 +2,19 @@
 clear all
 clc
 
+% change to correct directory
+cd '/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/'
+
+% add paths
 addpath('../SEDS')
 addpath('data')
 addpath('beliefDS')
 addpath('DS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
+
+% add path of Handover Estimation
+addpath('/home/nuno/Documents/MATLAB/PhD/handover_location_estimator_matlab/')
 
 % Which Person to choose (Salman, Leo, Bernardo)
 [E, F] = read('Athanasios', 'red-cup');
