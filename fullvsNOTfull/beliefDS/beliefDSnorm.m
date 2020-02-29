@@ -25,7 +25,6 @@ test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
 %% Center the Data in the Origin
-plotting = 0;
 
 for i=1:length(test3)
     Norm1 = [];

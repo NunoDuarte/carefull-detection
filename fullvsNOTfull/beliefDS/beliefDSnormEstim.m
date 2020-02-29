@@ -22,7 +22,7 @@ addpath('/home/nuno/Documents/MATLAB/PhD/handover_location_estimator_matlab/')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = F{1}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -33,12 +33,8 @@ test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
 %% Center the Data in the Origin
-plotting = 0;
-% 
-[Emp3D, Emp2Do, Emp2D] = processData(test3, plotting);
-
 % get 3D positions
-[~ , ~, Data3D, index] = preprocess_demos(Emp3D, 0.02, 0.0001); 
+[~ , ~, Data3D, index] = preprocess_demos(test3, 0.02, 0.0001); 
 % get velocity 3D
 testX_d = Data3D(4:end,:);
 testX_d(2,:) = testX_d(2,:);
