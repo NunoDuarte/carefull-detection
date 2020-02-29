@@ -9,12 +9,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All');
+[E, F] = read('All', 'red-cup');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{1}; 
+testX = E{6}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -24,26 +24,21 @@ test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
-% figure()
-% plot3(testXn(:,1), testXn(:,2), testXn(:,3), '.');
-% plotting = 0;    % do you want to plot the 3D versions?
-% [test3D, test2Dorigin, test2D] = processData(test3, plotting);
-
 %% Center the Data in the Origin
 plotting = 0;
-% 
-[Emp3D, Emp2Do, Emp2D] = processData(test3, plotting);
-for i=1:length(Emp3D)
+
+for i=1:length(test3)
     Norm1 = [];
-    for j=1:length(Emp3D{i})
+    for j=1:length(test3{i})
     
-        norm1 = Emp3D{i}(:,j);
+        norm1 = test3{i}(:,j);
         Norm1 = [Norm1; norm(norm1,2)];
-        Emp3Dnorm{i} = Norm1';
+        test3norm{i} = Norm1';
     end
 end
 
-[~ , ~, Data, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
+
+[~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
 
 % testXn = test3{1};
 % testXn = testXn - testXn(:,end);
