@@ -5,16 +5,17 @@ clc
 addpath('../SEDS')
 addpath('data')
 addpath('beliefDS')
+addpath('DS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All');
+[E, F] = read('Athanasios', 'red-cup');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{1}; 
+testX = F{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
