@@ -4,6 +4,7 @@ clc
 
 addpath('../SEDS')
 addpath('data')
+addpath('DS')
 addpath('beliefDS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
