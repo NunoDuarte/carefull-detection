@@ -2,6 +2,9 @@
 clear all
 clc
 
+% change to correct directory
+cd '/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/'
+
 addpath('../SEDS')
 addpath('data')
 addpath('DS')
