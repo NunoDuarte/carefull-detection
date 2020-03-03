@@ -18,7 +18,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{6}; 
+testX = E{2}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -30,16 +30,26 @@ test3{1}(3,:) = testXn(:,3)';
 
 %% Center the Data in the Origin
 
+% for i=1:length(test3)
+%     Norm1 = [];
+%     for j=1:length(test3{i})
+%     
+%         norm1 = test3{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         test3norm{i} = Norm1';
+%     end
+% end
+
 for i=1:length(test3)
+    xT = test3{i}(:,end);
     Norm1 = [];
     for j=1:length(test3{i})
-    
-        norm1 = test3{i}(:,j);
-        Norm1 = [Norm1; norm(norm1,2)];
+        dis = xT - test3{i}(:,j);
+        disN = norm(dis,2);
+        Norm1 = [Norm1; disN];
         test3norm{i} = Norm1';
     end
 end
-
 
 [~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
 
@@ -106,7 +116,7 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 300; % adaptation rate
+epsilon = 30; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
@@ -137,7 +147,7 @@ for j = 1:length(testXn)-K-1
         ed = abs(outD(j) - xd(:,1));
         ee(i) = ed;
         
-        Xd = [Xd; xd(:,1)'];
+        Xd = [Xd, xd(:,1)'];
         
         b_d(i) = epsilon * (ed'*xd(:,1) + (b(i) - 0.5)*norm(xd(:,1), 2)); 
         
@@ -148,18 +158,19 @@ for j = 1:length(testXn)-K-1
 %         B = [B; b];
 
     end
+%     Xd = [Xd; Xd];
     Er = [Er;ee];
     
-    if abs(outD(j)) > 0.15
-       [b1_d, w] = max(b_d); 
-        if w == 1
-            0
-        elseif w == 2
-            b_dold = b_d;
-            b_d(1) = b1_d;
-            b_d(2) = b_dold(1);       
-        end
-    end
+%     if abs(outD(j)) > 0.15
+%        [b1_d, w] = max(b_d); 
+%         if w == 1
+%             0
+%         elseif w == 2
+%             b_dold = b_d;
+%             b_d(1) = b1_d;
+%             b_d(2) = b_dold(1);       
+%         end
+%     end
         
     B_d = winnertakeall(b, b_d);
     for i = 1:2

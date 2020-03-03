@@ -49,15 +49,27 @@ plotting = 0;    % do you want to plot the 3D versions?
 %% Generate a DS for Empty Cups
 default = 0;    % do you default parameters?
 
+% for i=1:length(Emp3D)
+%     Norm1 = [];
+%     for j=1:length(Emp3D{i})
+%     
+%         norm1 = Emp3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Emp3Dnorm{i} = Norm1';
+%     end
+% end
+
 for i=1:length(Emp3D)
+    xT = Emp3D{i}(:,end);
     Norm1 = [];
     for j=1:length(Emp3D{i})
-    
-        norm1 = Emp3D{i}(:,j);
-        Norm1 = [Norm1; norm(norm1,2)];
+        dis = xT - Emp3D{i}(:,j);
+        disN = norm(dis, 2);
+        Norm1 = [Norm1; disN];
         Emp3Dnorm{i} = Norm1';
     end
 end
+
 
 genDS(Emp3Dnorm, default, [], K, [], 'E', '2D');
 
@@ -90,12 +102,23 @@ plotting = 0;    % do you want to plot the 3D versions?
 %% Generate a DS for Empty Cups
 default = 0;    % do you default parameters?
 
+% for i=1:length(Full3D)
+%     Norm1 = [];
+%     for j=1:length(Full3D{i})
+%     
+%         norm1 = Full3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Full3Dnorm{i} = Norm1';
+%     end
+% end
+
 for i=1:length(Full3D)
+    xT = Full3D{i}(:,end);
     Norm1 = [];
     for j=1:length(Full3D{i})
-    
-        norm1 = Full3D{i}(:,j);
-        Norm1 = [Norm1; norm(norm1,2)];
+        dis = xT - Full3D{i}(:,j);
+        disN = norm(dis);
+        Norm1 = [Norm1; disN];
         Full3Dnorm{i} = Norm1';
     end
 end

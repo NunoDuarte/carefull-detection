@@ -15,14 +15,25 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
 
         [Emp3D, Emp2Do, Emp2D] = processData(test3, 0);
         for i=1:length(Emp3D)
+            xT = Emp3D{i}(:,end);
             Norm1 = [];
             for j=1:length(Emp3D{i})
-
-                norm1 = Emp3D{i}(:,j);
-                Norm1 = [Norm1; norm(norm1,2)];
+                dis = xT - Emp3D{i}(:,j);
+                disN = norm(dis,2);
+                Norm1 = [Norm1; disN];
                 Emp3Dnorm{i} = Norm1';
             end
         end
+        
+%         for i=1:length(Emp3D)
+%             Norm1 = [];
+%             for j=1:length(Emp3D{i})
+% 
+%                 norm1 = Emp3D{i}(:,j);
+%                 Norm1 = [Norm1; norm(norm1,2)];
+%                 Emp3Dnorm{i} = Norm1';
+%             end
+%         end
 
         [~ , ~, dataProcess, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
         
