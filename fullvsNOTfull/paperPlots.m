@@ -64,21 +64,3 @@ errorbar(ctr, ydt, e'/2, '.k') % Individual Bar Heights
 
 legend show
 
-%%
-
-% meanA = [1.9000    5.1333    9.6167];
-% meanB =[2.1069    4.8297    8.8746];
-% meanC =[1.6632    6.1078    9.9431];
-% SD_A =[0.1549    0.3983    0.2137];
-% SD_B =[0.5744    1.0037    0.9494];
-% SD_C =[0.7757    1.6038    1.5165];
-% meanABC = [meanA; meanB; meanC]';
-% SD_ABC = [SD_A; SD_B; SD_C];
-% figure
-% hBar = bar(meanABC, 0.8);                                           % Return ‘bar’ Handle
-% for k1 = 1:length(meanABC)
-%     ctr(k1,:) = bsxfun(@plus, hBar(k1).XData, hBar(k1).XOffset');   % Note: ‘XOffset’ Is An Undocumented Feature, This Selects The ‘bar’ Centres
-%     ydt(k1,:) = hBar(k1).YData;                                     % Individual Bar Heights
-% end
-% hold on
-% errorbar(ctr, ydt, SD_ABC, '.r') 
