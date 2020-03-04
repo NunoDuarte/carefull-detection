@@ -106,6 +106,7 @@ if nbVar == 2
     
 end
 
+%%
 % plotting the result
 figure('name','Results from Simulation','position',[265   200   520   720])
 sp(1)=subplot(3,1,1);
@@ -127,6 +128,8 @@ if i==1
     D = axis(sp(i));
 end
 
+%%
+
 figure('name','Streamlines','position',[800   90   560   320])
 % Plot colormap
 ax.XLim = D(1:2);
@@ -146,4 +149,11 @@ xd = GMR(Priors,Mu,Sigma,x,1,d); %compute outputs
 
 quiver(x_tmp, y_tmp, reshape(xd(1,:),ny,nx), reshape(xd(2,:),ny,nx), 'color','black')
 
+%% Keep range the same
 
+range_factor = range(x_tmp')/range(y_tmp);
+x_range = -1*min(x_tmp(:)')/max(x_tmp(:)');
+y_range = -1*max(y_tmp(:)')/min(y_tmp(:)');
+
+%% quiver with fixed range
+quiver(x_tmp, y_tmp, reshape(xd(1,:),ny,nx)*x_range, reshape(xd(2,:),ny,nx)*y_range, 'color','black')
