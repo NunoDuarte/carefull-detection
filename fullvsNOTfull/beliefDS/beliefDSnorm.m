@@ -13,12 +13,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All', 'red-cup');
+[E, F] = read('Leo', 'champagne');
 
 %% Belief System for 2 DS
 
 % pick one trajectory
-testX = E{2}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -116,11 +116,11 @@ b = [b1, b2];
 b1_d = 0;
 b2_d = 0;
 b_d = [b1_d, b2_d];
-epsilon = 30; % adaptation rate
+epsilon = 300; % adaptation rate
 
 d = 1; %dimension of data
 xT = 0;
-Xd = [];
+Xd = zeros(length(Data),2);
 
 B = [];
 B = [B; b];
@@ -140,25 +140,19 @@ for j = 1:length(testXn)-K-1
         % DS output
         fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
         [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
-%         y2 = pdf('Normal',x0,Mu{i},Sigma{i});
-
-
-        % error (real velocity - desired velocity)
-        ed = abs(outD(j) - xd(:,1));
-        ee(i) = ed;
+  
+        Xd(j,i) = xd(:,1)';
         
-        Xd = [Xd, xd(:,1)'];
-        
-        b_d(i) = epsilon * (ed'*xd(:,1) + (b(i) - 0.5)*norm(xd(:,1), 2)); 
-        
-%         B_d = winnertakeall(b, b_d);
-%         
-%         b(i) = b(i) + B_d(i)*opt_sim.dt;
-%         b(i) = max(0., min(1., b(i)));
-%         B = [B; b];
-
     end
-%     Xd = [Xd; Xd];
+    veloc = b(1)*Xd(j,1) + b(2)*Xd(j,2);
+    
+    % error (real velocity - desired velocity)
+    ed = outD(j) - veloc;
+    ee(i) = ed;            
+    
+    b_d(1) = epsilon * (ed'*xd(:,1) + (b(1) - 0.5)*norm(xd(:,1), 2)^2); 
+    b_d(1) = epsilon * (ed'*xd(:,1) + (b(2) - 0.5)*norm(xd(:,1), 2)^2); 
+    
     Er = [Er;ee];
     
 %     if abs(outD(j)) > 0.15
@@ -178,14 +172,6 @@ for j = 1:length(testXn)-K-1
         b(i) = max(0., min(1., b(i)));
     end
     b(2) = 1. - b(1);
-    
-% Constraints on the belief system
-%     if abs(b(1) - b(2)) < 0.001
-%        if b(1) > b(2)
-%            b(1) = 0.5; 
-%            b(2) = 0.5;
-%        end
-%     end
     B = [B; b];    
 end
 
