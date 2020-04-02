@@ -13,12 +13,12 @@ addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Leo', 'champagne');
+[E, F] = read('David', 'red-cup');
 
 %% Belief System for 2 DS
 
-% pick one trajectory
-testX = E{1}; 
+% pick e trajectory
+testX = E{2}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -141,30 +141,27 @@ for j = 1:length(testXn)-K-1
         fn_handle = @(xx) GMR(Priors{i},Mu{i},Sigma{i},xx,1:d,d+1:2*d);
         [x, xd, tmp, xT]=Simulation(x0,xT,fn_handle,opt_sim); %running the simulator
   
+        % error (real velocity - desired velocity)
+        ed = abs(outD(j) - xd(:,1));
+        ee(i) = ed;   
+        
         Xd(j,i) = xd(:,1)';
         
+        b_d(i) = epsilon * (ed'*xd(:,1) + (b(i) - 0.5)*norm(xd(:,1), 2)); 
+        
     end
-    veloc = b(1)*Xd(j,1) + b(2)*Xd(j,2);
-    
-    % error (real velocity - desired velocity)
-    ed = outD(j) - veloc;
-    ee(i) = ed;            
-    
-    b_d(1) = epsilon * (ed'*xd(:,1) + (b(1) - 0.5)*norm(xd(:,1), 2)^2); 
-    b_d(1) = epsilon * (ed'*xd(:,1) + (b(2) - 0.5)*norm(xd(:,1), 2)^2); 
-    
     Er = [Er;ee];
     
-%     if abs(outD(j)) > 0.15
-%        [b1_d, w] = max(b_d); 
-%         if w == 1
-%             0
-%         elseif w == 2
-%             b_dold = b_d;
-%             b_d(1) = b1_d;
-%             b_d(2) = b_dold(1);       
-%         end
-%     end
+    if abs(outD(j)) > 0.15
+       [b1_d, w] = max(b_d); 
+        if w == 1
+            0
+        elseif w == 2
+            b_dold = b_d;
+            b_d(1) = b1_d;
+            b_d(2) = b_dold(1);       
+        end
+    end
         
     B_d = winnertakeall(b, b_d);
     for i = 1:2

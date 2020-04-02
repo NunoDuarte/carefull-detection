@@ -64,3 +64,5 @@ errorbar(ctr, ydt, e'/2, '.k') % Individual Bar Heights
 
 legend show
 
+
+
