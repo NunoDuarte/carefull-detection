@@ -1,25 +1,25 @@
 function scriptAllDataDS(K)
 
-%% pick train/test set
-Etrain = [];
-Ftrain = [];
-Etest = [];
-Ftest = [];
+ 
 
 P = 0.70;   % percentage train/test
-[train, test] = getData(P);
+% [train, test] = getData(P);
+% 
+% for i = 1:length(train)
+%     [E, F] = read(train{i}{1}, train{i}{2});
+%     Etrain = [Etrain, E];
+%     Ftrain = [Ftrain, F];
+% end
+% 
+% for i = 1:length(test)
+%     [E, F] = read(test{i}{1}, test{i}{2});
+%     Etest = [Etest, E];
+%     Ftest = [Ftest, F];
+% end
 
-for i = 1:length(train)
-    [E, F] = read(train{i}{1}, train{i}{2});
-    Etrain = [Etrain, E];
-    Ftrain = [Ftrain, F];
-end
-
-for i = 1:length(test)
-    [E, F] = read(test{i}{1}, test{i}{2});
-    Etest = [Etest, E];
-    Ftest = [Ftest, F];
-end
+[Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P);
+train = Etrain;
+test = Etest;
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -135,17 +135,20 @@ f2 = figure(2);
 filename = ['/output/train/F-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
 saveas(f2, [pwd, filename]);
 
-Train = [];
-for i = 1:length(train)
-    Train = [Train; train{i}];
-end
-Train = [Train; {' ', ' '}];
-
-Test = [];
-for i = 1:length(test)
-    Test = [Test; test{i}];
-end
-Test = [Test; {' ', ' '}];
+% labels to know which object
+Train = {'QMUL_data', ' '};
+Test = {'QMUL data', ' '};
+% Train = [];
+% for i = 1:length(train)
+%     Train = [Train; train{i}];
+% end
+% Train = [Train; {' ', ' '}];
+% 
+% Test = [];
+% for i = 1:length(test)
+%     Test = [Test; test{i}];
+% end
+% Test = [Test; {' ', ' '}];
 
 
 %% Classification
