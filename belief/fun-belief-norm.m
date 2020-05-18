@@ -1,4 +1,4 @@
-function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma)
+function [Classification, trainClass] = fun-belief-norm(Data, Priors, Mu, Sigma)
     %% Belief System for 2 DS
     
     for k = 1:length(Data)
