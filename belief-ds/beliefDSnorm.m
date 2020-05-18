@@ -30,16 +30,6 @@ test3{1}(3,:) = testXn(:,3)';
 
 %% Center the Data in the Origin
 
-% for i=1:length(test3)
-%     Norm1 = [];
-%     for j=1:length(test3{i})
-%     
-%         norm1 = test3{i}(:,j);
-%         Norm1 = [Norm1; norm(norm1,2)];
-%         test3norm{i} = Norm1';
-%     end
-% end
-
 for i=1:length(test3)
     xT = test3{i}(:,end);
     Norm1 = [];
@@ -52,20 +42,6 @@ for i=1:length(test3)
 end
 
 [~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
-
-% testXn = test3{1};
-% testXn = testXn - testXn(:,end);
-% testXn = round(testXn,3);
-% 
-% % do the norm of all dimensions
-% for n = 1:length(testXn)   
-%     testXnnorm(n) = norm(testXn(:,n));       
-% end
-% % testXnnorm = round(testXnnorm,4);
-% 
-% testXnnorm0 = testXnnorm - testXnnorm(:,end);
-% testXnnorm0 = testXnnorm0;
-% testXnnorm0 = round(testXnnorm0,3);
 
 %% Load DS parameters
 
@@ -91,18 +67,6 @@ Priors{2} = PriorsF;
 
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
-%% Real Velocity of testX
-% dt = 0.02; % frequency 
-% 
-% for i=2:length(testXn(1,:))
-% %     if i==2
-% %         testX_d(1,i-1) = -0.2;
-% %     else
-%         testX_d(1,i-1) = (testXnnorm0(1,i) - testXnnorm0(1,i-1))/dt;
-% %     end
-% end
-% testX_d(1,i) = 0;
-% %testX_d = diff(testXn,1,2);
 
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
@@ -131,9 +95,6 @@ for j = 1:length(testXn)-K-1
     ee = [0 0];
     for i = 1:2
         
-%         out(:,j) = mean(testXn(1:3,j:j+K),2);
-%         outD(j) = mean(testX_d(1,j:j+K),2);
-%         x0 = norm(out(:,j),2);
         outD(j) = Data(2,j);
         x0 = Data(1,j);
 
@@ -152,6 +113,7 @@ for j = 1:length(testXn)-K-1
     end
     Er = [Er;ee];
     
+    % threshold
     if abs(outD(j)) > 0.15
        [b1_d, w] = max(b_d); 
         if w == 1

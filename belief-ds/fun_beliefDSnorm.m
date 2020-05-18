@@ -13,7 +13,7 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
         test3{1}(2,:) = testXn(:,2)';
         test3{1}(3,:) = testXn(:,3)'; 
 
-        [Emp3D, Emp2Do, Emp2D] = processData(test3, 0);
+        Emp3D = processData(test3, 0);
         for i=1:length(Emp3D)
             xT = Emp3D{i}(:,end);
             Norm1 = [];
@@ -24,41 +24,12 @@ function [Classification, trainClass] = fun_beliefDSnorm(Data, Priors, Mu, Sigma
                 Emp3Dnorm{i} = Norm1';
             end
         end
-        
-%         for i=1:length(Emp3D)
-%             Norm1 = [];
-%             for j=1:length(Emp3D{i})
-% 
-%                 norm1 = Emp3D{i}(:,j);
-%                 Norm1 = [Norm1; norm(norm1,2)];
-%                 Emp3Dnorm{i} = Norm1';
-%             end
-%         end
 
         [~ , ~, dataProcess, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
         [maxVel, idVel] = min(dataProcess(2,:));
 
         Dataold = dataProcess;
         dataProcess = dataProcess(:,idVel:end);
-%         %% Center the Data in the Origin
-% 
-%         testXn = test3{1};
-%         testXn = testXn - testXn(:,end);
-%         testXn = round(testXn,4);
-% 
-%         %% do the norm of all dimensions
-% 
-%         for n = 1:length(testXn)   
-%             testXnnorm(n) = norm(testXn(:,n));    
-%         end
-%         testXnnorm = round(testXnnorm,3);
-% 
-%         %% Real Velocity of testX
-% 
-%         dt = 0.02; % frequency 
-%         for i=2:length(testXn(1,:))
-%             testX_d(1,i-1) = (testXnnorm(1,i) - testXnnorm(1,i-1))/dt;
-%         end
 
         %% Run each DS to get the desired velocity?
         opt_sim.dt = 0.02;
