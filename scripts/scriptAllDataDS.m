@@ -1,9 +1,10 @@
 function scriptAllDataDS(K)
 
- 
-
-P = 0.85;   % percentage train/test
+P = 0.80;   % percentage train/test
+%% EPFL 
 % [train, test] = getData(P);
+% 
+% [Etrain, Ftrain, Etest, Ftest] = deal([]);
 % 
 % for i = 1:length(train)
 %     [E, F] = read(train{i}{1}, train{i}{2});
@@ -17,7 +18,13 @@ P = 0.85;   % percentage train/test
 %     Ftest = [Ftest, F];
 % end
 
-[Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P);
+%% QMUL
+% [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P);
+% train = Etrain;
+% test = Etest;
+
+%% Both
+[Etrain, Etest, Ftrain, Ftest] = pickData(P);
 train = Etrain;
 test = Etest;
 
@@ -44,21 +51,12 @@ end
 
 %%
 plotting = 0;    % do you want to plot the 3D versions?
-[Emp3D, Emp2Do, Emp2D] = processData(E3, plotting);
+Emp3D = processData(E3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 0;    % do you default parameters?
+default = 0;    % default parameters?
 
-% for i=1:length(Emp3D)
-%     Norm1 = [];
-%     for j=1:length(Emp3D{i})
-%     
-%         norm1 = Emp3D{i}(:,j);
-%         Norm1 = [Norm1; norm(norm1,2)];
-%         Emp3Dnorm{i} = Norm1';
-%     end
-% end
-
+% normalize data
 for i=1:length(Emp3D)
     xT = Emp3D{i}(:,end);
     Norm1 = [];
@@ -97,25 +95,15 @@ end
 
 %% 
 plotting = 0;    % do you want to plot the 3D versions?
-[Full3D, Full2Do, Full2D] = processData(F3, plotting);
+Full3D = processData(F3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 0;    % do you default parameters?
-
-% for i=1:length(Full3D)
-%     Norm1 = [];
-%     for j=1:length(Full3D{i})
-%     
-%         norm1 = Full3D{i}(:,j);
-%         Norm1 = [Norm1; norm(norm1,2)];
-%         Full3Dnorm{i} = Norm1';
-%     end
-% end
+default = 0;    %default parameters?
 
 for i=1:length(Full3D)
     xT = Full3D{i}(:,end);
     Norm1 = [];
-    for j=1:length(Full3D{i})
+    for j=1:length(Full3D{i}) 
         dis = xT - Full3D{i}(:,j);
         disN = norm(dis);
         Norm1 = [Norm1; disN];
@@ -135,20 +123,25 @@ f2 = figure(2);
 filename = ['/output/train/F-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
 saveas(f2, [pwd, filename]);
 
-% labels to know which object
-Train = {'QMUL_data', ' '};
-Test = {'QMUL data', ' '};
-% Train = [];
-% for i = 1:length(train)
-%     Train = [Train; train{i}];
-% end
-% Train = [Train; {' ', ' '}];
+%% labels to know which object
+    % QMUL
+%     Train = {'QMUL_data', ' '};
+    Test = {'QMUL data', ' '};
+
+    % ----
+    
+    % EPFL
+    Train = [];
+    for i = 1:length(train)
+        Train = [Train; train{i}];
+    end
+    Train = [Train; {' ', ' '}];
 % 
-% Test = [];
-% for i = 1:length(test)
-%     Test = [Test; test{i}];
-% end
-% Test = [Test; {' ', ' '}];
+%     Test = [];
+%     for i = 1:length(test)
+%         Test = [Test; test{i}];
+%     end
+%     Test = [Test; {' ', ' '}];
 
 
 %% Classification

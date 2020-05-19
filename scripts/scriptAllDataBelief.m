@@ -32,8 +32,8 @@ Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 
 %% Classify train data
-[classEtrain, outEtrain] = fun_beliefDSnorm(Etrain, Priors, Mu, Sigma);
-[classFtrain, outFtrain] = fun_beliefDSnorm(Ftrain, Priors, Mu, Sigma);
+[classEtrain, outEtrain] = fun_belief_norm(Etrain, Priors, Mu, Sigma);
+[classFtrain, outFtrain] = fun_belief_norm(Ftrain, Priors, Mu, Sigma);
 
 % Output Confusion Matrix
 
@@ -43,8 +43,8 @@ trainTrueNeg = classFtrain(2)
 trainFalseNeg = classFtrain(1)
 
 %% Classify train data
-[classEtest, outEtest] = fun_beliefDSnorm(Etest, Priors, Mu, Sigma);
-[classFtest, outFtest] = fun_beliefDSnorm(Ftest, Priors, Mu, Sigma);
+[classEtest, outEtest] = fun_belief_norm(Etest, Priors, Mu, Sigma);
+[classFtest, outFtest] = fun_belief_norm(Ftest, Priors, Mu, Sigma);
 
 % Output Confusion Matrix
 

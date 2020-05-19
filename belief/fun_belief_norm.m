@@ -1,4 +1,4 @@
-function [Classification, trainClass] = fun-belief-norm(Data, Priors, Mu, Sigma)
+function [Classification, trainClass] = fun_belief_norm(Data, Priors, Mu, Sigma)
     %% Belief System for 2 DS
     
     for k = 1:length(Data)
@@ -12,7 +12,10 @@ function [Classification, trainClass] = fun-belief-norm(Data, Priors, Mu, Sigma)
         test3{1}(1,:) = testXn(:,1)';
         test3{1}(2,:) = testXn(:,2)';
         test3{1}(3,:) = testXn(:,3)'; 
-
+        
+        dt = 0.02;  % frequency of data 50 Hz
+        dataProcess = [];
+        
         Emp3D = processData(test3, 0);
         for i=1:length(Emp3D)
             xT = Emp3D{i}(:,end);
@@ -23,9 +26,18 @@ function [Classification, trainClass] = fun-belief-norm(Data, Priors, Mu, Sigma)
                 Norm1 = [Norm1; disN];
                 Emp3Dnorm{i} = Norm1';
             end
+            
+                % 1st derivative
+                data = Emp3Dnorm{i};
+                data_d = diff(data,1,2)/dt;
+                data = [data; [data_d, 0]];
+
+                dataProcess = [dataProcess, data];
         end
 
-        [~ , ~, dataProcess, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
+%         [~ , ~, dataProcess, index] = preprocess_demos(Emp3Dnorm, 0.02, 0.0001); 
+        
+        % Add this for QMUL data
         [maxVel, idVel] = min(dataProcess(2,:));
 
         Dataold = dataProcess;

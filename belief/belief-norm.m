@@ -28,9 +28,14 @@ test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
-%% Center the Data in the Origin
+%% Normalize data and compute the 1st derivative
+
+dt = 0.02;  % frequency of data 50 Hz
+Data = [];
 
 for i=1:length(test3)
+    
+    % normalize
     xT = test3{i}(:,end);
     Norm1 = [];
     for j=1:length(test3{i})
@@ -39,9 +44,17 @@ for i=1:length(test3)
         Norm1 = [Norm1; disN];
         test3norm{i} = Norm1';
     end
+    
+    % 1st derivative
+    data = test3norm{i};
+    data_d = diff(data,1,2)/dt;
+    data = [data; [data_d, 0]];
+    
+    Data = [Data, data];
+    
 end
 
-[~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
+% [~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
 
 %% Load DS parameters
 

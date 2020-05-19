@@ -9,7 +9,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexE)
 
         E{i} = csvread(fullpaths{indexE(i)});
-
     end
     % Full Cups
     fu2 = strfind(fullpaths, 'fi3fu2');
@@ -17,7 +16,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexF)
 
         F{i} = csvread(fullpaths{indexF(i)});
-
     end   
     
     files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/2/*.csv');
@@ -29,7 +27,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexE)
 
         E{i+4} = csvread(fullpaths{indexE(i)});
-
     end
     % Full Cups
     fu2 = strfind(fullpaths, 'fi3fu2');
@@ -37,10 +34,8 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexF)
 
         F{i+4} = csvread(fullpaths{indexF(i)});
-
     end      
-    
-    
+       
     files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/4/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
@@ -50,7 +45,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexE)
 
         E{i+8} = csvread(fullpaths{indexE(i)});
-
     end
     % Full Cups
     fu2 = strfind(fullpaths, 'fi3fu2');
@@ -58,7 +52,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexF)
 
         F{i+8} = csvread(fullpaths{indexF(i)});
-
     end
     
     files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/5/*.csv');
@@ -70,7 +63,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexE)
 
         E{i+12} = csvread(fullpaths{indexE(i)});
-
     end
     % Full Cups
     fu2 = strfind(fullpaths, 'fi3fu2');
@@ -78,7 +70,6 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     for i=1:length(indexF)-1
 
         F{i+12} = csvread(fullpaths{indexF(i)});
-
     end
        
     %% pick train/test set

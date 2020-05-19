@@ -7,16 +7,17 @@ clc
 
 addpath('../SEDS')
 addpath('data')
-addpath('DS')
-addpath('beliefDS')
+addpath('ds')
+addpath('process')
+addpath('belief')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 %% 
 
-K = [6, 7, 8];
+K = [3, 4, 5, 6, 7, 8];
 
-for i=1:4
+for i=1:2
     for k = 1:length(K)
 
        scriptAllDataDS(K(k))

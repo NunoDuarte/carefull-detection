@@ -39,26 +39,41 @@ else
 end
 
   
-%% Run SEDS solver
+%% compute 1st derivative
 
-[tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
-Datanew = [];
-% Add this for QMUL data
-id = find(Data(1,:) == 0);
-for i=1:length(id)
-    if i == 1
-        [maxVel, idVel] = min(Data(2,1:id(1)));
-        count = 0;
-    else
-        [maxVel, idVel] = min(Data(2,id(i-1):id(i)));
-        count = id(i-1)-1;
-    end
+% [tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
+
+% EPFL
+dt = 0.02;  % frequency of data 50 Hz
+Data = [];
+
+for i=1:length(F)
     
-    Datanew = [Datanew, Data(:,idVel+count:id(i))];
+    data = F{i};
+    data_d = diff(data,1,2)/dt;
+    data = [data; [data_d, 0]];
+    
+    Data = [Data, data];
+    
 end
 
-Data = Datanew;
-%% 
+% % QMUL
+% Datanew = [];
+% id = find(Data(1,:) == 0);
+% for i=1:length(id)
+%     if i == 1
+%         [maxVel, idVel] = min(Data(2,1:id(1)));
+%         count = 0;
+%     else
+%         [maxVel, idVel] = min(Data(2,id(i-1):id(i)));
+%         count = id(i-1)-1;
+%     end
+%     
+%     Datanew = [Datanew, Data(:,idVel+count:id(i))];
+% end
+% Data = Datanew;
+
+%% Run SEDS solver
 [Priors_0, Mu_0, Sigma_0] = initialize_SEDS(Data,K); %finding an initial guess for GMM's parameter
 [Priors Mu Sigma]=SEDS_Solver(Priors_0,Mu_0,Sigma_0,Data,options); %running SEDS optimization solver
 
