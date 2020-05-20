@@ -17,7 +17,7 @@ addpath('../../Khansari/SEDS/GMR_lib')
 
 K = [3, 4, 5, 6, 7, 8];
 
-for i=1:2
+for i=1:8
     for k = 1:length(K)
 
        scriptAllDataDS(K(k))

@@ -24,9 +24,7 @@ P = 0.80;   % percentage train/test
 % test = Etest;
 
 %% Both
-[Etrain, Etest, Ftrain, Ftest] = pickData(P);
-train = Etrain;
-test = Etest;
+[train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P);
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -126,7 +124,7 @@ saveas(f2, [pwd, filename]);
 %% labels to know which object
     % QMUL
 %     Train = {'QMUL_data', ' '};
-    Test = {'QMUL data', ' '};
+%     Test = {'QMUL data', ' '};
 
     % ----
     
@@ -136,12 +134,12 @@ saveas(f2, [pwd, filename]);
         Train = [Train; train{i}];
     end
     Train = [Train; {' ', ' '}];
-% 
-%     Test = [];
-%     for i = 1:length(test)
-%         Test = [Test; test{i}];
-%     end
-%     Test = [Test; {' ', ' '}];
+
+    Test = [];
+    for i = 1:length(test)
+        Test = [Test; test{i}];
+    end
+    Test = [Test; {' ', ' '}];
 
 
 %% Classification
