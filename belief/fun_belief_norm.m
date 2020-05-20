@@ -89,16 +89,16 @@ function [Classification, trainClass] = fun_belief_norm(Data, Priors, Mu, Sigma)
             Er = [Er;ee];
             
             % Threshold!!!!!!
-%             if abs(outD(j)) > 0.15
-%                [b1_d, w] = max(b_d); 
-%                 if w == 1
-%                     0
-%                 elseif w == 2
-%                     b_dold = b_d;
-%                     b_d(1) = b1_d;
-%                     b_d(2) = b_dold(1);       
-%                 end
-%             end
+            if abs(outD(j)) > 0.5
+               [b1_d, w] = max(b_d); 
+                if w == 1
+                    0
+                elseif w == 2
+                    b_dold = b_d;
+                    b_d(1) = b1_d;
+                    b_d(2) = b_dold(1);       
+                end
+            end
             % ----------------------
             
             B_d = winnertakeall(b, b_d);
@@ -119,8 +119,10 @@ function [Classification, trainClass] = fun_belief_norm(Data, Priors, Mu, Sigma)
         
     end
 
-    clc
-    sumtrainClass = sum(trainClass,2);
-    Classification = [sumtrainClass(1)/length(Data); sumtrainClass(2)/length(Data)];
+    if exist('Data', 'var')
+        clc
+        sumtrainClass = sum(trainClass,2);
+        Classification = [sumtrainClass(1)/length(Data); sumtrainClass(2)/length(Data)];
+    end
     
 end
