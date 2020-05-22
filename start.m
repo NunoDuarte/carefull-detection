@@ -17,10 +17,18 @@ addpath('../../Khansari/SEDS/GMR_lib')
 
 K = [3, 4, 5, 6, 7, 8];
 
-for i=1:8
-    for k = 1:length(K)
+type = {'All', 'One'};
 
-       scriptAllDataDS(K(k))
-       close all;
+Obj = {'plastic-cup', 'red-cup', 'champagne'};
+Hum = {'Kunpeng', 'Leo', 'Athanasios', 'David'};
+L = [Obj, Hum];
+
+for t=1:2
+    for i=1:length(L)
+        for k = 1:length(K)
+
+           scriptAllDataDS(K(k), type{t}, L{i})
+           close all;
+        end
     end
 end
