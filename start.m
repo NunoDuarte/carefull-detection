@@ -16,11 +16,12 @@ addpath('../../Khansari/SEDS/GMR_lib')
 %% 
 
 K = [3, 4, 5, 6, 7, 8];
+P = [0.6, 0.7, 0.8, 0.65, 0.75, 0.85]; % percentage
 
 for i=1:8
     for k = 1:length(K)
 
-       scriptAllDataDS(K(k), ' ', ' ');
+       scriptAllDataDS(K(k), P, ' ', ' ');
        close all;
     end
 end

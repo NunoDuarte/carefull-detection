@@ -1,6 +1,6 @@
-function scriptAllDataDS(K, type, ID)
+function scriptAllDataDS(K, P, type, ID)
 
-P = 0.80;   % percentage train/test
+% P = 0.80;   % percentage train/test
 %% EPFL 
 % [train, test] = getData(P);
 % 
@@ -27,7 +27,10 @@ P = 0.80;   % percentage train/test
 % [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P);
 
 %% Both - train QMUL
-[train, test, Etrain, Etest, Ftrain, Ftest] = pickData_test(P);
+% [train, test, Etrain, Etest, Ftrain, Ftest] = pickData_test(P);
+
+%% Both - train EPFL+QMUL
+[train, test, Etrain, Etest, Ftrain, Ftest] = pickAny(P);
 
 %% One vs All or All vs One
 
