@@ -1,7 +1,7 @@
 
 decimal = 4;
 
-A = Empty1;
+A = Empty;
 
 %   0   0.5   1   2   2.5   3   4 
 L = 0:0.0001:1;
@@ -121,6 +121,10 @@ end
 
 %%
 
+Bnorm = B/17;
+
+%%
+
 figure()
 
 for i=1:size(B,1)
@@ -128,22 +132,25 @@ for i=1:size(B,1)
     hold on;
     switch i
         case 1
-            plot(B(i, :), 'b');
+            plot(Bnorm(i, :), 'b');
         case 2
-            plot(B(i, :), 'p');
+            plot(Bnorm(i, :), 'color', [0.4940, 0.1840, 0.5560]);
         case 3
-            plot(B(i, :), 'c');
+            plot(Bnorm(i, :), 'c');
         case 4
-            plot(B(i, :), 'g');
+            plot(Bnorm(i, :), 'g');
         case 5
-            plot(B(i, :), 'y');
+            plot(Bnorm(i, :), 'color', [0.9290, 0.6940, 0.1250]);
         case 6
-            plot(B(i, :), 'r');            
+            plot(Bnorm(i, :), 'r');            
         case 7
-            plot(B(i, :), 'k');            
+            plot(Bnorm(i, :), 'k');            
             
     end
 end
+
+legend('Cup', 'Hand', 'Task', 'Other Cup', 'Other Hand', 'Face', 'Final Point');
             
-            
+xlim([0,10000]);
+ylim([0,1]);
             
