@@ -123,10 +123,15 @@ end
 
 Bnorm = B/17;
 
-%%
+for i=1:size(Bnorm,1)
+    
+    Bnorm_smooth(i,:) = smooth(Bnorm(i,:),0.1);
+    
+end
+
+%% Not Smoothed
 
 figure()
-
 for i=1:size(B,1)
     
     hold on;
@@ -145,6 +150,36 @@ for i=1:size(B,1)
             plot(Bnorm(i, :), 'r');            
         case 7
             plot(Bnorm(i, :), 'k');            
+            
+    end
+end
+
+legend('Cup', 'Hand', 'Task', 'Other Cup', 'Other Hand', 'Face', 'Final Point');
+            
+xlim([0,10000]);
+ylim([0,1]);
+            
+%% Smoothed
+
+figure()
+for i=1:size(B,1)
+    
+    hold on;
+    switch i
+        case 1
+            plot(Bnorm_smooth(i, :), 'b');
+        case 2
+            plot(Bnorm_smooth(i, :), 'color', [0.4940, 0.1840, 0.5560]);
+        case 3
+            plot(Bnorm_smooth(i, :), 'c');
+        case 4
+            plot(Bnorm_smooth(i, :), 'g');
+        case 5
+            plot(Bnorm_smooth(i, :), 'color', [0.9290, 0.6940, 0.1250]);
+        case 6
+            plot(Bnorm_smooth(i, :), 'r');            
+        case 7
+            plot(Bnorm_smooth(i, :), 'k');            
             
     end
 end
