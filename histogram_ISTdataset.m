@@ -1,7 +1,7 @@
 
 decimal = 4;
 
-A = Empty;
+A = Full;
 
 %   0   0.5   1   2   2.5   3   4 
 L = 0:0.0001:1;
@@ -25,7 +25,7 @@ for i=1:2:length(A)
                         numR = round(A(j,i+1), decimal);
                         ind = find(L == numR);
                         
-                        B(2,1:ind) = B(2,1:ind) + 1;                        
+                        B(1,1:ind) = B(1,1:ind) + 1;                        
                         
                     case 1
                         numR = round(A(j,i+1), decimal);
@@ -75,7 +75,7 @@ for i=1:2:length(A)
                         numR = round(A(j,i+1), decimal);
                         ind = find(L == numR);
                         
-                        B(2,indP:ind) = B(2,indP:ind) + 1;                        
+                        B(1,indP:ind) = B(1,indP:ind) + 1;                        
                         
                     case 1
                         numR = round(A(j,i+1), decimal);
@@ -188,4 +188,8 @@ legend('Cup', 'Hand', 'Task', 'Other Cup', 'Other Hand', 'Face', 'Final Point');
             
 xlim([0,10000]);
 ylim([0,1]);
+xlabel('time normalized');
+xticklabels({'t = 0', '0.2', '0.4', '0.6', '0.8', 't = 1'})
+ylabel('percentage %');
+
             
