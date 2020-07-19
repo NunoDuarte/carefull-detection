@@ -7,39 +7,19 @@ clc
 
 addpath('../SEDS')
 addpath('data')
-addpath('ds')
-addpath('process')
-addpath('belief')
+addpath('DS')
+addpath('beliefDS')
 addpath('../../Khansari/SEDS/SEDS_lib')
 addpath('../../Khansari/SEDS/GMR_lib')
 
 %% 
 
-K = [3, 4, 5, 6, 7, 8];
-P = [0.6, 0.7, 0.8, 0.65, 0.75, 0.85]; % percentage
+K = [6, 7, 8];
 
-for i=1:8
+for i=1:4
     for k = 1:length(K)
 
-       scriptAllDataDS(K(k), P, ' ', ' ');
+       scriptAllDataDS(K(k))
        close all;
     end
 end
-
-% K = [3, 4, 5, 6, 7, 8];
-% 
-% type = {'All', 'One'};
-% 
-% Obj = {'plastic-cup', 'red-cup', 'champagne'};
-% Hum = {'Kunpeng', 'Leo', 'Athanasios', 'David'};
-% L = [Obj, Hum];
-% 
-% for t=1:2
-%     for i=1:length(L)
-%         for k = 1:length(K)
-% 
-%            scriptAllDataDS(K(k), type{t}, L{i})
-%            close all;
-%         end
-%     end
-% end
