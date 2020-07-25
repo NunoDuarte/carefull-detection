@@ -8,11 +8,11 @@ clc
 addpath('../SEDS')
 addpath('DS')
 addpath('data')
-addpath('../../Khansari/SEDS/SEDS_lib')
-addpath('../../Khansari/SEDS/GMR_lib')
+addpath('../../software/Khansari/SEDS/SEDS_lib')
+addpath('../../software/Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All', 'champagne');
+[E, F] = read('Leo', 'new-plastic-cup');
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -37,10 +37,20 @@ plot3(ploty, plotx, plotz, '.');
 
 %%
 plotting = 1;    % do you want to plot the 3D versions?
-Emp3D = processData(E3, plotting);
+[Emp3D, Emp2Do, Emp2D] = processData(E3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 1;    % default parameters?
+default = 1;    % do you want the default parameters?
+
+% for i=1:length(Emp3D)
+%     Norm1 = [];
+%     for j=1:length(Emp3D{i})
+%     
+%         norm1 = Emp3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Emp3Dnorm{i} = Norm1';
+%     end
+% end
 
 for i=1:length(Emp3D)
     xT = Emp3D{i}(:,end);
@@ -48,7 +58,7 @@ for i=1:length(Emp3D)
     for j=1:length(Emp3D{i})
         dis = xT - Emp3D{i}(:,j);
         disN = norm(dis,2);
-        Norm1 = [Norm1; disN];
+        Norm1 = [Norm1; -1*disN];
         Emp3Dnorm{i} = Norm1';
     end
 end
@@ -78,10 +88,20 @@ plot3(ploty, plotx, plotz, '.');
 
 %% 
 plotting = 1;    % do you want to plot the 3D versions?
-Full3D = processData(F3, plotting);
+[Full3D, Full2Do, Full2D] = processData(F3, plotting);
 
 %% Generate a DS for Empty Cups
-default = 1;    % default parameters?
+default = 1;    % do you default parameters?
+
+% for i=1:length(Full3D)
+%     Norm1 = [];
+%     for j=1:length(Full3D{i})
+%     
+%         norm1 = Full3D{i}(:,j);
+%         Norm1 = [Norm1; norm(norm1,2)];
+%         Full3Dnorm{i} = Norm1';
+%     end
+% end
 
 for i=1:length(Full3D)
     xT = Full3D{i}(:,end);

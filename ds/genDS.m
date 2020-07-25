@@ -4,7 +4,7 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 2; % Number of Gaussian functions
+    K = 6; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
@@ -39,26 +39,12 @@ else
 end
 
   
-%% compute 1st derivative
+%% Run SEDS solver
 
-% [tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
+[tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
 
-% EPFL
-dt = 0.02;  % frequency of data 50 Hz
-Data = [];
-
-for i=1:length(F)
-    
-    data = F{i};
-    data_d = diff(data,1,2)/dt;
-    data = [data; [data_d, 0]];
-    
-    Data = [Data, data];
-    
-end
-
-% % QMUL
 % Datanew = [];
+% % Add this for QMUL data
 % id = find(Data(1,:) == 0);
 % for i=1:length(id)
 %     if i == 1
@@ -71,9 +57,9 @@ end
 %     
 %     Datanew = [Datanew, Data(:,idVel+count:id(i))];
 % end
+% 
 % Data = Datanew;
-
-%% Run SEDS solver
+%% 
 [Priors_0, Mu_0, Sigma_0] = initialize_SEDS(Data,K); %finding an initial guess for GMM's parameter
 [Priors Mu Sigma]=SEDS_Solver(Priors_0,Mu_0,Sigma_0,Data,options); %running SEDS optimization solver
 

@@ -164,26 +164,26 @@ function [E, F] = read(name, object)
             F{2} = csvread(['data/' name '/' object '/full/2_right.csv']);
             F{2}(1100:end,:) = 0;        
         
-        elseif strcmp(object,'trash-plastic-cup')
-            E{1} = csvread(['data/trash/' name '-new/' object '/empty/0_right.csv']);
-            E{2} = csvread(['data/trash/' name '-new/' object '/empty/1_right.csv']);
-            E{3} = csvread(['data/trash/' name '-new/' object '/empty/2_right.csv']);
-            E{4} = csvread(['data/trash/' name '-new/' object '/empty/3_right.csv']);
+        elseif strcmp(object,'new-plastic-cup')
+            E{1} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/0_right.csv']);
+            E{2} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/1_right.csv']);
+            E{3} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/2_right.csv']);
+            E{4} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/3_right.csv']);
             %
-            F{1} = csvread(['data/trash/' name '-new/' object '/full/0_right.csv']);
-            F{2} = csvread(['data/trash/' name '-new/' object '/full/1_right.csv']);
-            F{3} = csvread(['data/trash/' name '-new/' object '/full/2_right.csv']);
+            F{1} = csvread(['data/zApproach/' name '/plastic-cup' '/full/0_right.csv']);
+            F{2} = csvread(['data/zApproach/' name '/plastic-cup' '/full/1_right.csv']);
+            F{3} = csvread(['data/zApproach/' name '/plastic-cup' '/full/2_right.csv']);
 
-        elseif strcmp(object, 'trash-red-cup')
-            E{1} = csvread(['data/trash/' name '-new/' object '/empty/0_right.csv']);
-            E{2} = csvread(['data/trash/' name '-new/' object '/empty/1_right.csv']);
-            E{3} = csvread(['data/trash/' name '-new/' object '/empty/2_right.csv']);
-            E{4} = csvread(['data/trash/' name '-new/' object '/empty/3_right.csv']);
+        elseif strcmp(object, 'new-red-cup')
+            E{1} = csvread(['data/zApproach/' name '/red-cup' '/empty/0_right.csv']);
+            E{2} = csvread(['data/zApproach/' name '/red-cup' '/empty/1_right.csv']);
+            E{3} = csvread(['data/zApproach/' name '/red-cup' '/empty/2_right.csv']);
+            E{4} = csvread(['data/zApproach/' name '/red-cup' '/empty/3_right.csv']);
             %
-            F{1} = csvread(['data/trash/' name '-new/' object '/full/0_right.csv']);
-            F{2} = csvread(['data/trash/' name '-new/' object '/full/1_right.csv']);
-            F{3} = csvread(['data/trash/' name '-new/' object '/full/2_right.csv']);
-            F{4} = csvread(['data/trash/' name '-new/' object '/full/3_right.csv']);
+            F{1} = csvread(['data/zApproach/' name '/red-cup' '/full/0_right.csv']);
+            F{2} = csvread(['data/zApproach/' name '/red-cup' '/full/1_right.csv']);
+            F{3} = csvread(['data/zApproach/' name '/red-cup' '/full/2_right.csv']);
+            F{4} = csvread(['data/zApproach/' name '/red-cup' '/full/3_right.csv']);
             
         elseif strcmp(object,'red-mug')
             E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
