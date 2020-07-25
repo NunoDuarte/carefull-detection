@@ -4,12 +4,12 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 6; % Number of Gaussian functions
+    K = 4; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
     % information about other possible options.
-    options.tol_mat_bias = 10^-5; % A very small positive scalar to avoid
+    options.tol_mat_bias = 10^-3; % A very small positive scalar to avoid
                                   % instabilities in Gaussian kernel [default: 10^-15]
 
     options.display = 1;          % An option to control whether the algorithm
