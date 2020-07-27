@@ -169,24 +169,27 @@ function [E, F] = read(name, object)
             E{2} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/1_right.csv']);
             E{3} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/2_right.csv']);
             E{4} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/3_right.csv']);
-            E{5} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/4_right.csv']);
+%             E{5} = csvread(['data/zApproach/' name '/plastic-cup' '/empty/4_right.csv']);
             %
             F{1} = csvread(['data/zApproach/' name '/plastic-cup' '/full/0_right.csv']);
             F{2} = csvread(['data/zApproach/' name '/plastic-cup' '/full/1_right.csv']);
             F{3} = csvread(['data/zApproach/' name '/plastic-cup' '/full/2_right.csv']);
-            F{4} = csvread(['data/zApproach/' name '/plastic-cup' '/full/3_right.csv']);
+%             F{4} = csvread(['data/zApproach/' name '/plastic-cup' '/full/3_right.csv']);
 
         elseif strcmp(object, 'new-red-cup')
             E{1} = csvread(['data/zApproach/' name '/red-cup' '/empty/0_right.csv']);
             E{2} = csvread(['data/zApproach/' name '/red-cup' '/empty/1_right.csv']);
             E{3} = csvread(['data/zApproach/' name '/red-cup' '/empty/2_right.csv']);
-            E{4} = csvread(['data/zApproach/' name '/red-cup' '/empty/3_right.csv']);
+%             E{4} = csvread(['data/zApproach/' name '/red-cup' '/empty/3_right.csv']);
             %
             F{1} = csvread(['data/zApproach/' name '/red-cup' '/full/0_right.csv']);
+            F{1}(500:end,:) = 0;
             F{2} = csvread(['data/zApproach/' name '/red-cup' '/full/1_right.csv']);
-            F{3} = csvread(['data/zApproach/' name '/red-cup' '/full/2_right.csv']);
-            F{4} = csvread(['data/zApproach/' name '/red-cup' '/full/3_right.csv']);
-            F{5} = csvread(['data/zApproach/' name '/red-cup' '/full/4_right.csv']);
+            F{2}(1:108,:) = 0;
+%             F{3} = csvread(['data/zApproach/' name '/red-cup' '/full/2_right.csv']);
+            F{3} = csvread(['data/zApproach/' name '/red-cup' '/full/3_right.csv']);
+            F{3}(1:83,:) = 0;
+            F{4} = csvread(['data/zApproach/' name '/red-cup' '/full/4_right.csv']);
 
         elseif strcmp(object, 'new-red-mug')
             E{1} = csvread(['data/zApproach/' name '/red-mug' '/empty/0_right.csv']);

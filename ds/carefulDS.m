@@ -12,7 +12,7 @@ addpath('../../software/Khansari/SEDS/SEDS_lib')
 addpath('../../software/Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('Leo', 'new-plastic-cup');
+[E, F] = read('Leo', 'new-red-cup');
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -58,8 +58,10 @@ for i=1:length(Emp3D)
     for j=1:length(Emp3D{i})
         dis = xT - Emp3D{i}(:,j);
         disN = norm(dis,2);
-        Norm1 = [Norm1; -1*disN];
-        Emp3Dnorm{i} = Norm1';
+        Norm1 = [Norm1; disN];
+        % normalized over distance
+        Norm2 = Norm1/max(Norm1);
+        Emp3Dnorm{i} = -1*Norm2';
     end
 end
 genDS(Emp3Dnorm, default, [], [], [], 'E', '2D');
@@ -110,7 +112,9 @@ for i=1:length(Full3D)
         dis = xT - Full3D{i}(:,j);
         disN = norm(dis);
         Norm1 = [Norm1; disN];
-        Full3Dnorm{i} = Norm1';
+        % normalized over distance
+        Norm2 = Norm1/max(Norm1);
+        Full3Dnorm{i} = -1*Norm2';
     end
 end
 genDS(Full3Dnorm, default, [], [], [], 'F', '2D');
