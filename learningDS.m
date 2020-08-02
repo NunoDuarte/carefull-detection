@@ -80,21 +80,37 @@ yd = -[x - 3] - [y + 4].*([x - 3].^2 + [y + 4].^2 - 4);
 
 %% Limit Cycle - circle
 % define variables
-r = [3, -4];    % center of limit cycle
-r0 = 10;        % radius = sqrt(r0)
+r = [0.5, 0.8];    % center of limit cycle
+r0 = 0.5;        % radius = sqrt(r0)
 
 % Limit cycle one radius
 xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 
+xtest = 1
+ytest = 1
+
+figure(2)
+for i=1:100
+    hold on;
+    xd =  [ytest - r(2)] - [xtest - r(1)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
+    yd = -[xtest - r(1)] - [ytest - r(2)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
+    
+    xtest = xtest + xd*0.1;
+    ytest = ytest + yd*0.1;
+    
+    plot(ytest,xtest, '.r');
+end
+    
+
 %% Limit Cycle - ellipse
 % define variables
-r = [3, -4];    % center of limit cycle
-r0 = [2, 25];        % radius of ellipse = sqrt(r0)
-
-% Limit cycle one radius
-xd =  [y - r(2)] - [x - r(1)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
-yd = -[x - r(1)] - [y - r(2)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
+% r = [3, -4];    % center of limit cycle
+% r0 = [2, 25];        % radius of ellipse = sqrt(r0)
+% 
+% % Limit cycle one radius
+% xd =  [y - r(2)] - [x - r(1)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
+% yd = -[x - r(1)] - [y - r(2)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
 
 %% Single Attractor
 % Attractor with local attraction (higher the degree => the higher the
