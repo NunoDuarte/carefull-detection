@@ -78,7 +78,8 @@ yd = A(2)*[x - 3] + u*y;
 xd =  [y + 4] - [x - 3].*([x - 3].^2 + [y + 4].^2 - 4);
 yd = -[x - 3] - [y + 4].*([x - 3].^2 + [y + 4].^2 - 4);
 
-%% define variables
+%% Limit Cycle - circle
+% define variables
 r = [3, -4];    % center of limit cycle
 r0 = 10;        % radius = sqrt(r0)
 
@@ -86,6 +87,16 @@ r0 = 10;        % radius = sqrt(r0)
 xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 
+%% Limit Cycle - ellipse
+% define variables
+r = [3, -4];    % center of limit cycle
+r0 = [2, 25];        % radius of ellipse = sqrt(r0)
+
+% Limit cycle one radius
+xd =  [y - r(2)] - [x - r(1)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
+yd = -[x - r(1)] - [y - r(2)].*(([x - r(1)].^2)./r0(1) + ([y - r(2)].^2)./r0(2) - 1);
+
+%% Single Attractor
 % Attractor with local attraction (higher the degree => the higher the
 % attraction locally)
 % xd = A(1)*[y + 4] - 0.8*x + (-5)*x.^3;
@@ -98,6 +109,10 @@ yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 % Limit cycles - unstable attractor
 % xd = A(1)*[y + 4] + 0.8*x;
 % yd = -A(2)*[x - 3];
+
+% local attraction that shifts the trajectory
+% xd =  [y - r(2)] - [x].*([x - r(1)].^2 + [y - r(2)].^2 - r0(1));
+% yd = -[x - r(1)] - [y].*([x - r(1)].^2 + [y - r(2)].^2 - r0(2));
 
 
 %streamslice(x_tmp,y_tmp,reshape(xd(1,:),ny,nx),reshape(xd(2,:),ny,nx),1,'method','linear')
