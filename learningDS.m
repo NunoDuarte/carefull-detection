@@ -78,6 +78,14 @@ yd = A(2)*[x - 3] + u*y;
 xd =  [y + 4] - [x - 3].*([x - 3].^2 + [y + 4].^2 - 4);
 yd = -[x - 3] - [y + 4].*([x - 3].^2 + [y + 4].^2 - 4);
 
+%% define variables
+r = [3, -4];    % center of limit cycle
+r0 = 10;        % radius = sqrt(r0)
+
+% Limit cycle one radius
+xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
+yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
+
 % Attractor with local attraction (higher the degree => the higher the
 % attraction locally)
 % xd = A(1)*[y + 4] - 0.8*x + (-5)*x.^3;
