@@ -18,7 +18,7 @@ r = sqrt(x.^2 + y.^2);
 phi = atan2(y,x);
 
 r_dot = -1*alpha*(r-r0);
-phi_dot = -pi/2; % rads per sec
+phi_dot = pi/2; % rads per sec
 
 % Limit Cycle Dynamical System in Polar Coordinates
 xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
