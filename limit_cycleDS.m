@@ -1,107 +1,36 @@
 % understand how to work with autonomous DS (time-independent, state-only
 % dependent Dynamical Systems)
 
-% \dot{x} = A*x
-
-A = [-2, -4; -4, -2];
-
-%xd = A*x;
-
-% %%
-% 
-% figure('name','Streamlines')
-% 
-% % Plot colormap
-% limits = [-80 80 -20 20];    
-% axlim = limits;
-% nx = 200; ny = 200;
-% ax_x=linspace(axlim(1),axlim(2),nx); %computing the mesh points along each axis
-% ax_y=linspace(axlim(3),axlim(4),ny); %computing the mesh points along each axis
-% [x_tmp, y_tmp]=meshgrid(ax_x,ax_y); %meshing the input domain
-% x=[x_tmp(:), y_tmp(:)]';
-% 
-% d = 2; % 2D
-% xd = A*x;
-% %xd = GMR(Priors,Mu([1 2 4 5],:),Sigma([1 2 4 5],[1 2 4 5],:),x,1:d,d+1:2*d); 
-% 
-% streamslice(x_tmp,y_tmp,reshape(xd(1,:),ny,nx),reshape(xd(2,:),ny,nx),1,'method','linear')
-% 
-% % % Get the magnitude of the Velocity
-% % xdnorm = vecnorm(xd);
-% % z_tmp = xdnorm;
-% % h = pcolor(x_tmp,y_tmp,reshape(xdnorm,nx,ny));
-% 
-% % set(h,'linestyle','none');
-% % colorbar;
-% 
-% %%
-% [x,y] = meshgrid(0:0.1:1,0:0.1:1);
-% u = x;
-% v = -y;
-% 
-% figure
-% % quiver(x,y,u,v)
-% 
-% startx = 0.1:0.1:1;
-% starty = ones(size(startx));
-% streamline(x,y,u,v,startx,starty)
-
-%%
-% 
-% [x, y] = meshgrid(-1.5:0.1:1.5, -1.5:0.1:1.5);
-% u = x + cos(4*x) + 3;         % x-component of vector field
-% v = sin(4*x) - sin(2*y);      % y-component of vector field
-% 
-% streamslice(x, y, u, v, 1.5);
-
 %%
 
 figure('name','Streamlines')
 
-[x, y] = meshgrid(-8:0.1:8, -8:0.1:8);
+[x, y] = meshgrid(-1:0.1:1, -1:0.1:1);
 
 d = 2; % 2D
-% attractor
-% xd = A(1)*[x - 27];
-% yd = A(2)*[y - 30];
-
-% attractor curved
-% xd = A(1)*[x + 20] + A(2)*[y - x];
-% yd = A(2)*[y - x];
-
-% Limit cycles
-u = -2;
-xd = -A(1)*[y + 4] + u*x;
-yd = A(2)*[x - 3] + u*y;
-
-% Limit cycle one radius
-xd =  [y + 4] - [x - 3].*([x - 3].^2 + [y + 4].^2 - 4);
-yd = -[x - 3] - [y + 4].*([x - 3].^2 + [y + 4].^2 - 4);
 
 %% Limit Cycle - circle
 % define variables
-r = [0.5, 0.8];    % center of limit cycle
+alpha = 10;
 r0 = 0.5;        % radius = sqrt(r0)
 
-% Limit cycle one radius
-xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
-yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
+r = sqrt(x.^2 + y.^2);
+phi = atan2(y,x);
 
-xtest = 1
-ytest = 1
+r_dot = -1*alpha*(r-r0);
+phi_dot = -pi/2; % rads per sec
 
-figure(2)
-for i=1:100
-    hold on;
-    xd =  [ytest - r(2)] - [xtest - r(1)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
-    yd = -[xtest - r(1)] - [ytest - r(2)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
-    
-    xtest = xtest + xd*0.1;
-    ytest = ytest + yd*0.1;
-    
-    plot(ytest,xtest, '.r');
-end
-    
+% Limit Cycle Dynamical System in Polar Coordinates
+xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
+yd_hat =  r_dot.*sin(phi)  + r.*phi_dot.*cos(phi);
+
+xd = xd_hat;
+yd = yd_hat;
+
+% % Dynamical System diffeomorphism (transformation matrix)
+% x =  r_dot.*cos(phi) - r*phi_dot*sin(phi);
+% y =  r_dot.*sin(phi)  + r*phi_dot*cos(phi);
+
 
 %% Limit Cycle - ellipse
 % define variables
@@ -133,4 +62,4 @@ end
 
 %streamslice(x_tmp,y_tmp,reshape(xd(1,:),ny,nx),reshape(xd(2,:),ny,nx),1,'method','linear')
 streamslice(x, y, xd, yd, 2);
-axis([-8, 8, -8, 8]);
+axis([-1, 1, -1, 1]);
