@@ -85,23 +85,7 @@ r0 = 0.5;        % radius = sqrt(r0)
 
 % Limit cycle one radius
 xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
-yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
-
-xtest = 1
-ytest = 1
-
-figure(2)
-for i=1:100
-    hold on;
-    xd =  [ytest - r(2)] - [xtest - r(1)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
-    yd = -[xtest - r(1)] - [ytest - r(2)].*([xtest - r(1)].^2 + [ytest - r(2)].^2 - r0);
-    
-    xtest = xtest + xd*0.1;
-    ytest = ytest + yd*0.1;
-    
-    plot(ytest,xtest, '.r');
-end
-    
+yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);    
 
 %% Limit Cycle - ellipse
 % define variables
