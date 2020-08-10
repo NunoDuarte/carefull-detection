@@ -5,7 +5,15 @@
 
 figure('name','Streamlines')
 
-[x, y] = meshgrid(-1:0.1:1, -1:0.1:1);
+limit_axis = 1;
+
+xmax = limit_axis;
+xmin = -xmax;
+ymax = limit_axis;
+ymin = -ymax;
+
+
+[x, y] = meshgrid(xmin:0.1:xmax, ymin:0.1:ymax);
 
 d = 2; % 2D
 
@@ -18,7 +26,7 @@ r = sqrt(x.^2 + y.^2);
 phi = atan2(y,x);
 
 r_dot = -1*alpha*(r-r0);
-phi_dot = pi/2; % rads per sec
+phi_dot = -pi/2; % rads per sec
 
 % Limit Cycle Dynamical System in Polar Coordinates
 xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
@@ -62,4 +70,4 @@ yd = yd_hat;
 
 %streamslice(x_tmp,y_tmp,reshape(xd(1,:),ny,nx),reshape(xd(2,:),ny,nx),1,'method','linear')
 streamslice(x, y, xd, yd, 2);
-axis([-1, 1, -1, 1]);
+axis([xmin, xmax, ymin, ymax]);

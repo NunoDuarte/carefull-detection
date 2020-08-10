@@ -58,7 +58,15 @@ A = [-2, -4; -4, -2];
 
 figure('name','Streamlines')
 
-[x, y] = meshgrid(-8:0.1:8, -8:0.1:8);
+limit_axis = 3;
+
+xmax = limit_axis;
+xmin = -xmax;
+ymax = limit_axis;
+ymin = -ymax;
+
+
+[x, y] = meshgrid(xmin:0.1:xmax, ymin:0.1:ymax);
 
 d = 2; % 2D
 % attractor
@@ -80,8 +88,8 @@ yd = -[x - 3] - [y + 4].*([x - 3].^2 + [y + 4].^2 - 4);
 
 %% Limit Cycle - circle
 % define variables
-r = [0.5, 0.8];    % center of limit cycle
-r0 = 0.5;        % radius = sqrt(r0)
+r = [0, 0];    % center of limit cycle
+r0 = 1.5;        % radius = sqrt(r0)
 
 % Limit cycle one radius
 xd =  [y - r(2)] - [x - r(1)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
@@ -117,4 +125,4 @@ yd = -[x - r(1)] - [y - r(2)].*([x - r(1)].^2 + [y - r(2)].^2 - r0);
 
 %streamslice(x_tmp,y_tmp,reshape(xd(1,:),ny,nx),reshape(xd(2,:),ny,nx),1,'method','linear')
 streamslice(x, y, xd, yd, 2);
-axis([-8, 8, -8, 8]);
+axis([xmin, xmax, ymin, ymax]);
