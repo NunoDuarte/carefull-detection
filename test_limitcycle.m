@@ -80,12 +80,12 @@ end
 %% Limit Cycle - Polar Coordinates with Transformation Matrix
 % define variables
 alpha = 10;
-r0 = 1;        % radius = sqrt(r0)
-theta = 1.4;      % angle rotation (radians)
+r0 = 0.5;        % radius = sqrt(r0)
+theta = -0.8;      % angle rotation (radians)
 a = 1;         % scaling coefficients
-b = 7;
-x1 = 0.5;        % translation coefficients
-x2 = 0;      % radius = sqrt(r0)
+b = 2;
+x1 = 0.2;        % translation coefficients
+x2 = -0.5;      % radius = sqrt(r0)
 
 xtest = 1;
 ytest = 1;
@@ -104,7 +104,7 @@ for i=1:1000
     phi = atan2(y_hat,x_hat);
 
     r_dot = -1*alpha*(r-r0);
-    phi_dot = -pi/2; % rads per sec
+    phi_dot = pi/2; % rads per sec
 
     % Limit Cycle Dynamical System in Polar Coordinates
     xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
