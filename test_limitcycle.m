@@ -1,25 +1,8 @@
 % understand how to work with autonomous DS (time-independent, state-only
 % dependent Dynamical Systems)
 
-% \dot{x} = A*x
-
-A = [-2, -4; -4, -2];
-
-%%
-% 
-% [x, y] = meshgrid(-1.5:0.1:1.5, -1.5:0.1:1.5);
-% u = x + cos(4*x) + 3;         % x-component of vector field
-% v = sin(4*x) - sin(2*y);      % y-component of vector field
-% 
-% streamslice(x, y, u, v, 1.5);
-
 %%
 
-figure('name','Streamlines')
-
-[x, y] = meshgrid(-8:0.1:8, -8:0.1:8);
-
-d = 2; % 2D
 % attractor
 % xd = A(1)*[x - 27];
 % yd = A(2)*[y - 30];
@@ -59,4 +42,37 @@ for i=1:100
     ytest = ytest + yd*0.1;
     
     plot(ytest,xtest, '.r');
+end
+
+%% Limit Cycle - Polar Coordinates
+% define variables
+alpha = 10;
+r0 = 0.5;        % radius = sqrt(r0)
+
+xtest = 1;
+ytest = 1;
+
+figure(1)
+for i=1:1000
+    hold on;
+    
+    plot(ytest,xtest, '.r');    
+    
+    r = sqrt(xtest.^2 + ytest.^2);
+    phi = atan2(ytest,xtest);
+
+    r_dot = -1*alpha*(r-r0);
+    phi_dot = pi/2; % rads per sec
+    
+    % Limit Cycle Dynamical System in Polar Coordinates
+    xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
+    yd_hat =  r_dot.*sin(phi) + r.*phi_dot.*cos(phi);
+
+    xd = xd_hat;
+    yd = yd_hat;
+    
+    xtest = xtest + xd*0.01;
+    ytest = ytest + yd*0.01;
+    
+
 end
