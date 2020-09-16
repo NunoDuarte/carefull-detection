@@ -79,19 +79,22 @@ end
 
 %% Limit Cycle - Polar Coordinates with Transformation Matrix
 % define variables
-alpha = 10;
-r0 = 0.5;        % radius = sqrt(r0)
-theta = -0.8;      % angle rotation (radians)
+alpha = 20;
+r0 = 0.4;        % radius = sqrt(r0)
+theta = pi/4;      % angle rotation (radians)
 a = 1;         % scaling coefficients
 b = 2;
-x1 = 0.2;        % translation coefficients
-x2 = -0.5;      % radius = sqrt(r0)
+x1 = 0;        % translation coefficients
+x2 = 0;      % radius = sqrt(r0)
 
-xtest = 1;
-ytest = 1;
+xtest = 0;
+ytest = 0.6;
+
+xunit = [];
+yunit = [];
 
 figure(1)
-for i=1:1000
+for i=1:200
     hold on;
     
     plot(xtest,ytest, '.r');    
@@ -114,8 +117,12 @@ for i=1:1000
     xd = cos(theta).*a^(-1).*xd_hat - sin(theta).*b^(-1).*yd_hat;
     yd = sin(theta).*a^(-1).*xd_hat + cos(theta).*b^(-1).*yd_hat;
     
-    xtest = xtest + xd*0.01;
-    ytest = ytest + yd*0.01;
+    xtest = xtest + xd*0.02;
+    ytest = ytest + yd*0.02;
     
-
+    xunit = [xunit, xtest];
+    yunit = [yunit, ytest];
+    
 end
+
+CircleUnit{1} = [xunit; yunit];
