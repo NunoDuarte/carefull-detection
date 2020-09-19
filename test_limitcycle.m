@@ -46,26 +46,27 @@ end
 
 %% Limit Cycle - Polar Coordinates
 % define variables
-alpha = 10;
-r0 = 0.5;        % radius = sqrt(r0)
+alpha = 40;
+r0 = 0.8;        % radius = sqrt(r0)
 
-xtest = 0;
+xtest = 0.9;
 ytest = 0.5;
 
 xunit = [];
 yunit = [];
 
 figure(1)
-for i=1:200
+for i=1:300
     hold on;
     
     plot(xtest,ytest, '.r');    
-    
+    axis([-1, 1, -1, 1]);
+
     r = sqrt(xtest.^2 + ytest.^2);
     phi = atan2(ytest,xtest);
 
     r_dot = -1*alpha*(r-r0);
-    phi_dot = -pi/2; % rads per sec
+    phi_dot = pi/3; % rads per sec
     
     % Limit Cycle Dynamical System in Polar Coordinates
     xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
@@ -85,15 +86,15 @@ CircleUnit{1} = [xunit; yunit];
 
 %% Limit Cycle - Polar Coordinates with Transformation Matrix
 % define variables
-alpha = 30;
-r0 = 0.8;        % radius = sqrt(r0)
-theta = -pi/3;      % angle rotation (radians)
+alpha = 20;
+r0 = 0.9;        % radius = sqrt(r0)
+theta = 0;      % angle rotation (radians)
 a = 1;         % scaling coefficients
-b = 2;
+b = 3;
 x1 = 0;        % translation coefficients
 x2 = 0;      % radius = sqrt(r0)
 
-xtest = 0;
+xtest = 0.8;
 ytest = 0.9;
 
 xunit = [];
@@ -104,6 +105,7 @@ for i=1:200
     hold on;
     
     plot(xtest,ytest, '.r');    
+    axis([-1, 1, -1, 1]);
 
     % diffeomorphism
     x_hat = a.*cos(theta).*(xtest - x1) + a.*sin(theta).*(ytest - x2); 
@@ -113,7 +115,7 @@ for i=1:200
     phi = atan2(y_hat,x_hat);
 
     r_dot = -1*alpha*(r-r0);
-    phi_dot = pi/2; % rads per sec
+    phi_dot = -pi/2; % rads per sec
 
     % Limit Cycle Dynamical System in Polar Coordinates
     xd_hat =  r_dot.*cos(phi) - r.*phi_dot.*sin(phi);
