@@ -25,8 +25,30 @@ a = gevec(:, NegC);
 
 %% Get back the ellipse function
 
+% ellipse orientation
+numerator = a(3) - a(1) - sqrt((a(1) - a(3))^2 + a(2)^2);
+denominator = a(2);
+theta = atan2(numerator, denominator);
 
+% ellipse center
+A33 = [a(1) a(2)/2; a(2)/2 a(3)];
+K = -inv(A33)*[a(4)/2 a(5)/2]';
 
+xc = K(1);
+yc = K(2);
+
+% major/minor axes
+ct = cos(theta);
+st = sin(theta);
+
+l1 = a(1)*ct*ct + a(2)*st*st + a(3)*st*ct;
+l2 = a(1)*st*st + a(2)*ct*ct - a(3)*st*ct;
+
+% scale factor
+mu = 1/(K'*A33*K - a(6));
+
+r1 = 1/(sqrt(mu*l1));
+r2 = 1/(sqrt(mu*l2));
 
 
 
