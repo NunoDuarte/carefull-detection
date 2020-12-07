@@ -18,7 +18,7 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
     
     % QMUL dataset
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/1/*.csv');
+    files = dir('/home/nuno/Documents/MATLAB/fullvsNOTfull/data/QMUL/1/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
     % Empty Cups
@@ -38,7 +38,7 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
         testF{i} = {'1-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
     end   
     
-%     files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/2/*.csv');
+%     files = dir('/home/nuno/Documents/MATLAB/fullvsNOTfull/data/QMUL/2/*.csv');
 %     fullpaths = fullfile({files.folder}, {files.name});
 % 
 %     % Empty Cups
@@ -58,7 +58,7 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
 %         testF{i+4} = {'2-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
 %     end      
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/4/*.csv');
+    files = dir('/home/nuno/Documents/MATLAB/fullvsNOTfull/data/QMUL/4/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
     % Empty Cups
@@ -78,7 +78,7 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
         testF{i+4} = {'4-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
     end
     
-%     files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/5/*.csv');
+%     files = dir('/home/nuno/Documents/MATLAB/fullvsNOTfull/data/QMUL/5/*.csv');
 %     fullpaths = fullfile({files.folder}, {files.name});    
 %     
 %     % Empty Cups
