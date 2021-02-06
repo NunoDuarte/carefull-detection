@@ -1,5 +1,5 @@
-# carefull-detection
-DS for Careful vs Not Careful Detection
+# Deceleration Phase Carefulness Detection
+- Utilize the deceleration phase during handover actions to detect whether the manipulated object is soft/heavy/fragile/risky 
 
-1. deceleration phase Approach
-2. acceleration phase Approach (another repo [github](https://github.com/NunoDuarte/accele_careful))
+## Relevant Information
+Acceleration phase Approach (new repo [github](https://github.com/NunoDuarte/accele_careful))
