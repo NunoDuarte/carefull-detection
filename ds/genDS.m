@@ -4,12 +4,12 @@ if default
     %% User Parameters and Setting
     sim = 0; % simulate
     % Training parameters
-    K = 5; % Number of Gaussian functions
+    K = 1; % Number of Gaussian functions
 
     % A set of options that will be passed to the solver. Please type 
     % 'doc preprocess_demos' in the MATLAB command window to get detailed
     % information about other possible options.
-    options.tol_mat_bias = 10^-3; % A very small positive scalar to avoid
+    options.tol_mat_bias = 10^-5; % A very small positive scalar to avoid
                                   % instabilities in Gaussian kernel [default: 10^-15]
 
     options.display = 1;          % An option to control whether the algorithm
@@ -39,27 +39,41 @@ else
 end
 
   
+%% compute 1st derivative
+
+% [tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
+
+% EPFL
+dt = 0.02;  % frequency of data 50 Hz
+Data = [];
+
+for i=1:length(F)
+    
+    data = F{i};
+    data_d = diff(data,1,2)/dt;
+    data = [data; [data_d, 0]];
+    
+    Data = [Data, data];
+    
+end
+
+% QMUL
+Datanew = [];
+id = find(Data(1,:) == 0);
+for i=1:length(id)
+    if i == 1
+        [maxVel, idVel] = min(Data(2,1:id(1)));
+        count = 0;
+    else
+        [maxVel, idVel] = min(Data(2,id(i-1):id(i)));
+        count = id(i-1)-1;
+    end
+    
+    Datanew = [Datanew, Data(:,idVel+count:id(i))];
+end
+Data = Datanew;
+
 %% Run SEDS solver
-
-[tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
-
-% Datanew = [];
-% % Add this for QMUL data
-% id = find(Data(1,:) == 0);
-% for i=1:length(id)
-%     if i == 1
-%         [maxVel, idVel] = min(Data(2,1:id(1)));
-%         count = 0;
-%     else
-%         [maxVel, idVel] = min(Data(2,id(i-1):id(i)));
-%         count = id(i-1)-1;
-%     end
-%     
-%     Datanew = [Datanew, Data(:,idVel+count:id(i))];
-% end
-% 
-% Data = Datanew;
-%% 
 [Priors_0, Mu_0, Sigma_0] = initialize_SEDS(Data,K); %finding an initial guess for GMM's parameter
 [Priors Mu Sigma]=SEDS_Solver(Priors_0,Mu_0,Sigma_0,Data,options); %running SEDS optimization solver
 

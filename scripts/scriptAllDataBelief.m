@@ -1,12 +1,11 @@
 %% Load Path
-
 clc
 
-addpath('../SEDS')
-addpath('DS')
-addpath('beliefDS')
-addpath('../../Khansari/SEDS/SEDS_lib')
-addpath('../../Khansari/SEDS/GMR_lib')
+addpath('ds')
+addpath('belief')
+addpath('processing')
+addpath('../../software/Khansari/SEDS/SEDS_lib')
+addpath('../../software/Khansari/SEDS/GMR_lib')
 
 %% Load DS parameters
 
