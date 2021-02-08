@@ -21,11 +21,16 @@ P = [0.5, 0.6, 0.65, 0.7, 0.75, 0.8]; % percentage
 % save the plots?
 plots = 0;
 
-for i=1:length(P)
-    for k = 1:length(K)
 
-       scriptAllDataDS(K(k), P(i), ' ', ' ', plots);
+for i=1:length(P)
+    
+    % get the data randomized
+    [Etrain, Ftrain, train, test, Etest, Ftest] = scriptAllData(P(i), ' ', ' ');
+    
+    for k = 1:length(K)
+       scriptDS(K(k), Etrain, Ftrain, train, test, Etest, Ftest, plots);
        close all;
+       
     end
 end
 
