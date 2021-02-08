@@ -1,22 +1,22 @@
-function scriptAllDataDS(K, P, type, ID)
+function scriptAllDataDS(K, P, type, ID, plots)
 
 % P = 0.80;   % percentage train/test
 %% EPFL 
-% [train, test] = getData(P);
-% 
-% [Etrain, Ftrain, Etest, Ftest] = deal([]);
-% 
-% for i = 1:length(train)
-%     [E, F] = read(train{i}{1}, train{i}{2});
-%     Etrain = [Etrain, E];
-%     Ftrain = [Ftrain, F];
-% end
-% 
-% for i = 1:length(test)
-%     [E, F] = read(test{i}{1}, test{i}{2});
-%     Etest = [Etest, E];
-%     Ftest = [Ftest, F];
-% end
+[train, test] = getData(P);
+
+[Etrain, Ftrain, Etest, Ftest] = deal([]);
+
+for i = 1:length(train)
+    [E, F] = read(train{i}{1}, train{i}{2});
+    Etrain = [Etrain, E];
+    Ftrain = [Ftrain, F];
+end
+
+for i = 1:length(test)
+    [E, F] = read(test{i}{1}, test{i}{2});
+    Etest = [Etest, E];
+    Ftest = [Ftest, F];
+end
 
 %% QMUL
 % [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P);
@@ -30,7 +30,7 @@ function scriptAllDataDS(K, P, type, ID)
 % [train, test, Etrain, Etest, Ftrain, Ftest] = pickData_test(P);
 
 %% Both - train EPFL+QMUL
-[train, test, Etrain, Etest, Ftrain, Ftest] = pickAny(P);
+% [train, test, Etrain, Etest, Ftrain, Ftest] = pickAny(P);
 
 %% One vs All or All vs One
 
@@ -156,13 +156,15 @@ genDS(Full3Dnorm, default, [], K, [], 'F', '2D');
 
 %% save figures
 
-f1 = figure(1);
-filename = ['/output/train/E-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
-saveas(f1, [pwd, filename]);
+if plots
+    f1 = figure(1);
+    filename = ['/output/train/E-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+    saveas(f1, [pwd, filename]);
 
-f2 = figure(2);
-filename = ['/output/train/F-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
-saveas(f2, [pwd, filename]);
+    f2 = figure(2);
+    filename = ['/output/train/F-e1e2-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+    saveas(f2, [pwd, filename]);
+end
 
 %% labels to know which object
     % QMUL

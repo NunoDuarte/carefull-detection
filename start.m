@@ -7,7 +7,7 @@ clc
 
 addpath('data')
 addpath('ds') 
-addpath('processing')
+addpath(genpath('processing/'))
 addpath('belief')
 addpath('scripts')
 addpath('../../software/Khansari/SEDS/SEDS_lib')
@@ -15,13 +15,16 @@ addpath('../../software/Khansari/SEDS/GMR_lib')
 
 %% 
 
-K = [3, 4, 5, 6, 7, 8];
-P = [0.6, 0.7, 0.8, 0.65, 0.75, 0.85]; % percentage
+K = [2, 3, 4, 5, 6, 7];
+P = [0.5, 0.6, 0.65, 0.7, 0.75, 0.8]; % percentage
+
+% save the plots?
+plots = 0;
 
 for i=1:length(P)
     for k = 1:length(K)
 
-       scriptAllDataDS(K(k), P(i), ' ', ' ');
+       scriptAllDataDS(K(k), P(i), ' ', ' ', plots);
        close all;
     end
 end
