@@ -1,4 +1,4 @@
-function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, plots)
+function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
 
 %% Remove Non-Zeros - Empty
 ploty = [];
@@ -120,13 +120,15 @@ end
 
 %% Classification
 
+% define the epsilon value
 scriptBelief
 
 ConfTrain = {'Confusion Matrix', 'Train'; trainTruePos, trainFalsePos; trainFalseNeg, trainTrueNeg};
 ConfTest = {'Confusion Matrix', 'Test'; testTruePos, testFalsePos; testFalseNeg, testTrueNeg};
-F1 = {'F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
+F0 = {'Epsilon ',  ' ' ; epsilon, []};
+F1 = {'\n F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
 
-t = table([Train; Test; ConfTrain; ConfTest; F1], 'VariableNames', {'Train_Test_dataset'});
+t = table([Train; Test; ConfTrain; ConfTest; F0; F1], 'VariableNames', {'Train_Test_dataset'});
 filename = ['output/train/dataset-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
 writetable(t, [filename '.txt']);
 

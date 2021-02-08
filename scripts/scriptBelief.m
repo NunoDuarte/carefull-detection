@@ -1,12 +1,6 @@
 %% Load Path
 clc
 
-addpath('ds')
-addpath('belief')
-addpath('processing')
-addpath('../../software/Khansari/SEDS/SEDS_lib')
-addpath('../../software/Khansari/SEDS/GMR_lib')
-
 %% Load DS parameters
 
 MuE = load('MuE.mat');
@@ -31,26 +25,26 @@ Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 
 %% Classify train data
-[classEtrain, outEtrain] = fun_belief_norm(Etrain, Priors, Mu, Sigma);
-[classFtrain, outFtrain] = fun_belief_norm(Ftrain, Priors, Mu, Sigma);
+[classEtrain, outEtrain] = fun_belief_norm(Etrain, Priors, Mu, Sigma, epsilon);
+[classFtrain, outFtrain] = fun_belief_norm(Ftrain, Priors, Mu, Sigma, epsilon);
 
 % Output Confusion Matrix
 
-trainTruePos = classEtrain(1)
-trainFalsePos = classEtrain(2)
-trainTrueNeg = classFtrain(2)
-trainFalseNeg = classFtrain(1)
+trainTruePos = classEtrain(1);
+trainFalsePos = classEtrain(2);
+trainTrueNeg = classFtrain(2);
+trainFalseNeg = classFtrain(1);
 
 %% Classify train data
-[classEtest, outEtest] = fun_belief_norm(Etest, Priors, Mu, Sigma);
-[classFtest, outFtest] = fun_belief_norm(Ftest, Priors, Mu, Sigma);
+[classEtest, outEtest] = fun_belief_norm(Etest, Priors, Mu, Sigma, epsilon);
+[classFtest, outFtest] = fun_belief_norm(Ftest, Priors, Mu, Sigma, epsilon);
 
 % Output Confusion Matrix
 
-testTruePos = classEtest(1)
-testFalsePos = classEtest(2)
-testTrueNeg = classFtest(2)
-testFalseNeg = classFtest(1)
+testTruePos = classEtest(1);
+testFalsePos = classEtest(2);
+testTrueNeg = classFtest(2);
+testFalseNeg = classFtest(1);
 
 %% F measure
 
@@ -62,5 +56,5 @@ RecallTrain = trainTruePos/(trainTruePos+trainFalseNeg);
 PreciTest = testTruePos/(testTruePos+testFalsePos);
 RecallTest = testTruePos/(testTruePos+testFalseNeg);
 
-F1_train = 2*(PreciTrain*RecallTrain)/(PreciTrain+RecallTrain)
-F1_test  = 2*(PreciTest*RecallTest)/(PreciTest+RecallTest)
+F1_train = 2*(PreciTrain*RecallTrain)/(PreciTrain+RecallTrain);
+F1_test  = 2*(PreciTest*RecallTest)/(PreciTest+RecallTest);

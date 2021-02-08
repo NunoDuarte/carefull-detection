@@ -15,22 +15,25 @@ addpath('../../software/Khansari/SEDS/GMR_lib')
 
 %% 
 
-K = [2, 3, 4, 5, 6, 7];
-P = [0.5, 0.6, 0.65, 0.7, 0.75, 0.8]; % percentage
+K = [2, 4];
+P = [0.3, 0.5, 0.6]; % percentage
+Epsilon = [10, 300];
 
 % save the plots?
 plots = 0;
 
+for e=1:length(Epsilon)
+    epsi = Epsilon(e);
+    for i=1:length(P)
 
-for i=1:length(P)
-    
-    % get the data randomized
-    [Etrain, Ftrain, train, test, Etest, Ftest] = scriptAllData(P(i), ' ', ' ');
-    
-    for k = 1:length(K)
-       scriptDS(K(k), Etrain, Ftrain, train, test, Etest, Ftest, plots);
-       close all;
-       
+        % get the data randomized
+        [Etrain, Ftrain, train, test, Etest, Ftest] = scriptAllData(P(i), ' ', ' ');
+
+        for k = 1:length(K)
+           scriptDS(K(k), Etrain, Ftrain, train, test, Etest, Ftest, epsi, plots);
+           close all;
+
+        end
     end
 end
 
