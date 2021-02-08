@@ -9,6 +9,7 @@ addpath('data')
 addpath('ds') 
 addpath('processing')
 addpath('belief')
+addpath('scripts')
 addpath('../../software/Khansari/SEDS/SEDS_lib')
 addpath('../../software/Khansari/SEDS/GMR_lib')
 
