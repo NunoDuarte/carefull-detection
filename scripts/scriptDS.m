@@ -124,7 +124,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
     scriptBelief
 
     % Add if statement to filter results
-    if (trainTruePos > 0.75 && trainTrueNeg > 0.75 && testTruePos > 0.75 && testTrueNeg > 0.75)
+    if ((trainTruePos > 0.5) && (trainTrueNeg > 0.5) && (testTruePos > 0.5) && (testTrueNeg > 0.5))
 
         ConfTrain = {'Confusion Matrix', 'Train'; trainTruePos, trainFalsePos; trainFalseNeg, trainTrueNeg};
         ConfTest = {'Confusion Matrix', 'Test'; testTruePos, testFalsePos; testFalseNeg, testTrueNeg};
@@ -132,7 +132,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
         F1 = {'\n F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
 
         t = table([Train; Test; ConfTrain; ConfTest; F0; F1], 'VariableNames', {'Train_Test_dataset'});
-        filename = ['output/train/dataset-K' num2str(K) '-' datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+        filename = ['output/train/dataset-K' num2str(K) '- E' num2str(epsilon) datestr(now,'mm-dd-yyyy-HH-MM-SS')];
         writetable(t, [filename '.txt']);
     end
 
