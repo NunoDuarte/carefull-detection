@@ -7,6 +7,7 @@ function [train, test] = getData(P)
     b2 = {'Leo', 'red-cup'};
     b3 = {'Leo', 'champagne'};
     b4 = {'Leo', 'wine-glass'};
+    b5 = {'Leo', 'red-mug'};
     c1 = {'Athanasios', 'red-cup'};
     c2 = {'Athanasios', 'champagne'};
     d1 = {'David', 'plastic-cup'};
@@ -17,26 +18,34 @@ function [train, test] = getData(P)
 %     a = {'All', 'plastic-cup'};
 %     b = {'Kunpeng', 'plastic-cup'};
     
-    V = [a1;a2;b1;b2;c1;c2;e1;f1];
-%     V = [a2;b2;c1];
-    m = length(V);
+%     V = [b3;c2];
+%     m = length(V);
+%     
+%     idx = randperm(m);
+%     
+%     %training set
+%     k = idx(1:round(P*m));
+%     for n = 1:length(k)
+%         train{n} = {V{k(n)}, V{k(n),2}};
+%     end
+%     
+%     % testing set
+%     k = idx(round(P*m)+1:end);
+%     for n = 1:length(k)
+%         test{n} = {V{k(n)}, V{k(n),2}};
+%     end
     
-    idx = randperm(m);
-    
+    Vtest = [b1;b2;b4];
+    Vtrain = [c1;c2];
     %training set
-    k = idx(1:round(P*m));
-    for n = 1:length(k)
-        train{n} = {V{k(n)}, V{k(n),2}};
+    for n = 1:length(Vtrain)
+        train{n} = {Vtrain{n}, Vtrain{n,2}};
     end
     
     % testing set
-    k = idx(round(P*m)+1:end);
-    for n = 1:length(k)
-        test{n} = {V{k(n)}, V{k(n),2}};
-    end
-    
-%       train{1} = {a{1}, a{2}};
-%       test{1} = {b{1}, b{2}};
+    for n = 1:length(Vtest)
+        test{n} = {Vtest{n}, Vtest{n,2}};
+    end  
     
 
 end
