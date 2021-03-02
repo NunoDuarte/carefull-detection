@@ -3,16 +3,16 @@ function [E, F] = read(name, object)
     if strcmp(name,'Salman')
         if strcmp(object,'red-mug')
             % All Slow (super careful)
-            E = [];
+            E{1} = csvread(['data/' name '/' object '/empty/0_right.csv']);
+            E{2} = csvread(['data/' name '/' object '/empty/1_right.csv']);
+            E{3} = csvread(['data/' name '/' object '/empty/3_right.csv']);
             % 
             % Full
             F{1} = csvread(['data/' name '/' object '/full/0_right.csv']);
             F{2} = csvread(['data/' name '/' object '/full/1_right.csv']);
             F{3} = csvread(['data/' name '/' object '/full/2_right.csv']);
             F{4} = csvread(['data/' name '/' object '/full/3_right.csv']);
-            F{5} = csvread(['data/' name '/' object '/empty/0_right.csv']);
-            F{6} = csvread(['data/' name '/' object '/empty/1_right.csv']);
-            F{7} = csvread(['data/' name '/' object '/empty/3_right.csv']);
+
         end
         
     % reading data of David
