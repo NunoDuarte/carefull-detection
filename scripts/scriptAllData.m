@@ -23,10 +23,10 @@ function [Etrain, Ftrain, train, test, Etest, Ftest] = scriptAllData(P, type, ID
     % train = Etrain;
     % test = Etest;
 
-    %% Both - train EPFL
+    %% Both - train EPFL - test QMUL
     % [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P);
-
-    %% Both - train QMUL
+ 
+    %% Both - train QMUL - test EPFL
     % [train, test, Etrain, Etest, Ftrain, Ftest] = pickData_test(P);
 
     %% Both - train EPFL+QMUL
