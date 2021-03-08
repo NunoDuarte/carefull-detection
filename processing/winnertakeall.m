@@ -1,7 +1,7 @@
  function [B_d] = winnertakeall(b, b_d)
 
     B_d = [0, 0];
-    [b1_d, w] = max(b_d);
+    [~, w] = max(b_d);
     if b(w) == 1
         for i=1:2
             B_d(i) = 0;
