@@ -99,8 +99,8 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
 
     %% labels to know which object
         % QMUL
-    %     Train = {'QMUL_data', ' '};
-    %     Test = {'QMUL data', ' '};
+%         Train = {'QMUL_data', ' '};
+        Test = {'QMUL data', ' '};
 
         % ----
 
@@ -110,12 +110,12 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
             Train = [Train; train{i}];
         end
         Train = [Train; {' ', ' '}];
-
-        Test = [];
-        for i = 1:length(test)
-            Test = [Test; test{i}];
-        end
-        Test = [Test; {' ', ' '}];
+% 
+%         Test = [];
+%         for i = 1:length(test)
+%             Test = [Test; test{i}];
+%         end
+%         Test = [Test; {' ', ' '}];
 
 
     %% Classification
@@ -124,7 +124,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
     scriptBelief
 
     % Add if statement to filter results
-    if ((trainTruePos > 0.5) && (trainTrueNeg > 0.5) && (testTruePos > 0.5) && (testTrueNeg > 0.5))
+    if ((trainTruePos >= 0.3 || trainTrueNeg >= 0.3 || testTruePos >= 0.3 || testTrueNeg >= 0.3))
 
         ConfTrain = {'Confusion Matrix', 'Train'; trainTruePos, trainFalsePos; trainFalseNeg, trainTrueNeg};
         ConfTest = {'Confusion Matrix', 'Test'; testTruePos, testFalsePos; testFalseNeg, testTrueNeg};
@@ -132,7 +132,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
         F1 = {'\n F1 measure Train', 'F1 measure Test'; F1_train, F1_test};
 
         t = table([Train; Test; ConfTrain; ConfTest; F0; F1], 'VariableNames', {'Train_Test_dataset'});
-        filename = ['output/train/dataset-K' num2str(K) '- E' num2str(epsilon) datestr(now,'mm-dd-yyyy-HH-MM-SS')];
+        filename = ['output/train/dataset-K' num2str(K) '- E' num2str(epsilon) datestr(now,'-mm-dd-yyyy-HH-MM-SS')];
         writetable(t, [filename '.txt']);
     end
 

@@ -104,18 +104,33 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
     Etest = [];
     Ftest = [];
         
-    m = length(E);
-    idx = randperm(m);
-
-    V = [a1;a2;b2;c1;c2;e1;f1];
-    m = length(V);
+%     m = length(E);
+%     idx = randperm(m);
+% 
+%     V = [a1;a2;b2;c1;c2;e1;f1];
+%     m = length(V);
+%     
+%     idx = randperm(m);
+%     
+%     %training set labels
+%     k = idx(1:round(P*m));
+%     for n = 1:length(k)
+%         train{n} = {V{k(n)}, V{k(n),2}};
+%     end
+%     
+%     % sort to Etrain and Ftrain
+%     for i = 1:length(train)
+%         [E1, F1] = read(train{i}{1}, train{i}{2});
+%         Etrain = [Etrain, E1];
+%         Ftrain = [Ftrain, F1];
+%     end 
     
-    idx = randperm(m);
+    % pick just what you need
+    Vtrain = [b3;c2];
     
-    %training set labels
-    k = idx(1:round(P*m));
-    for n = 1:length(k)
-        train{n} = {V{k(n)}, V{k(n),2}};
+    %training set
+    for n = 1:length(Vtrain)
+        train{n} = {Vtrain{n}, Vtrain{n,2}};
     end
     
     % sort to Etrain and Ftrain
