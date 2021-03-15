@@ -40,8 +40,9 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
         end
     end
 
-
-    genDS(Emp3Dnorm, default, [], K, [], 'E', '2D');
+    %samp_freq = 0.1; % for QMUL data
+    samp_freq = 1/50; % for EPFL data
+    genDS(Emp3Dnorm, default, [], K, [], samp_freq, 'E', '2D');
 
     %% Remove Non Zeros
     ploty = [];
@@ -83,7 +84,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
         end
     end
 
-    genDS(Full3Dnorm, default, [], K, [], 'F', '2D');
+    genDS(Full3Dnorm, default, [], K, [], samp_freq, 'F', '2D');
 
     %% save figures
 
@@ -98,24 +99,19 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
     end
 
     %% labels to know which object
-        % QMUL
-%         Train = {'QMUL_data', ' '};
-        Test = {'QMUL data', ' '};
 
-        % ----
-
-        % EPFL
+        % EPFL + QMUL
         Train = [];
         for i = 1:length(train)
             Train = [Train; train{i}];
         end
         Train = [Train; {' ', ' '}];
-% 
-%         Test = [];
-%         for i = 1:length(test)
-%             Test = [Test; test{i}];
-%         end
-%         Test = [Test; {' ', ' '}];
+
+        Test = [];
+        for i = 1:length(test)
+            Test = [Test; test{i}];
+        end
+        Test = [Test; {' ', ' '}];
 
 
     %% Classification
@@ -124,7 +120,7 @@ function scriptDS(K, Etrain, Ftrain, train, test, Etest, Ftest, epsilon, plots)
     scriptBelief
 
     % Add if statement to filter results
-    if ((trainTruePos >= 0.3 || trainTrueNeg >= 0.3 || testTruePos >= 0.3 || testTrueNeg >= 0.3))
+    if ((trainTruePos >= 0.4 || trainTrueNeg >= 0.4 || testTruePos >= 0.4 || testTrueNeg >= 0.4))
 
         ConfTrain = {'Confusion Matrix', 'Train'; trainTruePos, trainFalsePos; trainFalseNeg, trainTrueNeg};
         ConfTest = {'Confusion Matrix', 'Test'; testTruePos, testFalsePos; testFalseNeg, testTrueNeg};

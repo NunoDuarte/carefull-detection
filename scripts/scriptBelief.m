@@ -25,8 +25,9 @@ Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
 
 %% Classify train data
-[classEtrain, outEtrain] = fun_belief_norm(Etrain, Priors, Mu, Sigma, epsilon);
-[classFtrain, outFtrain] = fun_belief_norm(Ftrain, Priors, Mu, Sigma, epsilon);
+samp_freq = 1/50; % for EPFL data
+[classEtrain, outEtrain] = fun_belief_norm(Etrain, Priors, Mu, Sigma, samp_freq, epsilon);
+[classFtrain, outFtrain] = fun_belief_norm(Ftrain, Priors, Mu, Sigma, samp_freq, epsilon);
 
 % Output Confusion Matrix
 
@@ -36,8 +37,9 @@ trainTrueNeg = classFtrain(2);
 trainFalseNeg = classFtrain(1);
 
 %% Classify train data
-[classEtest, outEtest] = fun_belief_norm(Etest, Priors, Mu, Sigma, epsilon);
-[classFtest, outFtest] = fun_belief_norm(Ftest, Priors, Mu, Sigma, epsilon);
+samp_freq = 1/10; % for QMUL data
+[classEtest, outEtest] = fun_belief_norm(Etest, Priors, Mu, Sigma, samp_freq, epsilon);
+[classFtest, outFtest] = fun_belief_norm(Ftest, Priors, Mu, Sigma, samp_freq, epsilon);
 
 % Output Confusion Matrix
 

@@ -1,4 +1,4 @@
-function genDS(F, default, options, K, ~, type, dim)
+function genDS(F, default, options, K, ~, samp_freq, type, dim)
 
 if default
     %% User Parameters and Setting
@@ -44,7 +44,7 @@ end
 % [tmp , tmp, Data, index] = preprocess_demos(F, 0.02, 0.0001); %preprocessing datas
 
 % EPFL
-dt = 0.02;  % frequency of data 50 Hz
+dt = samp_freq;  % frequency of data 50 Hz
 Data = [];
 
 for i=1:length(F)

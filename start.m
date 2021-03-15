@@ -15,9 +15,10 @@ addpath('../../software/Khansari/SEDS/GMR_lib')
 
 %% 
 
-K = [2, 4];
-P = [0.3, 0.5, 0.6]; % percentage
-Epsilon = [10, 300];
+K = [1, 2, 3];
+P = [1];
+%P = [0.3, 0.5, 0.6]; % percentage
+Epsilon = [50, 100, 300, 500];
 
 % save the plots?
 plots = 0;
