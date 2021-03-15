@@ -4,7 +4,7 @@ clear test3
 clear all 
 
 %% Get Data
-files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/1/*.csv');
+files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/1/*.csv');
 fullpaths = fullfile({files.folder}, {files.name});
 
 % Empty Cups

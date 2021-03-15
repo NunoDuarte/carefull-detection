@@ -1,24 +1,22 @@
 %% Load Path
-clear all
 clc
 
 % change to correct directory
-cd '/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/'
+cd '/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/'
 
-addpath('../SEDS')
 addpath('data')
-addpath('DS')
-addpath('beliefDS')
-addpath('../../Khansari/SEDS/SEDS_lib')
-addpath('../../Khansari/SEDS/GMR_lib')
+addpath('ds')
+addpath('belief')
+addpath('../../software/Khansari/SEDS/SEDS_lib')
+addpath('../../software/Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('David', 'plastic-cup');
+[E, F] = read('All', 'plastic-cup');
 
 %% Belief System for 2 DS
 
 % pick e trajectory
-testX = F{5}; 
+testX = F{8}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -28,19 +26,14 @@ test3{1}(1,:) = testXn(:,1)';
 test3{1}(2,:) = testXn(:,2)';
 test3{1}(3,:) = testXn(:,3)'; 
 
-%% Center the Data in the Origin
+%% Normalize data and compute the 1st derivative
 
-% for i=1:length(test3)
-%     Norm1 = [];
-%     for j=1:length(test3{i})
-%     
-%         norm1 = test3{i}(:,j);
-%         Norm1 = [Norm1; norm(norm1,2)];
-%         test3norm{i} = Norm1';
-%     end
-% end
+dt = 0.02;  % frequency of data 50 Hz
+Data = [];
 
 for i=1:length(test3)
+    
+    % normalize
     xT = test3{i}(:,end);
     Norm1 = [];
     for j=1:length(test3{i})
@@ -49,23 +42,17 @@ for i=1:length(test3)
         Norm1 = [Norm1; disN];
         test3norm{i} = Norm1';
     end
+    
+    % 1st derivative
+    data = test3norm{i};
+    data_d = diff(data,1,2)/dt;
+    data = [data; [data_d, 0]];
+    
+    Data = [Data, data];
+    
 end
 
-[~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
-
-% testXn = test3{1};
-% testXn = testXn - testXn(:,end);
-% testXn = round(testXn,3);
-% 
-% % do the norm of all dimensions
-% for n = 1:length(testXn)   
-%     testXnnorm(n) = norm(testXn(:,n));       
-% end
-% % testXnnorm = round(testXnnorm,4);
-% 
-% testXnnorm0 = testXnnorm - testXnnorm(:,end);
-% testXnnorm0 = testXnnorm0;
-% testXnnorm0 = round(testXnnorm0,3);
+% [~ , ~, Data, index] = preprocess_demos(test3norm, 0.02, 0.0001); 
 
 %% Load DS parameters
 
@@ -91,18 +78,6 @@ Priors{2} = PriorsF;
 
 Sigma{1} = SigmaE;
 Sigma{2} = SigmaF;
-%% Real Velocity of testX
-% dt = 0.02; % frequency 
-% 
-% for i=2:length(testXn(1,:))
-% %     if i==2
-% %         testX_d(1,i-1) = -0.2;
-% %     else
-%         testX_d(1,i-1) = (testXnnorm0(1,i) - testXnnorm0(1,i-1))/dt;
-% %     end
-% end
-% testX_d(1,i) = 0;
-% %testX_d = diff(testXn,1,2);
 
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
@@ -131,9 +106,6 @@ for j = 1:length(testXn)-K-1
     ee = [0 0];
     for i = 1:2
         
-%         out(:,j) = mean(testXn(1:3,j:j+K),2);
-%         outD(j) = mean(testX_d(1,j:j+K),2);
-%         x0 = norm(out(:,j),2);
         outD(j) = Data(2,j);
         x0 = Data(1,j);
 
@@ -152,6 +124,7 @@ for j = 1:length(testXn)-K-1
     end
     Er = [Er;ee];
     
+    % threshold
     if abs(outD(j)) > 0.15
        [b1_d, w] = max(b_d); 
         if w == 1
