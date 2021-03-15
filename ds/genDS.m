@@ -61,6 +61,7 @@ end
 Datanew = [];
 id = find(Data(1,:) == 0);
 for i=1:length(id)
+    % extract the data until it reaches the minimum velocity (??)
     if i == 1
         [maxVel, idVel] = min(Data(2,1:id(1)));
         count = 0;

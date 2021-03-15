@@ -37,25 +37,25 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
         testF{i} = {'1-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
     end        
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/2/*.csv');
-    fullpaths = fullfile({files.folder}, {files.name});
-
-    % Empty Cups
-    fu0 = strfind(fullpaths, 'fu0');
-    indexE = find(~cellfun(@isempty,fu0));
-    for i=1:length(indexE)
-
-        E{i+4} = csvread(fullpaths{indexE(i)});
-        testE{i+4} = {'2-fu0', fullpaths{indexE(i)}(end-7:end-4)};
-    end
-    % Full Cups
-    fu2 = strfind(fullpaths, 'fi3fu2');
-    indexF = find(~cellfun(@isempty,fu2));
-    for i=1:length(indexF)
-
-        F{i+4} = csvread(fullpaths{indexF(i)});
-        testF{i+4} = {'2-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
-    end      
+%     files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/2/*.csv');
+%     fullpaths = fullfile({files.folder}, {files.name});
+% 
+%     % Empty Cups
+%     fu0 = strfind(fullpaths, 'fu0');
+%     indexE = find(~cellfun(@isempty,fu0));
+%     for i=1:length(indexE)
+% 
+%         E{i+4} = csvread(fullpaths{indexE(i)});
+%         testE{i+4} = {'2-fu0', fullpaths{indexE(i)}(end-7:end-4)};
+%     end
+%     % Full Cups
+%     fu2 = strfind(fullpaths, 'fi3fu2');
+%     indexF = find(~cellfun(@isempty,fu2));
+%     for i=1:length(indexF)
+% 
+%         F{i+4} = csvread(fullpaths{indexF(i)});
+%         testF{i+4} = {'2-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
+%     end      
     
     files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/4/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
@@ -65,37 +65,37 @@ function [train, test, Etrain, Etest, Ftrain, Ftest] = pickData(P)
     indexE = find(~cellfun(@isempty,fu0));
     for i=1:length(indexE)
 
-        E{i+8} = csvread(fullpaths{indexE(i)});
-        testE{i+8} = {'4-fu0b1', fullpaths{indexE(i)}(end-7:end-4)};
+        E{i+4} = csvread(fullpaths{indexE(i)});
+        testE{i+4} = {'4-fu0b1', fullpaths{indexE(i)}(end-7:end-4)};
     end
     % Full Cups
-    fu2 = strfind(fullpaths, 'fi3fu2');
+    fu2 = strfind(fullpaths, 'fi3fu2b1');
     indexF = find(~cellfun(@isempty,fu2));
     for i=1:length(indexF)
 
-        F{i+8} = csvread(fullpaths{indexF(i)});
-        testF{i+8} = {'4-fi3fu2b1', fullpaths{indexE(i)}(end-7:end-4)};
+        F{i+2} = csvread(fullpaths{indexF(i)});
+        testF{i+2} = {'4-fi3fu2b1', fullpaths{indexE(i)}(end-7:end-4)};
     end
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/5/*.csv');
-    fullpaths = fullfile({files.folder}, {files.name});    
-    
-    % Empty Cups
-    fu0 = strfind(fullpaths, 'fu0');
-    indexE = find(~cellfun(@isempty,fu0));
-    for i=1:length(indexE)
-
-        E{i+12} = csvread(fullpaths{indexE(i)});
-        testE{i+12} = {'5-fu0', fullpaths{indexE(i)}(end-7:end-4)};
-    end
-    % Full Cups
-    fu2 = strfind(fullpaths, 'fi3fu2');
-    indexF = find(~cellfun(@isempty,fu2));
-    for i=1:length(indexF)-1
-
-        F{i+12} = csvread(fullpaths{indexF(i)});
-        testF{i+12} = {'5-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
-    end
+%     files = dir('/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/data/QMUL/5/*.csv');
+%     fullpaths = fullfile({files.folder}, {files.name});    
+%     
+%     % Empty Cups
+%     fu0 = strfind(fullpaths, 'fu0');
+%     indexE = find(~cellfun(@isempty,fu0));
+%     for i=1:length(indexE)
+% 
+%         E{i+12} = csvread(fullpaths{indexE(i)});
+%         testE{i+12} = {'5-fu0', fullpaths{indexE(i)}(end-7:end-4)};
+%     end
+%     % Full Cups
+%     fu2 = strfind(fullpaths, 'fi3fu2');
+%     indexF = find(~cellfun(@isempty,fu2));
+%     for i=1:length(indexF)-1
+% 
+%         F{i+12} = csvread(fullpaths{indexF(i)});
+%         testF{i+12} = {'5-fi3fu2', fullpaths{indexE(i)}(end-7:end-4)};
+%     end
        
     %% pick train
     Etrain = [];
