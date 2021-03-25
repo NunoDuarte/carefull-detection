@@ -1,22 +1,18 @@
 %% Load Path
 clc
 
-% change to correct directory
-cd '/home/nuno/Documents/MATLAB/PhD/fullvsNOTfull/'
-
 addpath('data')
-addpath('ds')
 addpath('belief')
 addpath('../../software/Khansari/SEDS/SEDS_lib')
 addpath('../../software/Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
-[E, F] = read('All', 'plastic-cup');
+[E, F] = read('Kunpeng', 'plastic-cup');
 
 %% Belief System for 2 DS
 
 % pick e trajectory
-testX = F{8}; 
+testX = E{1}; 
 
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
@@ -123,18 +119,6 @@ for j = 1:length(testXn)-K-1
         
     end
     Er = [Er;ee];
-    
-    % threshold
-    if abs(outD(j)) > 0.15
-       [b1_d, w] = max(b_d); 
-        if w == 1
-            0
-        elseif w == 2
-            b_dold = b_d;
-            b_d(1) = b1_d;
-            b_d(2) = b_dold(1);       
-        end
-    end
         
     B_d = winnertakeall(b, b_d);
     for i = 1:2
