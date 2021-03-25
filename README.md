@@ -1,5 +1,3 @@
-# Deceleration Phase Carefulness Detection
-Utilize the deceleration phase during handover actions to detect whether the manipulated object is soft/heavy/fragile/risky 
+# Using Time-invariant Dynamical Systems to Detect, from Human Manipulation, Changes in Properties of the Object Handled
+Learning from Human Handovers of Cups with no contents inside and with Cups filled with water, we modelled two distinct Dynamical Systems that can classify new, unknown handovers, as Careful Objects (comparable to handling a cup full of water), or Not-Careful Objects (comparable to handling an empty cup).
 
-## Relevant Information
-Acceleration phase Approach ([GitHub repository](https://github.com/NunoDuarte/accele_careful))
