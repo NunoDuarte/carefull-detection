@@ -13,7 +13,7 @@ Learning from Human Handovers of Cups with no contents inside and with Cups fill
 
 
 ## Citation 
-If you find this code useful in your research, please consider citing [Journal](https://ieeexplore.ieee.org/abstract/document/9951394):
+If you find this code useful in your research, please consider citing the [Journal](https://ieeexplore.ieee.org/abstract/document/9951394) paper:
 
 	@ARTICLE{9951394,
 	  author={Duarte, Nuno F. and Billard, Aude and Santos-Victor, José},
@@ -26,7 +26,7 @@ If you find this code useful in your research, please consider citing [Journal](
 	  doi={10.1109/TCDS.2022.3222088}
 	  }
 
-or [Conference](https://ieeexplore.ieee.org/abstract/document/9278084):
+or the [Conference](https://ieeexplore.ieee.org/abstract/document/9278084) paper:
 
 	@INPROCEEDINGS{9278084,
 	  author={Duarte, Nuno Ferreira and Chatzilygeroudis, Konstantinos and Santos-Victor, José and Billard, Aude},
