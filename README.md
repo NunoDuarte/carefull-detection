@@ -3,6 +3,14 @@
 - [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) based
 - [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decel) based
 
+TODO
+- add dependencies
+- add instructions
+- add setup
+- add part on ROS
+- add more info on the two approaches
+- add images
+
 # Table of Contents
 
 - [Structure](#structure)
