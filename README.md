@@ -1,7 +1,7 @@
 # Is The Human Careful or Not?
 ## Classifying object manipulation from human motion. This repository contains two approaches:
-- acceleration based
-- deceleration based
+- [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accele) based
+- [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decele) based
 
 # Time-invariant Dynamical Systems to Detect Changes in Properties of the Object Handled
 ## Learning from Human Handovers of Cups with no contents inside and with Cups filled with water, we modelled two distinct Dynamical Systems that can classify new, unknown handovers, as Careful Objects (comparable to handling a cup full of water), or Not-Careful Objects (comparable to handling an empty cup).
