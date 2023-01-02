@@ -1,4 +1,4 @@
-# Is the human careful or not?
+# Is The Human Careful or Not?
 ## Classifying object manipulation from human motion
 
 # Time-invariant Dynamical Systems to Detect Changes in Properties of the Object Handled
