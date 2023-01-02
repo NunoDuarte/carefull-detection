@@ -1,7 +1,7 @@
 # Is The Human Careful or Not?
 ## Classifying object manipulation from human motion. This repository contains two approaches:
-- [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accele) based
-- [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decele) based
+- [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) based
+- [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decel) based
 
 # Table of Contents
 
