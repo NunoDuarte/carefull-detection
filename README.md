@@ -1,4 +1,5 @@
 # Is the Human Being Careful or Not?
+Robot Controller that classifies human manipulation of objects as either careful or not careful and reacts appropriately. 
 ## Classifying object manipulation from human motion. This repository contains two approaches:
 - [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) based
 - [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decel) based
