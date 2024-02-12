@@ -3,7 +3,7 @@
 Robot Controller that classifies human manipulation of objects as either careful or not careful and reacts appropriately. 
 
 ## Classifying object manipulation as Careful or Not Careful from human motion. 
-We present two approaches for careful dectection: [Acceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) & [Deceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/decel)
+We present two approaches for careful dectection: Acceleration Method & Deceleration Method. The differences are explained in the paper. 
 
 SDK:
 - Simulation Data on MATLAB
