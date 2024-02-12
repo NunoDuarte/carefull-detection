@@ -1,25 +1,22 @@
 # Is the Human Being Careful or Not?
-<img src="media/careful_gif.gif" width="400" height="225" />
-
-
+<img src="media/careful_gif.gif" width="800" height="425" />
 Robot Controller that classifies human manipulation of objects as either careful or not careful and reacts appropriately. 
 
+## Classifying object manipulation as Careful or Not Careful from human motion. 
+We present two approaches for careful dectection: [Acceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) & [Deceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/decel)
 
-## Classifying object manipulation from human motion. This repository contains two approaches:
-- [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) based
-- [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decel) based
+SDK:
+- Simulation Data on MATLAB
+- Real Experiments on Python & ROS
 
 TODO:
-- [ ] add dependencies
 - [ ] add instructions
 - [ ] add setup
 - [ ] add part on ROS
 - [ ] add more info on the two approaches
-- [ ] add images
 
 # Table of Contents
 
-- [Structure](#structure)
 - [Dependencies](#dependencies)
 - [Instructions](#instructions)
 - [Setup](#setup)
@@ -27,6 +24,9 @@ TODO:
 - [Contributing](#contributing)
 - [License](#license)
 
+## Dependencies
+- Khansari/SEDS/SEDS_lib [link](https://bitbucket.org/khansari/seds/src/master/) 
+- Khansari/SEDS/GMR_lib
 
 ## Citation 
 If you find this code useful in your research, please consider citing the [Journal](https://ieeexplore.ieee.org/abstract/document/9951394) paper:
