@@ -10,10 +10,8 @@ SDK:
 - Real Experiments on Python & ROS
 
 TODO:
-- [ ] add instructions
 - [ ] add setup
 - [ ] add part on ROS
-- [ ] add more info on the two approaches
 
 # Table of Contents
 
