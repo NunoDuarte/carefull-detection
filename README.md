@@ -2,9 +2,8 @@
 <img src="media/careful_gif.gif" width="800" height="425" />
 Robot Controller that classifies human manipulation of objects as either careful or not careful and reacts appropriately. 
 
-## Classifying object manipulation as Careful or Not Careful from human motion. We present two approaches for careful dectection :
-- [acceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) Method
-- [deceleration](https://github.com/NunoDuarte/carefull-detection/tree/master/decel) Method
+## Classifying object manipulation as Careful or Not Careful from human motion. 
+We present two approaches for careful dectection: [Acceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/accel) & [Deceleration Method](https://github.com/NunoDuarte/carefull-detection/tree/master/decel)
 
 TODO:
 - [ ] add dependencies
