@@ -9,17 +9,6 @@ SDK:
 - Simulation Data on MATLAB
 - Real Experiments on Python & ROS
 
-TODO:
-- [ ] add part on ROS
-
-# Table of Contents
-
-- [Dependencies](#dependencies)
-- [Instructions](#instructions)
-- [Citation](#citation)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Dependencies
 - Khansari/SEDS/SEDS_lib [link](https://bitbucket.org/khansari/seds/src/master/) 
 - Khansari/SEDS/GMR_lib
