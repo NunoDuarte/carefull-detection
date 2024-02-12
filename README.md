@@ -27,6 +27,21 @@ TODO:
 ## Dependencies
 - Khansari/SEDS/SEDS_lib [link](https://bitbucket.org/khansari/seds/src/master/) 
 - Khansari/SEDS/GMR_lib
+- Datasets (EPFL|IST|QMUL) (per request)
+
+## Instructions
+demo for acceleration method
+```
+demo_acceleration
+```
+demo for deceleration method 
+```
+demo_deceleration
+```
+To run the scripts to compute the accuracy for the datasets
+```
+run_script_accel | run_script_decel
+```
 
 ## Citation 
 If you find this code useful in your research, please consider citing the [Journal](https://ieeexplore.ieee.org/abstract/document/9951394) paper:
