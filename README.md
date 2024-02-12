@@ -10,14 +10,12 @@ SDK:
 - Real Experiments on Python & ROS
 
 TODO:
-- [ ] add setup
 - [ ] add part on ROS
 
 # Table of Contents
 
 - [Dependencies](#dependencies)
 - [Instructions](#instructions)
-- [Setup](#setup)
 - [Citation](#citation)
 - [Contributing](#contributing)
 - [License](#license)
