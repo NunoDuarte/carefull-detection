@@ -2,9 +2,6 @@
 clear all
 clc
 
-% change to correct directory
-%cd '/home/nuno/Documents/MATLAB/PhD/accele_careful/'
-
 addpath('processing')
 addpath('data')
 addpath('ds')
@@ -16,12 +13,11 @@ addpath('../../software/Khansari/SEDS/GMR_lib')
 % Which Person to choose (Salman, Leo, Bernardo)
 [E, F] = read('All', 'plastic-cup');
 %readQMUL;
-
-%% Belief System for 2 DS
-
-% pick e trajectory
+% pick 1 trajectory F for Full cup || E for Empty Cup
 testX = F{1}; 
 
+
+%% Belief System for 2 DS
 % preprocess data
 testXn = testX(any(testX,2),2:4);          % remove only full rows of 0s
 testXn = testXn(all(~isnan(testXn),2),:);  % remove rows of NANs  
@@ -91,19 +87,6 @@ e2{1} = Ve(:,2);
 e2{2} = Vf(:,2);
 
 
-%% Real Velocity of testX
-% dt = 0.02; % frequency 
-% 
-% for i=2:length(testXn(1,:))
-% %     if i==2
-% %         testX_d(1,i-1) = -0.2;
-% %     else
-%         testX_d(1,i-1) = (testXnnorm0(1,i) - testXnnorm0(1,i-1))/dt;
-% %     end
-% end
-% testX_d(1,i) = 0;
-% %testX_d = diff(testXn,1,2);
-
 %% Run each DS to get the desired velocity?
 opt_sim.dt = 0.02;
 opt_sim.i_max = 1;
@@ -161,7 +144,4 @@ for j = 1:length(Data)-K-1
 
 end
 
-
-
-% probably smooting;
-
+B(end)

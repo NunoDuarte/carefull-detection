@@ -1,4 +1,7 @@
 function Data3D = processData(data, varargin)
+% This function is to center data at same origin point
+% for plotting purposes
+
 if nargin > 1
     plotting = varargin{1};
 else

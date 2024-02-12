@@ -1,6 +1,6 @@
 function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
 
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/1/*.csv');
+    files = dir('data/QMUL/1/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
     % Empty Cups
@@ -20,7 +20,7 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
 
     end   
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/2/*.csv');
+    files = dir('data/QMUL/2/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
     % Empty Cups
@@ -41,7 +41,7 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
     end      
     
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/4/*.csv');
+    files = dir('data/QMUL/4/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});
 
     % Empty Cups
@@ -61,7 +61,7 @@ function [Etrain, Etest, Ftrain, Ftest] = getDataQMUL(P)
 
     end
     
-    files = dir('/home/nuno/Documents/MATLAB/PhD/armMotionDS/fullvsNOTfull/data/QMUL/5/*.csv');
+    files = dir('data/QMUL/5/*.csv');
     fullpaths = fullfile({files.folder}, {files.name});    
     
     % Empty Cups

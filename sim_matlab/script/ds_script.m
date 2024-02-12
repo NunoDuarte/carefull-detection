@@ -1,4 +1,4 @@
-function scriptDS(Etrain, Ftrain, train, test, Etest, Ftest, K, minVel, epsilon, plots, freq)
+function ds_script(Etrain, Ftrain, train, test, Etest, Ftest, K, minVel, epsilon, plots, freq)
 
     %% Define parameters
     default = 0;    % No default
@@ -101,7 +101,7 @@ function scriptDS(Etrain, Ftrain, train, test, Etest, Ftest, K, minVel, epsilon,
     [trainTruePos, trainFalsePos, trainTrueNeg, trainFalseNeg, ....
         testTruePos, testFalsePos, testTrueNeg, testFalseNeg, ....
         F1_train, F1_test] = ....
-        scriptBelief(Etrain, Ftrain, Etest, Ftest, freq, minVel, epsilon);
+        belief_script(Etrain, Ftrain, Etest, Ftest, freq, minVel, epsilon);
     
     % Add if statement to filter results
     if ((trainTruePos >= 0.4 && trainTrueNeg > 0.6) && (testTruePos >= 0.4 && testTrueNeg > 0.6))

@@ -1,4 +1,4 @@
-function [Etrain, Ftrain, train, test, Etest, Ftest] = scriptAllData(P)
+function [Etrain, Ftrain, train, test, Etest, Ftest] = data_script(P)
 
     %% train EPFL - test EPFL
     % P = 0.10;   % percentage train/test

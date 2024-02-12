@@ -8,12 +8,12 @@ addpath('../../software/Khansari/SEDS/GMR_lib')
 
 % Which Person to choose (Salman, Leo, Bernardo)
 [E, F] = read('Kunpeng', 'plastic-cup');
-
-%% Belief System for 2 DS
-
-% pick e trajectory
+% pick 1 trajectory F for Full cups || E for Empty Cups
 testX = E{1}; 
 
+
+
+%% Belief System for 2 DS
 % remove nonzeros
 testXn(:,1) = nonzeros(testX(:,2));
 testXn(:,2) = nonzeros(testX(:,3));
