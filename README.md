@@ -24,6 +24,9 @@ TODO:
 - [Contributing](#contributing)
 - [License](#license)
 
+## Dependencies
+- Khansari/SEDS/SEDS_lib [link](https://bitbucket.org/khansari/seds/src/master/) 
+- Khansari/SEDS/GMR_lib
 
 ## Citation 
 If you find this code useful in your research, please consider citing the [Journal](https://ieeexplore.ieee.org/abstract/document/9951394) paper:
