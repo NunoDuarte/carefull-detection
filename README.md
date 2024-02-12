@@ -24,6 +24,8 @@ TODO:
 - Khansari/SEDS/SEDS_lib [link](https://bitbucket.org/khansari/seds/src/master/) 
 - Khansari/SEDS/GMR_lib
 - Datasets (EPFL|IST|QMUL) (per request)
+- ROS
+- ROS kinova (kortex_ros)
 
 ## Instructions
 demo for acceleration method
