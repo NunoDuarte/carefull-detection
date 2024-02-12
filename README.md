@@ -1,5 +1,5 @@
 # Is the Human Being Careful or Not?
-<img src="media/careful_gif.gif" width="400" height="225" />
+<img src="media/careful_gif.gif" width="800" height="425" />
 
 
 Robot Controller that classifies human manipulation of objects as either careful or not careful and reacts appropriately. 
